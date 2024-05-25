@@ -73,4 +73,11 @@
    - **Gateway di pagamento:** Per piani di abbonamento e funzionalità premium.
 </details>
 
-## ...
+## Roadmap
+### HTML
+- [x] Rimossi popup Login e Signup
+- [ ] Aggiungere links a bottoni di Login e Signup in *login.html* e *register.html*
+- [ ] Aggiungere partials
+- [ ] Rimuovere widget "Skills Percentage" nella sezione aside delle pagine del candidate
+### CSS
+- [ ] Cambiare colore bottoni Login e Signup in *login.html* e *register.html*
