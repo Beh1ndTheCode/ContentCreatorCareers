@@ -9,7 +9,3 @@ $mysqli = new mysqli(
 if (!$mysqli) {
     die("Error");
 }
-
-
-
-?>
