@@ -744,7 +744,7 @@ Class Template {
 				
 					$this->checkTagLibraries($this->buffer);
 					$this->buffer = $this->foreach->parseForeach($this->buffer); 
-					$this->buffer = $this->NotEmpty($this->buffer);
+					$this->buffer = $this->parseIfNotEmpty($this->buffer);  //modificato da $this->buffer = $this->NotEmpty($this->buffer); NotEmpty non esiste
 			  		$this->content = $this->loadContent($this->content);
 					$this->buffer = $this->foreach->bindAll($this->content,$this->buffer);
 					$this->buffer = $this->loadEmptyContent($this->buffer);
@@ -1009,6 +1009,7 @@ Class Template {
 	
 } 
 
+#[AllowDynamicProperties]
 Class Cache{
 	
 	var $caching,
@@ -1146,6 +1147,7 @@ Class TagLibrary {
 	
 }
 
+#[AllowDynamicProperties]
 Class ForeachCode {
 	var $foreachCodeArray,
 		$placeholderArray,
@@ -1655,7 +1657,7 @@ Class Skin extends Template {
 		
 		if ((basename($_SERVER['SCRIPT_FILENAME']) != "error.php") and (!isset($_REQUEST['nocache']))) {
 			
-			if ($GLOBALS['config']['cache_mode'] == NONE) { 
+			if ($GLOBALS['config']['cache_mode'] == null) {  //null prima era NONE ma non lo riconosceva
 				$result = true;
 			} elseif ($this->private) {
 				$result = true;
