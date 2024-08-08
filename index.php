@@ -10,7 +10,7 @@ require "include/template2.inc.php";
 
 $main = new Template("frame");
 
-$body = new Template("about");
+$body = new Template("index");
 
 $main->setContent("body", $body->get());
 
