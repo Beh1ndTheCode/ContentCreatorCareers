@@ -76,8 +76,8 @@
 ## Roadmap
 ### HTML
 - [x] Rimossi popup Login e Signup
-- [ ] Aggiungere links a bottoni di Login e Signup in *login.html* e *register.html*
+- [X] Aggiungere links a bottoni di Login e Signup in *login.html* e *register.html*
 - [ ] Aggiungere partials
-- [ ] Rimuovere widget "Skills Percentage" nella sezione aside delle pagine del candidate
+- [X] Rimuovere widget "Skills Percentage" nella sezione aside delle pagine del candidate
 ### CSS
 - [ ] Cambiare colore bottoni Login e Signup in *login.html* e *register.html*
