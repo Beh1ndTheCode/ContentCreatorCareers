@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 17, 2024 at 01:07 PM
+-- Generation Time: Aug 19, 2024 at 10:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -36,6 +36,14 @@ CREATE TABLE `address` (
   `civic` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
+(1, 'Italy', 67100, 'L\'Aquila', 'Viale Duca degli Abruzzi', '7'),
+(2, 'Italy', 118, 'Rome', 'Via Verdi', '3');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +55,13 @@ CREATE TABLE `application` (
   `job_offer_id` int(10) UNSIGNED NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `application`
+--
+
+INSERT INTO `application` (`candidate_id`, `job_offer_id`, `date`) VALUES
+(1, 1, '2024-08-17');
 
 -- --------------------------------------------------------
 
@@ -61,6 +76,13 @@ CREATE TABLE `candidate` (
   `age` tinyint(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `candidate`
+--
+
+INSERT INTO `candidate` (`id`, `name`, `surname`, `age`) VALUES
+(1, 'Mario', 'Rossi', 30);
+
 -- --------------------------------------------------------
 
 --
@@ -72,6 +94,13 @@ CREATE TABLE `employer` (
   `name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `employer`
+--
+
+INSERT INTO `employer` (`id`, `name`) VALUES
+(2, 'CNB Comunicazione');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +111,14 @@ CREATE TABLE `expertise` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expertise`
+--
+
+INSERT INTO `expertise` (`id`, `title`) VALUES
+(1, 'Ads'),
+(2, 'UX Design');
 
 -- --------------------------------------------------------
 
@@ -109,6 +146,13 @@ CREATE TABLE `job` (
   `last_work_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`employer_id`, `candidate_id`, `type`, `first_work_date`, `last_work_date`) VALUES
+(2, 1, 'past', '2017-03-09', '2020-09-12');
+
 -- --------------------------------------------------------
 
 --
@@ -124,6 +168,13 @@ CREATE TABLE `job_offer` (
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `job_offer`
+--
+
+INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `quantity`, `description`) VALUES
+(1, 2, 'Visual Designer', 1800, 2, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -137,6 +188,14 @@ CREATE TABLE `profile` (
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`id`, `user_id`, `phone`, `description`) VALUES
+(1, 2, '+393333333333', NULL),
+(2, 3, '+390862000000', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -147,6 +206,14 @@ CREATE TABLE `profile_expertise` (
   `profile_id` int(10) UNSIGNED NOT NULL,
   `expertise_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `profile_expertise`
+--
+
+INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`) VALUES
+(1, 2),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -160,6 +227,13 @@ CREATE TABLE `requirement` (
   `level` enum('1','2','3','4','5') NOT NULL,
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `requirement`
+--
+
+INSERT INTO `requirement` (`job_offer_id`, `name`, `level`, `description`) VALUES
+(1, 'Adobe Photoshop', '3', NULL);
 
 -- --------------------------------------------------------
 
@@ -178,7 +252,8 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id`, `name`, `description`) VALUES
-(1, 'Administrator', '');
+(1, 'Administrator', NULL),
+(2, 'User', NULL);
 
 -- --------------------------------------------------------
 
@@ -190,6 +265,15 @@ CREATE TABLE `role_service` (
   `role_id` int(10) UNSIGNED NOT NULL,
   `service_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `role_service`
+--
+
+INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
+(1, 1),
+(2, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -208,6 +292,14 @@ CREATE TABLE `service` (
   `field` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permission`, `entity`, `field`) VALUES
+(1, 'Dashboard', 'dashboard.php', '', NULL, '', '', ''),
+(2, 'Candidate profile', 'candidates_profile.php', '', NULL, '', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -221,6 +313,13 @@ CREATE TABLE `skill` (
   `description` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `skill`
+--
+
+INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
+(1, 'Figma', '4', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -232,6 +331,14 @@ CREATE TABLE `social_account` (
   `name` varchar(16) NOT NULL,
   `uri` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `social_account`
+--
+
+INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
+(1, 'Facebook', 'https://facebook.com'),
+(1, 'Instagram', 'https://www.instagram.com/');
 
 -- --------------------------------------------------------
 
@@ -252,7 +359,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'admin', 'admin@example.com'),
-(2, 'user', 'user', 'user@example.com');
+(2, 'candidate', 'candidate', 'candidate@example.com'),
+(3, 'employer', 'employer', 'employer@example.com');
 
 -- --------------------------------------------------------
 
@@ -261,9 +369,18 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 --
 
 CREATE TABLE `user_role` (
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(32) NOT NULL,
   `role_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`username`, `role_id`) VALUES
+('admin', 1),
+('candidate', 2),
+('employer', 2);
 
 --
 -- Indexes for dumped tables
@@ -390,8 +507,8 @@ ALTER TABLE `user`
 -- Indexes for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD UNIQUE KEY `unique_user_role` (`user_id`,`role_id`),
-  ADD KEY `foreign_user_id` (`user_id`) USING BTREE,
+  ADD UNIQUE KEY `unique_user_role` (`username`,`role_id`),
+  ADD KEY `foreign_user_id` (`username`) USING BTREE,
   ADD KEY `foreign_role_id` (`role_id`) USING BTREE;
 
 --
@@ -402,37 +519,37 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `expertise`
 --
 ALTER TABLE `expertise`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -524,7 +641,7 @@ ALTER TABLE `social_account`
 -- Constraints for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
