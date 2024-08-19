@@ -22,6 +22,46 @@
 	</div>
 </section>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="   crossorigin="anonymous"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('#signin').click(function(){
+
+                var user = $('#username').val();
+                var passwd = $('#password').val();
+
+                $.ajax({
+                    method: "POST",
+                    url: "login-check.php",
+                    data: { username: user, password: passwd }
+                })
+
+                .done(function( result ) {
+
+
+                    if (result == '0') {
+                        $('#notification')
+                            .html('Username or password unknown!')
+                            .fadeIn()
+                            .click(function(){
+                                $(this).fadeOut();
+                            })
+                    } else {
+                        if (result == '1') {
+                            $("#form").submit();
+                        }
+                    }
+                });
+
+                return false;
+            });
+
+        });
+
+
+    </script>
+
 <section>
 	<div class="block remove-bottom">
 		<div class="container">
@@ -31,7 +71,7 @@
 						<div class="account-popup">
 							<span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
 								ullamcorper</span>
-							<form>
+							<form method="POST" action="dashboard.php">
 								<div class="cfield">
 									<input placeholder="Username" type="text" />
 									<i class="la la-user"></i>

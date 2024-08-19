@@ -1,13 +1,15 @@
 <?php
 
-    $config['auth'] = "true";
+    # $config['auth'] = "true";
 
 
     if (!isset($_SESSION['user'])) {
 
-        $passwd = md5("{$_POST['password']}|".md5($_POST['username']));
+        # $passwd = md5("{$_POST['password']}|".md5($_POST['username']));
         
-        $result = $mysqli->query("SELECT username, name, surname, email FROM `user` WHERE username = '{$_POST['username']}' AND password = '$passwd'");
+        # $result = $mysqli->query("SELECT username, email FROM `user` WHERE username = '{$_POST['username']}' AND password = '$passwd'");
+	    
+	$result = $mysqli->query("SELECT username, email FROM `user` WHERE username = '{$_POST['username']}' AND password = '{$_POST['password']}'");
 
         if (!$result) {
             die("Error!");
