@@ -79,5 +79,6 @@
 - [X] Aggiungere links a bottoni di Login e Signup in *login.html* e *register.html*
 - [ ] Aggiungere partials
 - [X] Rimuovere widget "Skills Percentage" nella sezione aside delle pagine del candidate
+- [ ] Sostituire place-holders con loghi e/o immagini
 ### CSS
 - [ ] Cambiare colore bottoni Login e Signup in *login.html* e *register.html*
