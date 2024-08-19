@@ -1,0 +1,34 @@
+<script>
+    $(document).ready(function(){
+        $('tbody tr')
+            .css({
+                'cursor' : 'pointer'
+            })
+            .click(function(){
+                document.location = "?key="+$(this).attr('key')+"&state=1";
+            })
+    });
+
+
+</script>
+
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <[foreach]>
+                <th><[fieldname]></th>
+            <[/foreach]>    
+        </tr>
+    </thead>
+
+    
+    <tbody>
+        <[foreach]>
+        <tr class="data" key="<[key]>">
+            <[foreach]>
+            <td><[field]></td>
+            <[/foreach]>
+        </tr>
+        <[/foreach]>
+    </tbody>  
+</table>
