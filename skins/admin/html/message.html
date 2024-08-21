@@ -1,0 +1,30 @@
+<script>
+      
+    $(document).ready(function(){
+
+        $('<div id="notify"><[message]></div>')
+            .appendTo('body')
+            .css({
+                'z-index' : '2100',
+                'position' : 'absolute',
+                'bottom' : '20px',
+                'left' : '700px',
+                'border-left' : '6px solid <[fgcolor]>',
+                'border-radius' : '8px',
+                'height' : '80px',
+                'width' : '500px',
+                'background-color' : '<[bgcolor]>',
+                'padding' : '10px'
+            })
+            .hide()
+            .click(function(){
+                $(this).fadeOut();
+            });
+        
+        if ($('#notify').html()) {
+            $('#notify').fadeIn();
+        }
+
+        
+    });
+  </script>
