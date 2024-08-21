@@ -24,65 +24,76 @@
 
 <style>
 	div#notification {
-        width: 100%;
-        height: 60px;
-        background-color: #ffcaca;
-        border-radius: 8px;
-        display: none;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-    form#login {
-        margin-top: -0px;
-    }
+		width: 100%;
+		height: 60px;
+		background-color: #ffcaca;
+		border-radius: 8px;
+		display: none;
+		padding: 10px;
+		margin-bottom: 10px;
+	}
+
+	form#login {
+		margin-top: -0px;
+	}
 </style>
 
 <script crossorigin="anonymous" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $('#signup').click(function () {
-
-            let user = $('#username').val();
-            let passwd = $('#password').val();
+	$(document).ready(function () {
+		$('#signup').click(function () {
+			let can = $('#candidate');
+			let emp = $('#employer');
+			let user = $('#username').val();
+			let passwd = $('#password').val();
 			let mail = $('#email').val();
-			
-            $.ajax({
-                method: "POST",
-                url: "registration.php",
-                data: { username: user, password: passwd, email: mail}
-            })
 
-                .done(function (result) {
-					if (result === '0') {
-                        $('#notification')
-                            .html('Username have been used')
-                            .fadeIn()
-                            .click(function () {
-                                $(this).fadeOut();
-                            })
-                    } else {
-						if (result === '1') {
-                        $('#notification')
-                            .html('Email have been used')
-                            .fadeIn()
-                            .click(function () {
-                                $(this).fadeOut();
-                            })
-						} else {
-							if (result === '2') {
-                            $("#form").submit();
-                        }
-						}  
-                    } 
-                });
+			let user_type = emp.hasClass('active')? 'employer' : 'candidate';
 
-            return false;
-        });
+			$.ajax({
+				method: "POST",
+				url: "signup_check.php",
+				data: { username: user, email: mail }
+			})
 
-    });
-
+				.done(function (result) {
+					if ((user === '' || passwd === '' || mail === '')) {
+						$('#notification')
+							.html('Fill all the spaces')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if(!(can.hasClass('active') || emp.hasClass('active'))) {
+						$('#notification')
+							.html('Choose if u wanna be a candidate or an employer')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if (result === '0') {
+						$('#notification')
+							.html('Username have been used')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if (result === '1') {
+						$('#notification')
+							.html('Email have been used')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if (result === '2') {
+						$("#form").submit();	
+					}
+				});
+			return false;
+		});
+	});
 </script>
 
 <section>
@@ -96,8 +107,8 @@
 							<span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
 								ullamcorper</span>
 							<div class="select-user">
-								<span>Candidate</span>
-								<span>Employer</span>
+								<span id="candidate">Candidate</span>
+								<span id="employer">Employer</span>
 							</div>
 							<form id="form" action="candidates_profile.php" method="POST">
 								<div id="notification"></div>
