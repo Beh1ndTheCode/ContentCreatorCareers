@@ -31,10 +31,12 @@
         padding: 10px;
         margin-bottom: 10px;
     }
+    form#signup {
+        margin-top: -0px;
+    }
 </style>
-<script crossorigin="anonymous"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script crossorigin="anonymous" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -46,7 +48,7 @@
             $.ajax({
                 method: "POST",
                 url: "login-check.php",
-                data: {username: user, password: passwd}
+                data: { username: user, password: passwd }
             })
 
                 .done(function (result) {
@@ -78,17 +80,17 @@
                 <div class="col-lg-12">
                     <div class="account-popup-area signin-popup-box static">
                         <div class="account-popup">
-							<span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
-								ullamcorper</span>
+                            <span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
+                                ullamcorper</span>
                             <form id="login" action="candidates_profile.php" method="POST">
                                 <div id="notification"></div>
 
                                 <div class="cfield">
-                                    <input id="username" name="username" placeholder="Username" type="text"/>
+                                    <input id="username" name="username" placeholder="Username" type="text" />
                                     <i class="la la-user"></i>
                                 </div>
                                 <div class="cfield">
-                                    <input id="password" name="password" placeholder="********" type="password"/>
+                                    <input id="password" name="password" placeholder="********" type="password" />
                                     <i class="la la-key"></i>
                                 </div>
                                 <p class="remember-label">
@@ -96,12 +98,14 @@
                                 </p>
                                 <a href="#" title="">Forgot Password?</a>
                                 <button type="submit" id="signin">Login</button>
-                                <div class="extra-login">
-                                    <span>Or</span>
-                                    <!-- Fare il bottone di un altro colore (es. bianco) e aggiungere link -->
-                                    <div>
-                                        <button type="submit">Signup</button>
-                                    </div>
+                            </form>
+                            <div class="extra-login">
+                                <span>Or</span>
+                            </div>
+                            <!-- Fare il bottone di un altro colore (es. bianco) e aggiungere link -->
+                            <form id="signup" action="register.php" method="POST">
+                                <div>
+                                    <button type="submit">Signup</button>
                                 </div>
                             </form>
                         </div>

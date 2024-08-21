@@ -22,6 +22,12 @@
 	</div>
 </section>
 
+<style>
+    form#login {
+        margin-top: -0px;
+    }
+</style>
+
 <section>
 	<div class="block remove-bottom">
 		<div class="container">
@@ -50,13 +56,14 @@
 									<i class="la la-envelope-o"></i>
 								</div>
 								<button type="submit">Signup</button>
-
-								<div class="extra-login">
-									<span>Or</span>
-									<!-- Fare il bottone di un altro colore (es. bianco) e aggiungere link -->
-									<div>
-										<button type="submit">Login</button>
-									</div>
+							</form>
+							<div class="extra-login">
+								<span>Or</span>
+							</div>
+							<!-- Fare il bottone di un altro colore (es. bianco) e aggiungere link -->
+							<form id="login" action="login.php" method="POST">
+								<div>
+									<button type="submit">Login</button>
 								</div>
 							</form>
 						</div>
