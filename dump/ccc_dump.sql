@@ -256,6 +256,7 @@ INSERT INTO `role` (`id`, `name`, `description`) VALUES
 (2, 'Candidate', NULL),
 (3, 'Employer', NULL);
 
+
 -- --------------------------------------------------------
 
 --
