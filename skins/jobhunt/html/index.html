@@ -59,7 +59,7 @@
 					<div class="heading">
 						<h2>Popular Categories</h2>
 						<span>
-							<[jobs_count]> jobs live.
+							<[jobs_count]> jobs live - <[jobs_today_count]> added today.
 						</span>
 					</div><!-- Heading -->
 					<div class="cat-sec">
@@ -135,8 +135,9 @@
 								<!-- Sacramento, California -->
 								<[city]>, <[country]>
 							</span>
-							<span class="fav-job"><i class="la la-heart-o"></i></span>
-							<span class="job-is ft">FULL TIME</span>
+							<span class="job-is ft">
+								<[job_type::format mode="upper" library="stringtag"]>
+							</span>
 						</div><!-- Job -->
 					</div>
 				</div>

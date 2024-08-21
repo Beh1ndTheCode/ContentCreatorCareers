@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2024 at 11:03 AM
+-- Generation Time: Aug 21, 2024 at 07:19 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -164,16 +164,19 @@ CREATE TABLE `job_offer` (
   `employer_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
   `salary` float UNSIGNED NOT NULL,
+  `type` enum('Full time','Part time','Temporary','Freelance','Internship','Volunteer') NOT NULL,
   `quantity` smallint(5) UNSIGNED NOT NULL DEFAULT 1,
-  `description` text DEFAULT NULL
+  `description` text DEFAULT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `job_offer`
 --
 
-INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `quantity`, `description`) VALUES
-(1, 2, 'Visual Designer', 1800, 2, NULL);
+INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `quantity`, `description`, `date`) VALUES
+(1, 2, 'Visual Designer', 1800, 'Part time', 2, NULL, '2024-08-21'),
+(2, 2, 'Social Media Manager', 2700, 'Full time', 1, NULL, '2024-08-08');
 
 -- --------------------------------------------------------
 
@@ -255,7 +258,6 @@ INSERT INTO `role` (`id`, `name`, `description`) VALUES
 (1, 'Administrator', NULL),
 (2, 'Candidate', NULL),
 (3, 'Employer', NULL);
-
 
 -- --------------------------------------------------------
 
@@ -526,7 +528,7 @@ ALTER TABLE `expertise`
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `profile`
