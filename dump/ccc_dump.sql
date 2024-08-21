@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 19, 2024 at 10:40 PM
+-- Generation Time: Aug 21, 2024 at 11:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -253,7 +253,8 @@ CREATE TABLE `role` (
 
 INSERT INTO `role` (`id`, `name`, `description`) VALUES
 (1, 'Administrator', NULL),
-(2, 'User', NULL);
+(2, 'Candidate', NULL),
+(3, 'Employer', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,7 +273,6 @@ CREATE TABLE `role_service` (
 
 INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (1, 1),
-(2, 1),
 (2, 2);
 
 -- --------------------------------------------------------
@@ -380,7 +380,7 @@ CREATE TABLE `user_role` (
 INSERT INTO `user_role` (`username`, `role_id`) VALUES
 ('admin', 1),
 ('candidate', 2),
-('employer', 2);
+('employer', 3);
 
 --
 -- Indexes for dumped tables
@@ -537,7 +537,7 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `service`
