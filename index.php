@@ -35,26 +35,28 @@ $data = $result->fetch_assoc();
 $body->setContent("expertise", $data['title']);
 $body->setContent("jobs_count_category", $data['jobs_count_category']);
 
-
 $result = $mysqli->query("
 	SELECT
 	    job_offer.name AS job_name, 
 		employer.name AS employer_name, 
+		image.path AS employer_image,
 		address.city AS city, 
 		address.country AS country,
 		job_offer.type AS job_type
 	FROM job_offer
 	JOIN employer ON job_offer.employer_id = employer.id
+    JOIN profile ON employer.id = profile.id
+    JOIN image ON profile.id = image.profile_id
 	JOIN address ON employer.id = address.profile_id
 	");
 
 $data = $result->fetch_assoc();
 $body->setContent("job_name", $data['job_name']);
 $body->setContent("employer_name", $data['employer_name']);
+$body->setContent("employer_image", $data['employer_image']);
 $body->setContent("city", $data['city']);
 $body->setContent("country", $data['country']);
 $body->setContent("job_type", $data['job_type']);
-
 
 $main->setContent("body", $body->get());
 
