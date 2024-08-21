@@ -23,10 +23,67 @@
 </section>
 
 <style>
+	div#notification {
+        width: 100%;
+        height: 60px;
+        background-color: #ffcaca;
+        border-radius: 8px;
+        display: none;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
     form#login {
         margin-top: -0px;
     }
 </style>
+
+<script crossorigin="anonymous" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#signup').click(function () {
+
+            let user = $('#username').val();
+            let passwd = $('#password').val();
+			let mail = $('#email').val();
+			
+            $.ajax({
+                method: "POST",
+                url: "registration.php",
+                data: { username: user, password: passwd, email: mail}
+            })
+
+                .done(function (result) {
+					if (result === '0') {
+                        $('#notification')
+                            .html('Username have been used')
+                            .fadeIn()
+                            .click(function () {
+                                $(this).fadeOut();
+                            })
+                    } else {
+						if (result === '1') {
+                        $('#notification')
+                            .html('Email have been used')
+                            .fadeIn()
+                            .click(function () {
+                                $(this).fadeOut();
+                            })
+						} else {
+							if (result === '2') {
+                            $("#form").submit();
+                        }
+						}  
+                    } 
+                });
+
+            return false;
+        });
+
+    });
+
+</script>
 
 <section>
 	<div class="block remove-bottom">
@@ -42,20 +99,22 @@
 								<span>Candidate</span>
 								<span>Employer</span>
 							</div>
-							<form>
+							<form id="form" action="candidates_profile.php" method="POST">
+								<div id="notification"></div>
+
 								<div class="cfield">
-									<input placeholder="Username" type="text" />
+									<input id="username" name="username" placeholder="Username" type="text" />
 									<i class="la la-user"></i>
 								</div>
 								<div class="cfield">
-									<input placeholder="********" type="password" />
+									<input id="password" name="password" placeholder="********" type="password" />
 									<i class="la la-key"></i>
 								</div>
 								<div class="cfield">
-									<input placeholder="Email" type="text" />
+									<input id="email" name="email" placeholder="Email" type="text" />
 									<i class="la la-envelope-o"></i>
 								</div>
-								<button type="submit">Signup</button>
+								<button type="submit" id="signup">Signup</button>
 							</form>
 							<div class="extra-login">
 								<span>Or</span>
