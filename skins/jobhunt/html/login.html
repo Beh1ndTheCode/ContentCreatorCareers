@@ -50,7 +50,6 @@
             })
 
                 .done(function (result) {
-
                     if (result === '0') {
                         $('#notification')
                             .html('Username or password unknown!')
@@ -60,7 +59,7 @@
                             })
                     } else {
                         if (result === '1') {
-                            $("#form").submit();
+                            $("#login").submit();
                         }
                     }
                 });
@@ -81,7 +80,7 @@
                         <div class="account-popup">
 							<span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
 								ullamcorper</span>
-                            <form action="candidates_profile.php" method="POST">
+                            <form id="login" action="candidates_profile.php" method="POST">
                                 <div id="notification"></div>
 
                                 <div class="cfield">
