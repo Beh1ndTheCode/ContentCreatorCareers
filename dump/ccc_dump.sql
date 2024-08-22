@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2024 at 11:03 AM
+-- Generation Time: Aug 22, 2024 at 08:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -132,6 +132,13 @@ CREATE TABLE `image` (
   `path` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`profile_id`, `label`, `path`) VALUES
+(2, 'Banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
+
 -- --------------------------------------------------------
 
 --
@@ -164,16 +171,19 @@ CREATE TABLE `job_offer` (
   `employer_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
   `salary` float UNSIGNED NOT NULL,
+  `type` enum('Full time','Part time','Temporary','Freelance','Internship','Volunteer') NOT NULL,
   `quantity` smallint(5) UNSIGNED NOT NULL DEFAULT 1,
-  `description` text DEFAULT NULL
+  `description` text DEFAULT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `job_offer`
 --
 
-INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `quantity`, `description`) VALUES
-(1, 2, 'Visual Designer', 1800, 2, NULL);
+INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `quantity`, `description`, `date`) VALUES
+(1, 2, 'Visual Designer', 1800, 'Part time', 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
+(2, 2, 'Social Media Manager', 2700, 'Full time', 1, NULL, '2024-08-08');
 
 -- --------------------------------------------------------
 
@@ -184,6 +194,7 @@ INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `quantity`, `des
 CREATE TABLE `profile` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(64) DEFAULT NULL,
   `phone` varchar(16) DEFAULT NULL,
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -192,9 +203,9 @@ CREATE TABLE `profile` (
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`id`, `user_id`, `phone`, `description`) VALUES
-(1, 2, '+393333333333', NULL),
-(2, 3, '+390862000000', NULL);
+INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
+(1, 2, 'mariorossi@gmail.com', '+393333333333', NULL),
+(2, 3, 'contact@cnb.com', '+390862000000', NULL);
 
 -- --------------------------------------------------------
 
@@ -233,7 +244,7 @@ CREATE TABLE `requirement` (
 --
 
 INSERT INTO `requirement` (`job_offer_id`, `name`, `level`, `description`) VALUES
-(1, 'Adobe Photoshop', '3', NULL);
+(1, 'Adobe Photoshop', '3', 'Basic knowledge of the tool');
 
 -- --------------------------------------------------------
 
@@ -255,7 +266,6 @@ INSERT INTO `role` (`id`, `name`, `description`) VALUES
 (1, 'Administrator', NULL),
 (2, 'Candidate', NULL),
 (3, 'Employer', NULL);
-
 
 -- --------------------------------------------------------
 
@@ -284,7 +294,7 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 
 CREATE TABLE `service` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(20) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
   `script` varchar(255) DEFAULT NULL,
   `default` varchar(1) NOT NULL,
   `description` text DEFAULT NULL,
@@ -299,7 +309,20 @@ CREATE TABLE `service` (
 
 INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permission`, `entity`, `field`) VALUES
 (1, 'Dashboard', 'dashboard.php', '', NULL, '', '', ''),
-(2, 'Candidate profile', 'candidates_profile.php', '', NULL, '', '', '');
+(2, 'Candidate - Profile', 'candidates_profile.php', '', NULL, '', '', ''),
+(3, 'Candidate - Applied jobs', 'candidates_applied_jobs.php', '', NULL, '', '', ''),
+(4, 'Candidate - Change password', 'candidates_change_password.php', '', NULL, '', '', ''),
+(5, 'Candidates list', 'candidates_list.php', '', NULL, '', '', ''),
+(6, 'Candidate - Resume add new', 'candidates_my_resume_add_new.php', '', NULL, '', '', ''),
+(7, 'Candidates - Resume', 'candidates_my_resume.php', '', NULL, '', '', ''),
+(8, 'Candidate single', 'candidates_single.php', '', NULL, '', '', ''),
+(9, 'Employer - Change password', 'employer_change_password.php', '', NULL, '', '', ''),
+(10, 'Employer list', 'employer_list.php', '', NULL, '', '', ''),
+(11, 'Employer - Manage jobs', 'employer_manage_jobs.php', '', NULL, '', '', ''),
+(12, 'Employer - Post new job', 'employer_post_new.php', '', NULL, '', '', ''),
+(13, 'Employer - Profile', 'employer_profile.php', '', NULL, '', '', ''),
+(14, 'Employer - Resume', 'employer_resume.php', '', NULL, '', '', ''),
+(15, 'Employer single', 'employer_single.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -338,8 +361,9 @@ CREATE TABLE `social_account` (
 --
 
 INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
-(1, 'Facebook', 'https://facebook.com'),
-(1, 'Instagram', 'https://www.instagram.com/');
+(1, 'Facebook', 'facebook.com'),
+(1, 'Instagram', 'instagram.com'),
+(2, 'Website', 'cnbcomunicazione.com');
 
 -- --------------------------------------------------------
 
@@ -526,7 +550,7 @@ ALTER TABLE `expertise`
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -544,7 +568,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
