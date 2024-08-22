@@ -4,8 +4,8 @@ require "include/config.inc.php";
 require "include/dbms.inc.php";
 
 // Prepare the statements to avoid SQL injection
-$stmt_username = $mysqli->prepare("SELECT 'username' FROM `user` WHERE 'username' = ?");
-$stmt_email = $mysqli->prepare("SELECT 'email' FROM `user` WHERE 'email' = ?");
+$stmt_username = $mysqli->prepare("SELECT username FROM `user` WHERE username = ?");
+$stmt_email = $mysqli->prepare("SELECT email FROM `user` WHERE email = ?");
 
 // Bind parameters and execute for username
 $stmt_username->bind_param("s", $_POST['username']);
