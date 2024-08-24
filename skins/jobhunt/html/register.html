@@ -6,7 +6,7 @@
 					<div class="inner2">
 						<div class="inner-title2">
 							<h3>Register</h3>
-							<span>Keep up to date with the latest news</span>
+							<span>Make the most of your professional life</span>
 						</div>
 						<div class="page-breacrumbs">
 							<ul class="breadcrumbs">
@@ -67,7 +67,7 @@
 
 			if (!(can || emp)) {
 				$('#notification')
-					.html('Are you a candidate or an employer?')
+					.html('Please, select an option')
 					.fadeIn()
 					.click(function () {
 						$(this).fadeOut();
@@ -126,8 +126,8 @@
 						if (can) {
 							$.ajax({
 								method: "POST",
-								url: "can_registration.php",
-								data: { username: user, password: passwd, email: mail, name: can_name, surname: sname}
+								url: "registration.php",
+								data: {type: "can", username: user, password: passwd, email: mail, name: can_name, surname: sname}
 							})
 								.done(function (result) {
 									if (result === '0') {
@@ -138,15 +138,17 @@
 												$(this).fadeOut();
 											})
 									} else if (result === '1') {
-										$("#form").submit();
+										$("#form")
+												.attr('action', 'candidates_profile.php')
+												.submit();
 									}
 								});
 						}
 						if (emp) {
 							$.ajax({
 								method: "POST",
-								url: "emp_registration.php",
-								data: { username: user, password: passwd, email: mail, name: emp_name}
+								url: "registration.php",
+								data: {type: "emp", username: user, password: passwd, email: mail, name: emp_name}
 							})
 								.done(function (result) {
 									if (result === '0') {
@@ -157,7 +159,9 @@
 												$(this).fadeOut();
 											})
 									} else if (result === '1') {
-										$("#form").submit();
+										$("#form")
+												.attr('action', 'employer_profile.php')
+												.submit();
 									}
 								});
 						}
@@ -176,13 +180,12 @@
 					<div class="account-popup-area signup-popup-box static">
 						<div class="account-popup">
 							<h3>Sign Up</h3>
-							<span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
-								ullamcorper</span>
+							<span>Are you a Candidate or an Employer?</span>
 							<div id="select-user" class="select-user">
 								<span id="candidate">Candidate</span>
 								<span id="employer">Employer</span>
 							</div>
-							<form id="form" action="faq.php" method="POST">
+							<form id="form" method="POST">
 								<div id="notification"></div>
 								<div id="candidate_field" style="display: none">
 									<div class="cfield">
