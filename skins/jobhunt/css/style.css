@@ -8021,7 +8021,7 @@ header.gradient{
     border-radius: 50%;
 
     width: 175px;
-    height: 175px;
+    height: auto;
     padding: 17px;
 }
 .cst img {
