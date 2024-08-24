@@ -10,9 +10,11 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("candidates_profile");
 
+//verifica presenza immagine profilo
 $username = $_SESSION["user"]["username"];
 $img = $mysqli->query("SELECT image.path FROM `image` JOIN `profile` ON profile.id = image.profile_id JOIN `user` ON user.id = profile.user_id WHERE user.username = '$username'");
 
+//$img = a immagine profilo se esiste, altrimenti è impostata su un placeholder
 if ($img->num_rows == 0) {
     $img = "skins/jobhunt/images/profile.png";
 } else {
@@ -48,8 +50,6 @@ $body->setContent("phone_num", $data['phone_num']);
 $body->setContent("email", $data['email']);
 $body->setContent("country", $data['country']);
 $body->setContent("city", $data['city']);
-
-
 
 $main->setContent("body", $body->get());
 
