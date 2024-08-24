@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 23, 2024 at 05:08 PM
+-- Host: localhost
+-- Generation Time: Aug 24, 2024 at 06:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `ccc`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddCandidate` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), IN `in_surname` VARCHAR(16), INOUT `new_user_id` INT, INOUT `new_profile_id` INT)   BEGIN
+    INSERT INTO user (username, password, email) VALUES (in_username, in_password, in_email);
+    SET new_user_id = LAST_INSERT_ID();
+	INSERT INTO profile (user_id) VALUES (new_user_id);
+    SET new_profile_id = LAST_INSERT_ID();
+    INSERT INTO candidate (id, name, surname) VALUES (new_profile_id, in_name, in_surname);
+    INSERT INTO user_role (username, role_id) VALUES (in_username, 2);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEmployer` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), INOUT `new_user_id` INT, INOUT `new_profile_id` INT)   BEGIN
+    INSERT INTO user (username, password, email) VALUES (in_username, in_password, in_email);
+    SET new_user_id = LAST_INSERT_ID();
+	INSERT INTO profile (user_id) VALUES (new_user_id);
+    SET new_profile_id = LAST_INSERT_ID();
+    INSERT INTO employer (id, name) VALUES (new_profile_id, in_name);
+    INSERT INTO user_role (username, role_id) VALUES (in_username, 3);
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -81,7 +105,11 @@ CREATE TABLE `candidate` (
 --
 
 INSERT INTO `candidate` (`id`, `name`, `surname`, `age`) VALUES
-(1, 'Mario', 'Rossi', 30);
+(1, 'Mario', 'Rossi', 30),
+(3, 'Luigi', 'Luigini', NULL),
+(4, 'Valerio', 'Valeri', NULL),
+(6, 'Alessio', 'Alessi', NULL),
+(7, 'Giulia', 'Giuliani', NULL);
 
 -- --------------------------------------------------------
 
@@ -99,7 +127,8 @@ CREATE TABLE `employer` (
 --
 
 INSERT INTO `employer` (`id`, `name`) VALUES
-(2, 'CNB Comunicazione');
+(2, 'CNB Comunicazione'),
+(12, 'Amazon');
 
 -- --------------------------------------------------------
 
@@ -205,7 +234,12 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 (1, 2, 'mariorossi@gmail.com', '+393333333333', NULL),
-(2, 3, 'contact@cnb.com', '+390862000000', NULL);
+(2, 3, 'contact@cnb.com', '+390862000000', NULL),
+(3, 4, NULL, NULL, NULL),
+(4, 5, NULL, NULL, NULL),
+(6, 7, NULL, NULL, NULL),
+(7, 8, NULL, NULL, NULL),
+(12, 13, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -311,7 +345,7 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 
 CREATE TABLE `service` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(35) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
   `script` varchar(255) DEFAULT NULL,
   `default` varchar(1) NOT NULL,
   `description` text DEFAULT NULL,
@@ -406,7 +440,12 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'admin', 'admin@example.com'),
 (2, 'candidate', 'candidate', 'candidate@example.com'),
-(3, 'employer', 'employer', 'employer@example.com');
+(3, 'employer', 'employer', 'employer@example.com'),
+(4, 'luigi', 'luigi', 'luigi@gmail.com'),
+(5, 'valerio', 'valerio', 'valerio@gmail.com'),
+(7, 'alessio', 'alessio', 'alessio@gmail.com'),
+(8, 'giulia', 'giulia', 'giulia@gmail.com'),
+(13, 'amazon', 'amazon', 'amazon@amazon.com');
 
 -- --------------------------------------------------------
 
@@ -425,8 +464,13 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`username`, `role_id`) VALUES
 ('admin', 1),
+('alessio', 2),
+('amazon', 3),
 ('candidate', 2),
-('employer', 3);
+('employer', 3),
+('giulia', 2),
+('luigi', 2),
+('valerio', 2);
 
 --
 -- Indexes for dumped tables
@@ -577,7 +621,7 @@ ALTER TABLE `job_offer`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -595,7 +639,7 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

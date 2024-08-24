@@ -6,7 +6,7 @@
 					<div class="inner2">
 						<div class="inner-title2">
 							<h3>Register</h3>
-							<span>Keep up to date with the latest news</span>
+							<span>Make the most of your professional life</span>
 						</div>
 						<div class="page-breacrumbs">
 							<ul class="breadcrumbs">
@@ -23,10 +23,154 @@
 </section>
 
 <style>
-    form#login {
-        margin-top: -0px;
-    }
+	div#notification {
+		width: 100%;
+		height: 60px;
+		background-color: #ffcaca;
+		border-radius: 8px;
+		display: none;
+		padding: 10px;
+		margin-bottom: 10px;
+	}
+
+	form#login {
+		margin-top: -0px;
+	}
 </style>
+
+<script crossorigin="anonymous" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+	src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+
+		$('#select-user').click(function () {
+			if ($('#candidate').hasClass('active')) {
+				$('#candidate_field').show();
+				$('#employer_field').hide();
+			}
+			if ($('#employer').hasClass('active')) {
+				$('#employer_field').show();
+				$('#candidate_field').hide();
+			}
+		})
+
+		$('#signup').click(function () {
+			let can = $('#candidate').hasClass('active');
+			let emp = $('#employer').hasClass('active');
+			let can_name = $('#name').val();
+			let sname = $('#surname').val();
+			let emp_name = $('#employer_name').val();
+			let user = $('#username').val();
+			let passwd = $('#password').val();
+			let mail = $('#email').val();
+
+			if (!(can || emp)) {
+				$('#notification')
+					.html('Please, select an option')
+					.fadeIn()
+					.click(function () {
+						$(this).fadeOut();
+					})
+				return false;
+			}
+			if (can) {
+				if ((user === '' || passwd === '' || mail === '' || can_name === '' || sname === '')) {
+					$('#notification')
+						.html('Fill all the spaces')
+						.fadeIn()
+						.click(function () {
+							$(this).fadeOut();
+						})
+					return false;
+				}
+			} else if (emp) {
+				if ((user === '' || passwd === '' || mail === '' || emp_name === '')) {
+					$('#notification')
+						.html('Fill all the spaces')
+						.fadeIn()
+						.click(function () {
+							$(this).fadeOut();
+						})
+					return false;
+				}
+			}
+			$.ajax({
+				method: "POST",
+				url: "signup_check.php",
+				data: { username: user, email: mail }
+			})
+				.done(function (result) {
+					if (result === '0') {
+						$('#notification')
+							.html('Username and email have already been used')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if (result === '1') {
+						$('#notification')
+							.html('Username has already been used')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if (result === '2') {
+						$('#notification')
+							.html('Email has already been used')
+							.fadeIn()
+							.click(function () {
+								$(this).fadeOut();
+							})
+					} else if (result === '3') {
+						if (can) {
+							$.ajax({
+								method: "POST",
+								url: "registration.php",
+								data: {type: "can", username: user, password: passwd, email: mail, name: can_name, surname: sname}
+							})
+								.done(function (result) {
+									if (result === '0') {
+										$('#notification')
+											.html('Registration error')
+											.fadeIn()
+											.click(function () {
+												$(this).fadeOut();
+											})
+									} else if (result === '1') {
+										$("#form")
+												.attr('action', 'candidates_profile.php')
+												.submit();
+									}
+								});
+						}
+						if (emp) {
+							$.ajax({
+								method: "POST",
+								url: "registration.php",
+								data: {type: "emp", username: user, password: passwd, email: mail, name: emp_name}
+							})
+								.done(function (result) {
+									if (result === '0') {
+										$('#notification')
+											.html('Registration error')
+											.fadeIn()
+											.click(function () {
+												$(this).fadeOut();
+											})
+									} else if (result === '1') {
+										$("#form")
+												.attr('action', 'employer_profile.php')
+												.submit();
+									}
+								});
+						}
+					}
+				});
+			return false;
+		});
+	});
+</script>
 
 <section>
 	<div class="block remove-bottom">
@@ -36,26 +180,43 @@
 					<div class="account-popup-area signup-popup-box static">
 						<div class="account-popup">
 							<h3>Sign Up</h3>
-							<span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
-								ullamcorper</span>
-							<div class="select-user">
-								<span>Candidate</span>
-								<span>Employer</span>
+							<span>Are you a Candidate or an Employer?</span>
+							<div id="select-user" class="select-user">
+								<span id="candidate">Candidate</span>
+								<span id="employer">Employer</span>
 							</div>
-							<form>
+							<form id="form" method="POST">
+								<div id="notification"></div>
+								<div id="candidate_field" style="display: none">
+									<div class="cfield">
+										<input id="name" name="name" placeholder="Name" type="text" />
+										<i class="la la-user"></i>
+									</div>
+									<div class="cfield">
+										<input id="surname" name="surname" placeholder="Surname" type="text" />
+										<i class="la la-user"></i>
+									</div>
+								</div>
+								<div id="employer_field" style="display: none">
+									<div class="cfield">
+										<input id="employer_name" name="employer_name" placeholder="Employer name"
+											type="text" />
+										<i class="la la-user"></i>
+									</div>
+								</div>
 								<div class="cfield">
-									<input placeholder="Username" type="text" />
+									<input id="username" name="username" placeholder="Username" type="text" />
 									<i class="la la-user"></i>
 								</div>
 								<div class="cfield">
-									<input placeholder="********" type="password" />
+									<input id="password" name="password" placeholder="********" type="password" />
 									<i class="la la-key"></i>
 								</div>
 								<div class="cfield">
-									<input placeholder="Email" type="text" />
+									<input id="email" name="email" placeholder="Email" type="text" />
 									<i class="la la-envelope-o"></i>
 								</div>
-								<button type="submit">Signup</button>
+								<button type="submit" id="signup">Signup</button>
 							</form>
 							<div class="extra-login">
 								<span>Or</span>
