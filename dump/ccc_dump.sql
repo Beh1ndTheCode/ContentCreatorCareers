@@ -5,7 +5,7 @@
 -- Host: localhost
 -- Generation Time: Aug 24, 2024 at 06:25 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -319,7 +319,23 @@ CREATE TABLE `role_service` (
 INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (1, 1),
 (2, 2),
-(3, 13);
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(2, 7),
+(2, 8),
+(2, 9),
+(2, 10),
+(3, 11),
+(3, 12),
+(3, 13),
+(3, 14),
+(3, 15),
+(3, 16),
+(3, 17),
+(3, 18),
+(3, 19);
 
 -- --------------------------------------------------------
 
@@ -344,20 +360,24 @@ CREATE TABLE `service` (
 
 INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permission`, `entity`, `field`) VALUES
 (1, 'Dashboard', 'dashboard.php', '', NULL, '', '', ''),
-(2, 'Candidate - Profile', 'candidates_profile.php', '', NULL, '', '', ''),
-(3, 'Candidate - Applied jobs', 'candidates_applied_jobs.php', '', NULL, '', '', ''),
-(4, 'Candidate - Change password', 'candidates_change_password.php', '', NULL, '', '', ''),
-(5, 'Candidates list', 'candidates_list.php', '', NULL, '', '', ''),
-(6, 'Candidate - Resume add new', 'candidates_my_resume_add_new.php', '', NULL, '', '', ''),
-(7, 'Candidates - Resume', 'candidates_my_resume.php', '', NULL, '', '', ''),
-(8, 'Candidate single', 'candidates_single.php', '', NULL, '', '', ''),
-(9, 'Employer - Change password', 'employer_change_password.php', '', NULL, '', '', ''),
-(10, 'Employer list', 'employer_list.php', '', NULL, '', '', ''),
-(11, 'Employer - Manage jobs', 'employer_manage_jobs.php', '', NULL, '', '', ''),
-(12, 'Employer - Post new job', 'employer_post_new.php', '', NULL, '', '', ''),
-(13, 'Employer - Profile', 'employer_profile.php', '', NULL, '', '', ''),
-(14, 'Employer - Resume', 'employer_resume.php', '', NULL, '', '', ''),
-(15, 'Employer single', 'employer_single.php', '', NULL, '', '', '');
+(2, 'Candidate profile', 'candidates_profile.php', '', NULL, '', '', ''),
+(3, 'Candidate single', 'candidates_single.php', '', NULL, '', '', ''),
+(4, 'Candidate resume', 'candidates_my_resume.php', '', NULL, '', '', ''),
+(5, 'Candidate new resume', 'candidates_my_resume_add_new.php', '', NULL, '', '', ''),
+(6, 'Candidate list', 'candidates_list.php', '', NULL, '', '', ''),
+(7, 'Candidate job alert', 'candidates_job_alert.php', '', NULL, '', '', ''),
+(8, 'Candidate cv', 'candidates_cv_cover_letter.php', '', NULL, '', '', ''),
+(9, 'Candidate change password', 'candidates_change_password.php', '', NULL, '', '', ''),
+(10, 'Candidate applied jobs', 'candidates_applied_jobs.php', '', NULL, '', '', ''),
+(11, 'employer job alert', 'employer_job_alert.php', '', NULL, '', '', ''),
+(12, 'employer change password', 'employer_change_password.php', '', NULL, '', '', ''),
+(13, 'employer list', 'employer_list.php', '', NULL, '', '', ''),
+(14, 'employer manage jobs', 'employer_manage_jobs.php', '', NULL, '', '', ''),
+(15, 'employer packages', 'employer_packages.php', '', NULL, '', '', ''),
+(16, 'employer post new', 'employer_post_new.php', '', NULL, '', '', ''),
+(17, 'employer profile', 'employer_profile.php', '', NULL, '', '', ''),
+(18, 'employer resume', 'employer_resume.php', '', NULL, '', '', ''),
+(19, 'employer single', 'employer_single.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -613,7 +633,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user`
