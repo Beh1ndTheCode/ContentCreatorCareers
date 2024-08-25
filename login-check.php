@@ -6,7 +6,12 @@ require "include/dbms.inc.php";
 # $passwd = md5("{$_POST['password']}");
 # $result = $mysqli->query("SELECT username, email FROM `user` WHERE username = '{$_POST['username']}' AND password = '{$passwd}'");
 
-$stmt = $mysqli->prepare("SELECT username, email FROM `user` WHERE username = ? AND password = ?");
+$stmt = $mysqli->prepare("
+    SELECT user.username, user.email, user_role.role_id
+    FROM `user`
+    JOIN `user_role` ON user_role.username = user.username
+    WHERE user.username = ? AND user.   password = ?
+    ");
 
 // Bind the parameters to the placeholders
 $stmt->bind_param("ss", $_POST['username'], $_POST['password']);
@@ -19,7 +24,8 @@ $result = $stmt->get_result();
 
 // Check if the user exists
 if ($result->num_rows == 1) {
-    $result = 1; // User exists
+    $row = $result->fetch_assoc();
+    $result = $row['role_id']; // Return user role id
 } else {
     $result = 0; // User does not exist
 }
