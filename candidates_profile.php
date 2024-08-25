@@ -6,21 +6,15 @@ require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
 require "include/auth.inc.php";
+require "get_by_id.inc.php";
 
 $main = new Template("frame");
 $body = new Template("candidates_profile");
 
-//verifica presenza immagine profilo
 $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
 $profile_id = ($profile_id->fetch_assoc()['id']);
-$img = $mysqli->query("SELECT image.path FROM `image` WHERE image.profile_id = '$profile_id'");
 
-//$img = a immagine profilo se esiste, altrimenti è impostata su un placeholder
-if ($img->num_rows == 0) {
-    $img = "skins/jobhunt/images/profile.png";
-} else {
-    $img = ($img->fetch_array())[0];
-}
+$img = get_img($mysqli,$profile_id);
 $body->setContent("image", $img);
 
 $result = $mysqli->query("
@@ -41,7 +35,6 @@ $result = $mysqli->query("
     JOIN address ON address.profile_id = profile.id
     WHERE profile.id = '$profile_id'
     ");
-
 $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
@@ -69,9 +62,7 @@ foreach ($languages as $language) {
 $body->setContent("languages", $languages_html);
 
 
-$sql_social = $mysqli->query("SELECT social_account.name,social_account.uri FROM `social_account` JOIN `profile` ON profile.id = social_account.profile_id WHERE profile_id = '$profile_id'");
-while ($row = $sql_social->fetch_assoc())
-    $socials[] = ['name' => $row['name'], 'uri' => $row['uri']];
+$socials = get_socials($mysqli,$profile_id);
 foreach($socials as $social)
     $body->setContent($social["name"],$social["uri"]);
 
