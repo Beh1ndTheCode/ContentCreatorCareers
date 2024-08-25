@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 24, 2024 at 06:25 PM
+-- Generation Time: Aug 25, 2024 at 03:35 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -97,19 +97,20 @@ CREATE TABLE `candidate` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(16) NOT NULL,
   `surname` varchar(16) NOT NULL,
-  `age` tinyint(2) DEFAULT NULL
+  `age` tinyint(2) DEFAULT NULL,
+  `language_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `candidate`
 --
 
-INSERT INTO `candidate` (`id`, `name`, `surname`, `age`) VALUES
-(1, 'Mario', 'Rossi', 30),
-(3, 'Luigi', 'Luigini', NULL),
-(4, 'Valerio', 'Valeri', NULL),
-(6, 'Alessio', 'Alessi', NULL),
-(7, 'Giulia', 'Giuliani', NULL);
+INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`) VALUES
+(1, 'Mario', 'Rossi', 30, 2),
+(3, 'Luigi', 'Luigini', NULL, NULL),
+(4, 'Valerio', 'Valeri', NULL, NULL),
+(6, 'Alessio', 'Alessi', NULL, NULL),
+(7, 'Giulia', 'Giuliani', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -201,6 +202,7 @@ CREATE TABLE `job_offer` (
   `name` varchar(32) NOT NULL,
   `salary` float UNSIGNED NOT NULL,
   `type` enum('Full time','Part time','Temporary','Freelance','Internship','Volunteer') NOT NULL,
+  `language_id` int(10) UNSIGNED DEFAULT NULL,
   `quantity` smallint(5) UNSIGNED NOT NULL DEFAULT 1,
   `description` text DEFAULT NULL,
   `date` date NOT NULL DEFAULT current_timestamp()
@@ -210,9 +212,35 @@ CREATE TABLE `job_offer` (
 -- Dumping data for table `job_offer`
 --
 
-INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `quantity`, `description`, `date`) VALUES
-(1, 2, 'Visual Designer', 1800, 'Part time', 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
-(2, 2, 'Social Media Manager', 2700, 'Full time', 1, NULL, '2024-08-08');
+INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `language_id`, `quantity`, `description`, `date`) VALUES
+(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
+(2, 2, 'Social Media Manager', 2700, 'Full time', 1, 1, NULL, '2024-08-08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `language`
+--
+
+CREATE TABLE `language` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `language`
+--
+
+INSERT INTO `language` (`id`, `name`) VALUES
+(7, 'Arabic'),
+(1, 'English'),
+(4, 'French'),
+(5, 'German'),
+(11, 'Hindi'),
+(2, 'Italian'),
+(6, 'Mandarin Chinese'),
+(10, 'Russian'),
+(3, 'Spanish');
 
 -- --------------------------------------------------------
 
@@ -407,7 +435,7 @@ INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
 
 CREATE TABLE `social_account` (
   `profile_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(16) NOT NULL,
+  `name` enum('facebook','instagram','linkedin','website') NOT NULL,
   `uri` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -416,9 +444,9 @@ CREATE TABLE `social_account` (
 --
 
 INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
-(1, 'Facebook', 'facebook.com'),
-(1, 'Instagram', 'instagram.com'),
-(2, 'Website', 'cnbcomunicazione.com');
+(1, 'facebook', 'facebook.com'),
+(1, 'instagram', 'instagram.com'),
+(2, 'website', 'cnbcomunicazione.com');
 
 -- --------------------------------------------------------
 
@@ -493,7 +521,8 @@ ALTER TABLE `application`
 -- Indexes for table `candidate`
 --
 ALTER TABLE `candidate`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `foreign_language_id` (`language_id`) USING BTREE;
 
 --
 -- Indexes for table `employer`
@@ -526,7 +555,15 @@ ALTER TABLE `job`
 --
 ALTER TABLE `job_offer`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_job_offer` (`employer_id`,`name`) USING BTREE;
+  ADD UNIQUE KEY `unique_job_offer` (`employer_id`,`name`) USING BTREE,
+  ADD KEY `job_offer_ibfk_2` (`language_id`);
+
+--
+-- Indexes for table `language`
+--
+ALTER TABLE `language`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_name` (`name`);
 
 --
 -- Indexes for table `profile`
@@ -618,6 +655,12 @@ ALTER TABLE `job_offer`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `language`
+--
+ALTER TABLE `language`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
@@ -662,7 +705,8 @@ ALTER TABLE `application`
 -- Constraints for table `candidate`
 --
 ALTER TABLE `candidate`
-  ADD CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `candidate_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `employer`
@@ -687,7 +731,8 @@ ALTER TABLE `job`
 -- Constraints for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  ADD CONSTRAINT `job_offer_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `job_offer_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `job_offer_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `profile`
