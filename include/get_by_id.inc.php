@@ -52,6 +52,34 @@ function get_jobs($mysqli, $profile_id)
     return $jobs;
 }
 
+function get_job_offers_employer($mysqli, $employer_id)
+{
+    $sql_job_offer = $mysqli->query("
+    SELECT
+        job_offer.id AS id,
+        job_offer.name AS name,
+        job_offer.type AS type,
+        employer.name AS emp_name,
+        address.city AS city,
+        address.country AS country
+    FROM `employer`
+        JOIN `job_offer` ON employer.id = job_offer.employer_id
+        JOIN `address` ON employer.id = address.profile_id
+        WHERE employer.id = '$employer_id'
+    ");
+    while ($row = $sql_job_offer->fetch_assoc()) {
+        $job_offers[] = [
+            'id' => $row['id'],
+            'name' => $row['name'],
+            'type' => $row['type'],
+            'emp_name' => $row['emp_name'],
+            'city' => $row['city'],
+            'country' => $row['country']
+        ];
+    }
+    return $job_offers;
+}
+
 function get_portfolio($mysqli, $profile_id)
 {
     $sql_imgs = $mysqli->query("SELECT image.path FROM `image` WHERE image.profile_id = '$profile_id' and image.type = 'portfolio'");
@@ -60,4 +88,3 @@ function get_portfolio($mysqli, $profile_id)
     }
     return $imgs;
 }
-?>
