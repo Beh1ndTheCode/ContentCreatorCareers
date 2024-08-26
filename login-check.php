@@ -25,6 +25,15 @@ $result = $stmt->get_result();
 // Check if the user exists
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
+    if ($row['username'] != $_SESSION['user']['username']) {
+        session_start();
+        session_unset();
+        session_destroy();
+        setcookie(session_name(), '', time() - 3600);
+    }
+    session_set_cookie_params(1800);
+    session_start();
+    session_regenerate_id();
     $result = $row['role_id']; // Return user role id
 } else {
     $result = 0; // User does not exist
