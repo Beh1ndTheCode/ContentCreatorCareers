@@ -25,7 +25,6 @@ $result = $mysqli->query("
         expertise.title AS job_title,
         profile.phone AS phone_num,
         profile.email AS email,
-        profile.description AS description,
         address.country AS country,
         address.city AS city
     FROM candidate 
@@ -44,7 +43,6 @@ $body->setContent("phone_num", $data['phone_num']);
 $body->setContent("email", $data['email']);
 $body->setContent("country", $data['country']);
 $body->setContent("city", $data['city']);
-$body->setContent("description", $data['description']);
 
 
 $usr_language = $mysqli->query("SELECT language.name FROM `language` JOIN `candidate` ON candidate.language_id = language.id WHERE candidate.id = '$profile_id'");

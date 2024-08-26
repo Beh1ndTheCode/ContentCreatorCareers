@@ -22,8 +22,10 @@ $result = $mysqli->query("
         candidate.name AS name,
         candidate.surname AS surname,
         candidate.age AS age,
-        candidate.about AS about
+        profile.description AS about
     FROM candidate
+    JOIN profile ON profile.id = candidate.id
+    WHERE profile.id = $profile_id
     ");
 
 $data = $result->fetch_assoc();

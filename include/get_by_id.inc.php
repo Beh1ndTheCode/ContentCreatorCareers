@@ -17,7 +17,8 @@ function get_skills($mysqli, $profile_id)
 }
 
 function get_socials($mysqli, $profile_id)
-{
+{   
+    $socials = [];
     $sql_social = $mysqli->query("SELECT social_account.name,social_account.uri FROM `social_account` JOIN `profile` ON profile.id = social_account.profile_id WHERE profile_id = '$profile_id'");
     while ($row = $sql_social->fetch_assoc())
         $socials[] = ['name' => $row['name'], 'uri' => $row['uri']];

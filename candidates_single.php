@@ -25,10 +25,10 @@ $result = $mysqli->query("
         candidate.name AS name,
         candidate.surname AS surname,
         candidate.age AS age,
-        candidate.about AS about,
         expertise.title AS job_title,
         profile.phone AS phone_num,
         profile.email AS email,
+        profile.description AS about,
         address.country AS country,
         address.city AS city
     FROM candidate 
