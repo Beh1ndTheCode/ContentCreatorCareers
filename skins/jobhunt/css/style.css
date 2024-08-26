@@ -8279,6 +8279,7 @@ header.gradient{
 .mportolio {
     float: left;
     width: 100%;
+    height: 130px;
     position: relative;
     z-index: 0;
     margin-bottom: 30px;
@@ -8288,19 +8289,22 @@ header.gradient{
 }
 .mp-col {
     float: left;
-    width: 25%;
-    padding: 0 15px;
+    width: 180px;
+    padding: 0 5px;
 }
 .mportolio img {
     float: left;
     width: 100%;
+    height: 100%;
     
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-    border-radius: 8px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
+    border-color: #000;
 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 .mportolio > a {
     position: absolute;
@@ -8320,16 +8324,16 @@ header.gradient{
     background: linear-gradient(45deg,  rgba(139,145,221,1) 0%,rgba(16,25,93,1) 71%,rgba(16,25,93,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8b91dd', endColorstr='#10195d',GradientType=1 );
     
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -ms-border-radius: 8px;
-    -o-border-radius: 8px;
-    border-radius: 8px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
 
     opacity: 0;
 }
 .mportolio:hover > a {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 .mportolio > a i {
     position: absolute;
