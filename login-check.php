@@ -10,7 +10,7 @@ $stmt = $mysqli->prepare("
     SELECT user.username, user.email, user_role.role_id
     FROM `user`
     JOIN `user_role` ON user_role.username = user.username
-    WHERE user.username = ? AND user.   password = ?
+    WHERE user.username = ? AND user.password = ?
     ");
 
 // Bind the parameters to the placeholders
@@ -25,7 +25,7 @@ $result = $stmt->get_result();
 // Check if the user exists
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
-    if ($row['username'] != $_SESSION['user']['username']) {
+    if (isset($_SESSION['user']['username']) && $row['username'] != $_SESSION['user']['username']) {
         session_start();
         session_unset();
         session_destroy();

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 25, 2024 at 03:35 PM
+-- Host: 127.0.0.1
+-- Generation Time: Aug 26, 2024 at 10:10 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -98,19 +98,21 @@ CREATE TABLE `candidate` (
   `name` varchar(16) NOT NULL,
   `surname` varchar(16) NOT NULL,
   `age` tinyint(2) DEFAULT NULL,
-  `language_id` int(10) UNSIGNED DEFAULT NULL
+  `language_id` int(10) UNSIGNED DEFAULT NULL,
+  `about` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `candidate`
 --
 
-INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`) VALUES
-(1, 'Mario', 'Rossi', 30, 2),
-(3, 'Luigi', 'Luigini', NULL, NULL),
-(4, 'Valerio', 'Valeri', NULL, NULL),
-(6, 'Alessio', 'Alessi', NULL, NULL),
-(7, 'Giulia', 'Giuliani', NULL, NULL);
+INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`) VALUES
+(1, 'Mario', 'Rossi', 30, 2, NULL),
+(3, 'Luigi', 'Luigini', NULL, NULL, NULL),
+(4, 'Valerio', 'Valeri', NULL, NULL, NULL),
+(6, 'Alessio', 'Alessi', NULL, NULL, NULL),
+(7, 'Giulia', 'Giuliani', NULL, NULL, NULL),
+(13, 'fabio', 'volo', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -158,7 +160,7 @@ INSERT INTO `expertise` (`id`, `title`) VALUES
 
 CREATE TABLE `image` (
   `profile_id` int(10) UNSIGNED NOT NULL,
-  `label` varchar(32) NOT NULL,
+  `type` enum('profilo','banner','portfolio') NOT NULL,
   `path` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -166,8 +168,12 @@ CREATE TABLE `image` (
 -- Dumping data for table `image`
 --
 
-INSERT INTO `image` (`profile_id`, `label`, `path`) VALUES
-(2, 'Banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
+INSERT INTO `image` (`profile_id`, `type`, `path`) VALUES
+(2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
+(1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
+(1, 'portfolio', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_52lBzRWCcDC-h6WAf_8wnB47n0uDPcPMfw&s'),
+(1, 'portfolio', 'https://img.freepik.com/premium-psd/aesthetic-personal-portfolio-website-template_200778-21.jpg'),
+(1, 'portfolio', 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295831592/original/3b2b26ce0255183519b8325ebfc18c0963eaebd4/design-aesthetic-landing-for-you.jpg');
 
 -- --------------------------------------------------------
 
@@ -178,17 +184,20 @@ INSERT INTO `image` (`profile_id`, `label`, `path`) VALUES
 CREATE TABLE `job` (
   `employer_id` int(10) UNSIGNED NOT NULL,
   `candidate_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(32) NOT NULL,
   `type` enum('current','past') NOT NULL,
   `first_work_date` date NOT NULL,
-  `last_work_date` date DEFAULT NULL
+  `last_work_date` date DEFAULT NULL,
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `job`
 --
 
-INSERT INTO `job` (`employer_id`, `candidate_id`, `type`, `first_work_date`, `last_work_date`) VALUES
-(2, 1, 'past', '2017-03-09', '2020-09-12');
+INSERT INTO `job` (`employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
+(12, 1, 'Social media menager', 'current', '2022-10-04', NULL, NULL),
+(2, 1, 'UX designer', 'past', '2016-08-01', '2021-03-12', 'tante belle cose belle');
 
 -- --------------------------------------------------------
 
@@ -267,7 +276,8 @@ INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 (4, 5, NULL, NULL, NULL),
 (6, 7, NULL, NULL, NULL),
 (7, 8, NULL, NULL, NULL),
-(12, 13, NULL, NULL, NULL);
+(12, 13, NULL, NULL, NULL),
+(13, 14, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -416,7 +426,7 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 CREATE TABLE `skill` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
-  `level` enum('1','2','3','4','5') NOT NULL,
+  `level` enum('1','2','3','4','5','6','7','8','9','10') NOT NULL,
   `description` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -425,7 +435,8 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
-(1, 'Figma', '4', NULL);
+(1, 'Figma', '8', NULL),
+(1, 'Photoshop', '9', NULL);
 
 -- --------------------------------------------------------
 
@@ -473,7 +484,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (5, 'valerio', 'valerio', 'valerio@gmail.com'),
 (7, 'alessio', 'alessio', 'alessio@gmail.com'),
 (8, 'giulia', 'giulia', 'giulia@gmail.com'),
-(13, 'amazon', 'amazon', 'amazon@amazon.com');
+(13, 'amazon', 'amazon', 'amazon@amazon.com'),
+(14, 'Fabioooooo86', 'volo', 'pswrd.volo@alto.com');
 
 -- --------------------------------------------------------
 
@@ -496,6 +508,7 @@ INSERT INTO `user_role` (`username`, `role_id`) VALUES
 ('amazon', 3),
 ('candidate', 2),
 ('employer', 3),
+('Fabioooooo86', 2),
 ('giulia', 2),
 ('luigi', 2),
 ('valerio', 2);
@@ -664,7 +677,7 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -682,7 +695,7 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
