@@ -10,7 +10,6 @@ require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
 require "include/auth.inc.php";
-require "include/get_by_id.inc.php";
 
 $main = new Template("frame");
 $body = new Template("employer_list");
@@ -63,13 +62,13 @@ while ($employer = $result->fetch_assoc()) {
     $exp_title = $employer['exp_title'] ?? 'No expertise listed';
     $employers_html .= "<div class='emply-list'>
 							<div class='emply-list-thumb'>
-								<a href='#' title=''><img src='{$image}' alt='' /></a>
+								<a href='#' title=''><img src='$image' alt='' /></a>
                             </div>
 							<div class='emply-list-info'>
-								<div class='emply-pstn'>{$employer['job_offer_count']} Open Position</div>
+								<div class='emply-pstn'>{$employer['job_offer_count']} Open Positions</div>
 								<h3><a href='#' title=''>{$employer['emp_name']}</a></h3>
-								<span>{$exp_title}</span>
-								<h6><i class='la la-map-marker'></i>{$city}, {$country}</h6>
+								<span>$exp_title</span>
+								<h6><i class='la la-map-marker'></i>$city, $country</h6>
 								<p>{$employer['emp_description']}</p>
 							</div>
 						</div>";
