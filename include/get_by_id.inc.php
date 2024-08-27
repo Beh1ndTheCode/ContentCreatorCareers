@@ -9,7 +9,8 @@ function get_img($mysqli, $profile_id)
 }
 
 function get_skills($mysqli, $profile_id)
-{
+{   
+    $skills = [];
     $sql_skills = $mysqli->query("SELECT skill.name,skill.level FROM `skill` WHERE skill.candidate_id = '$profile_id'");
     while ($row = $sql_skills->fetch_assoc())
         $skills[] = ['name' => $row['name'], 'level' => $row['level']]; // Aggiungi ogni skill all'array
@@ -29,6 +30,7 @@ function get_jobs($mysqli, $profile_id)
     $sql_job = $mysqli->query("
     SELECT
         job.name AS name,
+        job.type AS type,
         job.first_work_date AS start,
         job.last_work_date AS end,
         job.description AS description,
@@ -38,8 +40,9 @@ function get_jobs($mysqli, $profile_id)
         JOIN `employer` ON employer.id = job.employer_id 
         WHERE profile.id = '$profile_id'
     ");
+    $jobs = [];
     while ($row = $sql_job->fetch_assoc()) {
-        if ($row['end'] == null)
+        if ($row['type'] == 'current')
             $row['end'] = 'now';
         $jobs[] = [
             'name' => $row['name'],
@@ -52,6 +55,33 @@ function get_jobs($mysqli, $profile_id)
     return $jobs;
 }
 
+function get_current_job($mysqli, $profile_id)
+{
+    $sql_job = $mysqli->query("
+    SELECT
+        job.name AS name,
+        job.type AS type,
+        job.first_work_date AS start,
+        job.description AS description,
+        employer.name AS emp_name
+    FROM `job`
+        JOIN `profile` ON profile.id = job.candidate_id 
+        JOIN `employer` ON employer.id = job.employer_id 
+        WHERE profile.id = '$profile_id'
+        AND job.type = 'current';
+    ");
+    if ($sql_job->num_rows == 0){
+        $job = [
+            'name' => '',
+            'emp_name' => '',
+            'start' => '',
+            'type' => '',
+            'description' => ''
+        ];
+        return $job;
+    }
+    return $sql_job->fetch_assoc();
+}
 function get_job_offers_employer($mysqli, $employer_id)
 {
     $sql_job_offer = $mysqli->query("
