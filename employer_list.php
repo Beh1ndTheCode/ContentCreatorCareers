@@ -21,6 +21,7 @@ $body->setContent("emp_count", $data['emp_count']);
 
 $result = $mysqli->query("
 	SELECT
+	    employer.id AS emp_id,
 	    employer.name AS emp_name,
 	    profile.description AS emp_description,
 	    address.city AS city,
@@ -56,20 +57,22 @@ if ($result->num_rows === 0) {
 
 $employers_html = '';
 while ($employer = $result->fetch_assoc()) {
+    $url = "employer_single.php?id=" . urlencode($employer['emp_id']);
     $image = $employer['image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $employer['city'] ?? 'Unknown city';
     $country = $employer['country'] ?? 'Unknown country';
     $exp_title = $employer['exp_title'] ?? 'No expertise listed';
+    $description = $employer['emp_description'] ?? 'No description provided';
     $employers_html .= "<div class='emply-list'>
 							<div class='emply-list-thumb'>
-								<a href='#' title=''><img src='$image' alt='' /></a>
+								<a href='$url' title=''><img src='$image' alt='' /></a>
                             </div>
 							<div class='emply-list-info'>
 								<div class='emply-pstn'>{$employer['job_offer_count']} Open Positions</div>
-								<h3><a href='#' title=''>{$employer['emp_name']}</a></h3>
+								<h3><a href='$url' title=''>{$employer['emp_name']}</a></h3>
 								<span>$exp_title</span>
 								<h6><i class='la la-map-marker'></i>$city, $country</h6>
-								<p>{$employer['emp_description']}</p>
+								<p>$description</p>
 							</div>
 						</div>";
 }

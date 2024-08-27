@@ -18,6 +18,7 @@ $body->setContent("jobs_count", $data['jobs_count']);
 
 $result = $mysqli->query("
 	SELECT
+	    job_offer.id AS job_id,
 	    job_offer.name AS job_name,
         job_offer.type AS job_type,
 		employer.name AS emp_name, 
@@ -45,6 +46,7 @@ if ($result->num_rows === 0) {
 
 $jobs_html = '';
 while ($job = $result->fetch_assoc()) {
+    $url = "job_single.php?id=" . urlencode($job['job_id']);
     $image = $job['emp_image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $job['city'] ?? 'Unknown city';
     $country = $job['country'] ?? 'Unknown country';
@@ -55,8 +57,10 @@ while ($job = $result->fetch_assoc()) {
     };
     $jobs_html .= "<div class='job-listing wtabs'>
                         <div class='job-title-sec'>
-                            <div class='c-logo'><img alt='' height=auto src='$image' width='70'/></div>
-                            <h3><a href='#' title=''>{$job['job_name']}</a></h3>
+                            <div class='c-logo'>
+                                <a href='$url' title=''><img alt='' height=auto src='$image' width='70'/>
+                            </div>
+                            <h3><a href='$url' title=''>{$job['job_name']}</a></h3>
                             <span>{$job['emp_name']}</span>
                             <div class='job-lctn'><i class='la la-map-marker'></i>$city, $country</div>
                         </div>
