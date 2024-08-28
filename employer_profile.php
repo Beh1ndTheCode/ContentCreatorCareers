@@ -6,7 +6,6 @@ require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
 require "include/auth.inc.php";
-require "include/get_by_id.inc.php";
 
 $main = new Template("frame");
 $body = new Template("employer_profile");
