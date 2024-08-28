@@ -111,7 +111,8 @@ function get_job_offers_employer($mysqli, $employer_id)
 }
 
 function get_portfolio($mysqli, $profile_id)
-{
+{   
+    $imgs = [];
     $sql_imgs = $mysqli->query("SELECT image.path FROM `image` WHERE image.profile_id = '$profile_id' and image.type = 'portfolio'");
     while ($row = $sql_imgs->fetch_assoc()) {
         $imgs[] = $row['path'];

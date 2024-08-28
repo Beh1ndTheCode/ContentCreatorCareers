@@ -31,6 +31,7 @@ $body->setContent("surname", $data['surname']);
 
 $result = $mysqli->query("
 	SELECT
+        candidate.id AS cand_id,
 	    candidate.name AS name,
         candidate.surname AS surname,
 	    address.city AS city,
@@ -62,6 +63,7 @@ if ($result->num_rows === 0) {
 
 $list_html = '';
 while ($candidate = $result->fetch_assoc()) {
+    $url = "candidate_single.php?id=" . urlencode($candidate['cand_id']);
     $image = $candidate['img'] ?? 'skins/jobhunt/images/profile.png';
     $city = $candidate['city'] ?? 'Unknown city';
     $country = $candidate['country'] ?? 'Unknown country';
@@ -69,12 +71,12 @@ while ($candidate = $result->fetch_assoc()) {
     $emp_name = $candidate['emp_name'] ?? 'Unknown employer';
     $list_html .= "<div class='emply-resume-list square'>
 						<div class='emply-resume-thumb'>
-							<img src='{$image}' alt='' />
+							<img src=$image alt='' />
 						</div>
 						<div class='emply-resume-info'>
-							<h3><a href='#' title=''>{$candidate['name']} {$candidate['surname']}</a></h3>
-							<span><i>{$job}</i> at {$emp_name}</span>
-							<p><i class='la la-map-marker'></i>{$city} / {$country}</p>
+							<h3><a href=$url title=''>{$candidate['name']} {$candidate['surname']}</a></h3>
+							<span><i>$job</i> at $emp_name</span>
+							<p><i class='la la-map-marker'></i>$city / $country</p>
 						</div>
 						<div class='shortlists'>
 							<a href='#' title=''>Shortlist <i class='la la-plus'></i></a>

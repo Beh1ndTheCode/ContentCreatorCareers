@@ -14,10 +14,15 @@ require "include/get_by_id.inc.php";
 $main = new Template("frame");
 $body = new Template("candidates_single");
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$profile_id = ($profile_id->fetch_assoc()['id']);
+if (isset($_GET['id'])) {
+    $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
+} else {
+    $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
+    $id = ($profile_id->fetch_assoc()['id']);
+    //die("Invalid request, missing required parameters.");
+}
 
-$img = get_img($mysqli, $profile_id);
+$img = get_img($mysqli, $id);
 $body->setContent("image", $img);
 
 $result = $mysqli->query("
@@ -33,25 +38,33 @@ $result = $mysqli->query("
         address.city AS city
     FROM candidate 
     JOIN profile ON profile.id = candidate.id
-    JOIN profile_expertise ON profile_expertise.profile_id = profile.id
-    JOIN expertise ON expertise.id = profile_expertise.expertise_id
-    JOIN address ON address.profile_id = profile.id
-    WHERE profile.id = '$profile_id'
+    LEFT JOIN profile_expertise ON profile_expertise.profile_id = profile.id
+    LEFT JOIN expertise ON expertise.id = profile_expertise.expertise_id
+    LEFT JOIN address ON address.profile_id = profile.id
+    WHERE profile.id = '$id'
 ");
 $data = $result->fetch_assoc();
+$about = $data['about'] ?? 'No description founded';
+$job_title = $data['job_title'] ?? 'Unknown job_title';
+$email = $data['email'] ?? 'No email founded';
+$country = $data['country'] ?? 'Unknown country';
+$city = $data['city'] ?? 'Unknown city';
+
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
-$body->setContent("age", $data['age']);
-$body->setContent("about", $data['about']);
-$body->setContent("job_title", $data['job_title']);
-$body->setContent("phone_num", $data['phone_num']);
-$body->setContent("email", $data['email']);
-$body->setContent("country", $data['country']);
-$body->setContent("city", $data['city']);
+$body->setContent("about", $about);
+$body->setContent("job_title", $job_title);
+$body->setContent("email", $email);
+$body->setContent("country", $country);
+$body->setContent("city", $city);
 
-$skills = get_skills($mysqli, $profile_id);
+$skills = get_skills($mysqli, $id);
 $top_skills_html = '';
 $detail_skills_html = '';
+if (empty($skills))
+    $body->setContent("no_skills", 'No skill founded');
+else
+    $body->setContent("no_skills", '');
 foreach ($skills as $skill) {
     $top_skills_html .= "<span>{$skill['name']}</span>";
     $detail_skills_html .= "<div class='progress-sec style2'>
@@ -59,15 +72,19 @@ foreach ($skills as $skill) {
 								<div class='progressbar'>
 									<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
 								    <div class='progress'>";
-	for($i=1;$i<=$skill['level'];$i++)
+    for ($i = 1; $i <= $skill['level']; $i++)
         $detail_skills_html .= "<i></i>";
     $detail_skills_html .= "</div></div><p>{$skill['level']}0%</p></div>";
 }
 $body->setContent("top_skills", $top_skills_html);
 $body->setContent("detail_skills", $detail_skills_html);
 
-$jobs = get_jobs($mysqli, $profile_id);
+$jobs = get_jobs($mysqli, $id);
 $jobs_html = '';
+if (empty($jobs))
+    $body->setContent("no_jobs", 'No job founded');
+else
+    $body->setContent("no_jobs", '');
 foreach ($jobs as $job) {
     $jobs_html .= " <div class='edu-history style2'>
 		                <i></i>
@@ -80,8 +97,12 @@ foreach ($jobs as $job) {
 }
 $body->setContent("jobs", $jobs_html);
 
-$portfolio = get_portfolio($mysqli, $profile_id);
+$portfolio = get_portfolio($mysqli, $id);
 $portfolio_html = '';
+if (empty($portfolio))
+    $body->setContent("no_portfolio", 'The portfolio is empty');
+else
+    $body->setContent("no_portfolio", '');
 foreach ($portfolio as $img) {
     $portfolio_html .= "<div class='mp-col'>
 							<div class='mportolio'><img src='{$img}'

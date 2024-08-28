@@ -14,13 +14,14 @@ $main = new Template("frame");
 $body = new Template("candidates_my_resume_add_new");
 
 $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$profile_id = ($profile_id->fetch_assoc()['id']);
+$id = ($profile_id->fetch_assoc()['id']);
 
 $result = $mysqli->query("
     SELECT
         candidate.name AS name,
         candidate.surname AS surname
     FROM candidate
+    WHERE candidate.id = '$id'
     ");
 
 $data = $result->fetch_assoc();
