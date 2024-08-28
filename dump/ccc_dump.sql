@@ -28,7 +28,7 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddCandidate` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), IN `in_surname` VARCHAR(16), INOUT `new_user_id` INT, INOUT `new_profile_id` INT)   BEGIN
     INSERT INTO user (username, password, email) VALUES (in_username, in_password, in_email);
     SET new_user_id = LAST_INSERT_ID();
-	INSERT INTO profile (user_id) VALUES (new_user_id);
+    INSERT INTO profile (user_id) VALUES (new_user_id);
     SET new_profile_id = LAST_INSERT_ID();
     INSERT INTO candidate (id, name, surname) VALUES (new_profile_id, in_name, in_surname);
     INSERT INTO user_role (username, role_id) VALUES (in_username, 2);
@@ -37,7 +37,7 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEmployer` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), INOUT `new_user_id` INT, INOUT `new_profile_id` INT)   BEGIN
     INSERT INTO user (username, password, email) VALUES (in_username, in_password, in_email);
     SET new_user_id = LAST_INSERT_ID();
-	INSERT INTO profile (user_id) VALUES (new_user_id);
+    INSERT INTO profile (user_id) VALUES (new_user_id);
     SET new_profile_id = LAST_INSERT_ID();
     INSERT INTO employer (id, name) VALUES (new_profile_id, in_name);
     INSERT INTO user_role (username, role_id) VALUES (in_username, 3);
@@ -52,12 +52,12 @@ DELIMITER ;
 --
 
 CREATE TABLE `address` (
-  `profile_id` int(10) UNSIGNED NOT NULL,
-  `country` varchar(32) NOT NULL,
-  `postal_code` int(10) UNSIGNED NOT NULL,
-  `city` varchar(32) NOT NULL,
-  `street` varchar(64) NOT NULL,
-  `civic` varchar(8) NOT NULL
+                           `profile_id` int(10) UNSIGNED NOT NULL,
+                           `country` varchar(32) NOT NULL,
+                           `postal_code` int(10) UNSIGNED NOT NULL,
+                           `city` varchar(32) NOT NULL,
+                           `street` varchar(64) NOT NULL,
+                           `civic` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,8 +65,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
-(1, 'Italy', 67100, 'L\'Aquila', 'Viale Duca degli Abruzzi', '7'),
-(2, 'Italy', 118, 'Rome', 'Via Verdi', '3');
+                                                                                              (1, 'Italy', 67100, 'L\'Aquila', 'Viale Duca degli Abruzzi', '7'),
+                                                                                              (2, 'Italy', 118, 'Rome', 'Via Verdi', '3');
 
 -- --------------------------------------------------------
 
@@ -75,9 +75,9 @@ INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`,
 --
 
 CREATE TABLE `application` (
-  `candidate_id` int(10) UNSIGNED NOT NULL,
-  `job_offer_id` int(10) UNSIGNED NOT NULL,
-  `date` date NOT NULL
+                               `candidate_id` int(10) UNSIGNED NOT NULL,
+                               `job_offer_id` int(10) UNSIGNED NOT NULL,
+                               `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -85,7 +85,7 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`candidate_id`, `job_offer_id`, `date`) VALUES
-(1, 1, '2024-08-17');
+    (1, 1, '2024-08-17');
 
 -- --------------------------------------------------------
 
@@ -94,12 +94,12 @@ INSERT INTO `application` (`candidate_id`, `job_offer_id`, `date`) VALUES
 --
 
 CREATE TABLE `candidate` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(16) NOT NULL,
-  `surname` varchar(16) NOT NULL,
-  `age` tinyint(2) DEFAULT NULL,
-  `language_id` int(10) UNSIGNED DEFAULT NULL,
-  `about` text DEFAULT NULL
+                             `id` int(10) UNSIGNED NOT NULL,
+                             `name` varchar(16) NOT NULL,
+                             `surname` varchar(16) NOT NULL,
+                             `age` tinyint(2) DEFAULT NULL,
+                             `language_id` int(10) UNSIGNED DEFAULT NULL,
+                             `about` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -107,12 +107,12 @@ CREATE TABLE `candidate` (
 --
 
 INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`) VALUES
-(1, 'Mario', 'Rossi', 30, 2, NULL),
-(3, 'Luigi', 'Luigini', NULL, NULL, NULL),
-(4, 'Valerio', 'Valeri', NULL, NULL, NULL),
-(6, 'Alessio', 'Alessi', NULL, NULL, NULL),
-(7, 'Giulia', 'Giuliani', NULL, NULL, NULL),
-(13, 'fabio', 'volo', NULL, NULL, NULL);
+                                                                                     (1, 'Mario', 'Rossi', 30, 2, NULL),
+                                                                                     (3, 'Luigi', 'Luigini', NULL, NULL, NULL),
+                                                                                     (4, 'Valerio', 'Valeri', NULL, NULL, NULL),
+                                                                                     (6, 'Alessio', 'Alessi', NULL, NULL, NULL),
+                                                                                     (7, 'Giulia', 'Giuliani', NULL, NULL, NULL),
+                                                                                     (13, 'fabio', 'volo', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,8 +121,8 @@ INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`)
 --
 
 CREATE TABLE `employer` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL
+                            `id` int(10) UNSIGNED NOT NULL,
+                            `name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -130,8 +130,8 @@ CREATE TABLE `employer` (
 --
 
 INSERT INTO `employer` (`id`, `name`) VALUES
-(2, 'CNB Comunicazione'),
-(12, 'Amazon');
+                                          (2, 'CNB Comunicazione'),
+                                          (12, 'Amazon');
 
 -- --------------------------------------------------------
 
@@ -140,8 +140,8 @@ INSERT INTO `employer` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `expertise` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(32) NOT NULL
+                             `id` int(10) UNSIGNED NOT NULL,
+                             `title` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -149,8 +149,8 @@ CREATE TABLE `expertise` (
 --
 
 INSERT INTO `expertise` (`id`, `title`) VALUES
-(1, 'Ads'),
-(2, 'UX Design');
+                                            (1, 'Ads'),
+                                            (2, 'UX Design');
 
 -- --------------------------------------------------------
 
@@ -159,9 +159,9 @@ INSERT INTO `expertise` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `image` (
-  `profile_id` int(10) UNSIGNED NOT NULL,
-  `type` enum('profilo','banner','portfolio') NOT NULL,
-  `path` varchar(256) NOT NULL
+                         `profile_id` int(10) UNSIGNED NOT NULL,
+                         `type` enum('profilo','banner','portfolio') NOT NULL,
+                         `path` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -169,11 +169,11 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`profile_id`, `type`, `path`) VALUES
-(2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
-(1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
-(1, 'portfolio', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_52lBzRWCcDC-h6WAf_8wnB47n0uDPcPMfw&s'),
-(1, 'portfolio', 'https://img.freepik.com/premium-psd/aesthetic-personal-portfolio-website-template_200778-21.jpg'),
-(1, 'portfolio', 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295831592/original/3b2b26ce0255183519b8325ebfc18c0963eaebd4/design-aesthetic-landing-for-you.jpg');
+                                                       (2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
+                                                       (1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
+                                                       (1, 'portfolio', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_52lBzRWCcDC-h6WAf_8wnB47n0uDPcPMfw&s'),
+                                                       (1, 'portfolio', 'https://img.freepik.com/premium-psd/aesthetic-personal-portfolio-website-template_200778-21.jpg'),
+                                                       (1, 'portfolio', 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295831592/original/3b2b26ce0255183519b8325ebfc18c0963eaebd4/design-aesthetic-landing-for-you.jpg');
 
 -- --------------------------------------------------------
 
@@ -182,13 +182,13 @@ INSERT INTO `image` (`profile_id`, `type`, `path`) VALUES
 --
 
 CREATE TABLE `job` (
-  `employer_id` int(10) UNSIGNED NOT NULL,
-  `candidate_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `type` enum('current','past') NOT NULL,
-  `first_work_date` date NOT NULL,
-  `last_work_date` date DEFAULT NULL,
-  `description` text DEFAULT NULL
+                       `employer_id` int(10) UNSIGNED NOT NULL,
+                       `candidate_id` int(10) UNSIGNED NOT NULL,
+                       `name` varchar(32) NOT NULL,
+                       `type` enum('current','past') NOT NULL,
+                       `first_work_date` date NOT NULL,
+                       `last_work_date` date DEFAULT NULL,
+                       `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -196,8 +196,8 @@ CREATE TABLE `job` (
 --
 
 INSERT INTO `job` (`employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
-(12, 1, 'Social media menager', 'current', '2022-10-04', NULL, NULL),
-(2, 1, 'UX designer', 'past', '2016-08-01', '2021-03-12', 'tante belle cose belle');
+                                                                                                                          (12, 1, 'Social media menager', 'current', '2022-10-04', NULL, NULL),
+                                                                                                                          (2, 1, 'UX designer', 'past', '2016-08-01', '2021-03-12', 'tante belle cose belle');
 
 -- --------------------------------------------------------
 
@@ -206,15 +206,15 @@ INSERT INTO `job` (`employer_id`, `candidate_id`, `name`, `type`, `first_work_da
 --
 
 CREATE TABLE `job_offer` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `employer_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `salary` float UNSIGNED NOT NULL,
-  `type` enum('Full time','Part time','Temporary','Freelance','Internship','Volunteer') NOT NULL,
-  `language_id` int(10) UNSIGNED DEFAULT NULL,
-  `quantity` smallint(5) UNSIGNED NOT NULL DEFAULT 1,
-  `description` text DEFAULT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp()
+                             `id` int(10) UNSIGNED NOT NULL,
+                             `employer_id` int(10) UNSIGNED NOT NULL,
+                             `name` varchar(32) NOT NULL,
+                             `salary` float UNSIGNED NOT NULL,
+                             `type` enum('Full time','Part time','Temporary','Freelance','Internship','Volunteer') NOT NULL,
+                             `language_id` int(10) UNSIGNED DEFAULT NULL,
+                             `quantity` smallint(5) UNSIGNED NOT NULL DEFAULT 1,
+                             `description` text DEFAULT NULL,
+                             `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -222,8 +222,8 @@ CREATE TABLE `job_offer` (
 --
 
 INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `language_id`, `quantity`, `description`, `date`) VALUES
-(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
-(2, 2, 'Social Media Manager', 2700, 'Full time', 1, 1, NULL, '2024-08-08');
+                                                                                                                              (1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
+                                                                                                                              (2, 2, 'Social Media Manager', 2700, 'Full time', 1, 1, NULL, '2024-08-08');
 
 -- --------------------------------------------------------
 
@@ -232,8 +232,8 @@ INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `languag
 --
 
 CREATE TABLE `language` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(20) NOT NULL
+                            `id` int(10) UNSIGNED NOT NULL,
+                            `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -241,15 +241,15 @@ CREATE TABLE `language` (
 --
 
 INSERT INTO `language` (`id`, `name`) VALUES
-(7, 'Arabic'),
-(1, 'English'),
-(4, 'French'),
-(5, 'German'),
-(11, 'Hindi'),
-(2, 'Italian'),
-(6, 'Mandarin Chinese'),
-(10, 'Russian'),
-(3, 'Spanish');
+                                          (7, 'Arabic'),
+                                          (1, 'English'),
+                                          (4, 'French'),
+                                          (5, 'German'),
+                                          (11, 'Hindi'),
+                                          (2, 'Italian'),
+                                          (6, 'Mandarin Chinese'),
+                                          (10, 'Russian'),
+                                          (3, 'Spanish');
 
 -- --------------------------------------------------------
 
@@ -258,11 +258,11 @@ INSERT INTO `language` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `profile` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `email` varchar(64) DEFAULT NULL,
-  `phone` varchar(16) DEFAULT NULL,
-  `description` text DEFAULT NULL
+                           `id` int(10) UNSIGNED NOT NULL,
+                           `user_id` int(10) UNSIGNED NOT NULL,
+                           `email` varchar(64) DEFAULT NULL,
+                           `phone` varchar(16) DEFAULT NULL,
+                           `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -270,14 +270,14 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
-(1, 2, 'mariorossi@gmail.com', '+393333333333', NULL),
-(2, 3, 'contact@cnb.com', '+390862000000', NULL),
-(3, 4, NULL, NULL, NULL),
-(4, 5, NULL, NULL, NULL),
-(6, 7, NULL, NULL, NULL),
-(7, 8, NULL, NULL, NULL),
-(12, 13, NULL, NULL, NULL),
-(13, 14, NULL, NULL, NULL);
+                                                                             (1, 2, 'mariorossi@gmail.com', '+393333333333', NULL),
+                                                                             (2, 3, 'contact@cnb.com', '+390862000000', NULL),
+                                                                             (3, 4, NULL, NULL, NULL),
+                                                                             (4, 5, NULL, NULL, NULL),
+                                                                             (6, 7, NULL, NULL, NULL),
+                                                                             (7, 8, NULL, NULL, NULL),
+                                                                             (12, 13, NULL, NULL, NULL),
+                                                                             (13, 14, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -286,9 +286,9 @@ INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 --
 
 CREATE TABLE `profile_expertise` (
-  `profile_id` int(10) UNSIGNED NOT NULL,
-  `expertise_id` int(10) UNSIGNED NOT NULL,
-  `experience` int(2) NOT NULL
+                                     `profile_id` int(10) UNSIGNED NOT NULL,
+                                     `expertise_id` int(10) UNSIGNED NOT NULL,
+                                     `experience` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -296,8 +296,8 @@ CREATE TABLE `profile_expertise` (
 --
 
 INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VALUES
-(1, 2, 4),
-(2, 1, 7);
+                                                                                 (1, 2, 4),
+                                                                                 (2, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -306,10 +306,10 @@ INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VAL
 --
 
 CREATE TABLE `requirement` (
-  `job_offer_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `level` enum('1','2','3','4','5') NOT NULL,
-  `description` text DEFAULT NULL
+                               `job_offer_id` int(10) UNSIGNED NOT NULL,
+                               `name` varchar(32) NOT NULL,
+                               `level` enum('1','2','3','4','5') NOT NULL,
+                               `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -317,7 +317,7 @@ CREATE TABLE `requirement` (
 --
 
 INSERT INTO `requirement` (`job_offer_id`, `name`, `level`, `description`) VALUES
-(1, 'Adobe Photoshop', '3', 'Basic knowledge of the tool');
+    (1, 'Adobe Photoshop', '3', 'Basic knowledge of the tool');
 
 -- --------------------------------------------------------
 
@@ -326,9 +326,9 @@ INSERT INTO `requirement` (`job_offer_id`, `name`, `level`, `description`) VALUE
 --
 
 CREATE TABLE `role` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `description` varchar(64) DEFAULT NULL
+                        `id` int(10) UNSIGNED NOT NULL,
+                        `name` varchar(32) NOT NULL,
+                        `description` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -336,9 +336,9 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`id`, `name`, `description`) VALUES
-(1, 'Administrator', NULL),
-(2, 'Candidate', NULL),
-(3, 'Employer', NULL);
+                                                     (1, 'Administrator', NULL),
+                                                     (2, 'Candidate', NULL),
+                                                     (3, 'Employer', NULL);
 
 -- --------------------------------------------------------
 
@@ -347,8 +347,8 @@ INSERT INTO `role` (`id`, `name`, `description`) VALUES
 --
 
 CREATE TABLE `role_service` (
-  `role_id` int(10) UNSIGNED NOT NULL,
-  `service_id` int(10) UNSIGNED NOT NULL
+                                `role_id` int(10) UNSIGNED NOT NULL,
+                                `service_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -356,29 +356,29 @@ CREATE TABLE `role_service` (
 --
 
 INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
-(1, 1),
-(2, 2),
-(2, 3),
-(2, 4),
-(2, 5),
-(2, 6),
-(2, 7),
-(2, 8),
-(2, 9),
-(2, 10),
-(2, 13),
-(2, 19),
-(3, 3),
-(3, 6),
-(3, 11),
-(3, 12),
-(3, 13),
-(3, 14),
-(3, 15),
-(3, 16),
-(3, 17),
-(3, 18),
-(3, 19);
+                                                         (1, 1),
+                                                         (2, 2),
+                                                         (2, 3),
+                                                         (2, 4),
+                                                         (2, 5),
+                                                         (2, 6),
+                                                         (2, 7),
+                                                         (2, 8),
+                                                         (2, 9),
+                                                         (2, 10),
+                                                         (2, 13),
+                                                         (2, 19),
+                                                         (3, 3),
+                                                         (3, 6),
+                                                         (3, 11),
+                                                         (3, 12),
+                                                         (3, 13),
+                                                         (3, 14),
+                                                         (3, 15),
+                                                         (3, 16),
+                                                         (3, 17),
+                                                         (3, 18),
+                                                         (3, 19);
 
 -- --------------------------------------------------------
 
@@ -387,14 +387,14 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 --
 
 CREATE TABLE `service` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) DEFAULT NULL,
-  `script` varchar(255) DEFAULT NULL,
-  `default` varchar(1) NOT NULL,
-  `description` text DEFAULT NULL,
-  `permission` varchar(1) NOT NULL,
-  `entity` varchar(100) NOT NULL,
-  `field` varchar(100) NOT NULL
+                           `id` int(10) UNSIGNED NOT NULL,
+                           `name` varchar(32) DEFAULT NULL,
+                           `script` varchar(255) DEFAULT NULL,
+                           `default` varchar(1) NOT NULL,
+                           `description` text DEFAULT NULL,
+                           `permission` varchar(1) NOT NULL,
+                           `entity` varchar(100) NOT NULL,
+                           `field` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -402,22 +402,25 @@ CREATE TABLE `service` (
 --
 
 INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permission`, `entity`, `field`) VALUES
-(1, 'Dashboard', 'dashboard.php', '', NULL, '', '', ''),
-(2, 'Candidate profile', 'candidates_profile.php', '', NULL, '', '', ''),
-(3, 'Candidate single', 'candidates_single.php', '', NULL, '', '', ''),
-(4, 'Candidate resume', 'candidates_my_resume.php', '', NULL, '', '', ''),
-(5, 'Candidate new resume', 'candidates_my_resume_add_new.php', '', NULL, '', '', ''),
-(6, 'Candidate list', 'candidates_list.php', '', NULL, '', '', ''),
-(8, 'Candidate cv', 'candidates_cv_cover_letter.php', '', NULL, '', '', ''),
-(9, 'Candidate change password', 'candidates_change_password.php', '', NULL, '', '', ''),
-(10, 'Candidate applied jobs', 'candidates_applied_jobs.php', '', NULL, '', '', ''),
-(12, 'employer change password', 'employer_change_password.php', '', NULL, '', '', ''),
-(13, 'employer list', 'employer_list.php', '', NULL, '', '', ''),
-(14, 'employer manage jobs', 'employer_manage_jobs.php', '', NULL, '', '', ''),
-(16, 'employer post new', 'employer_post_new.php', '', NULL, '', '', ''),
-(17, 'employer profile', 'employer_profile.php', '', NULL, '', '', ''),
-(18, 'employer resume', 'employer_resume.php', '', NULL, '', '', ''),
-(19, 'employer single', 'employer_single.php', '', NULL, '', '', '');
+                                                                                                              (1, 'Dashboard', 'dashboard.php', '', NULL, '', '', ''),
+                                                                                                              (2, 'Candidate profile', 'candidates_profile.php', '', NULL, '', '', ''),
+                                                                                                              (3, 'Candidate single', 'candidates_single.php', '', NULL, '', '', ''),
+                                                                                                              (4, 'Candidate resume', 'candidates_my_resume.php', '', NULL, '', '', ''),
+                                                                                                              (5, 'Candidate new resume', 'candidates_my_resume_add_new.php', '', NULL, '', '', ''),
+                                                                                                              (6, 'Candidate list', 'candidates_list.php', '', NULL, '', '', ''),
+                                                                                                              (7, 'Candidate job alert', 'candidates_job_alert.php', '', NULL, '', '', ''),
+                                                                                                              (8, 'Candidate cv', 'candidates_cv_cover_letter.php', '', NULL, '', '', ''),
+                                                                                                              (9, 'Candidate change password', 'candidates_change_password.php', '', NULL, '', '', ''),
+                                                                                                              (10, 'Candidate applied jobs', 'candidates_applied_jobs.php', '', NULL, '', '', ''),
+                                                                                                              (11, 'employer job alert', 'employer_job_alert.php', '', NULL, '', '', ''),
+                                                                                                              (12, 'employer change password', 'employer_change_password.php', '', NULL, '', '', ''),
+                                                                                                              (13, 'employer list', 'employer_list.php', '', NULL, '', '', ''),
+                                                                                                              (14, 'employer manage jobs', 'employer_manage_jobs.php', '', NULL, '', '', ''),
+                                                                                                              (15, 'employer packages', 'employer_packages.php', '', NULL, '', '', ''),
+                                                                                                              (16, 'employer post new', 'employer_post_new.php', '', NULL, '', '', ''),
+                                                                                                              (17, 'employer profile', 'employer_profile.php', '', NULL, '', '', ''),
+                                                                                                              (18, 'employer resume', 'employer_resume.php', '', NULL, '', '', ''),
+                                                                                                              (19, 'employer single', 'employer_single.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -426,10 +429,10 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 --
 
 CREATE TABLE `skill` (
-  `candidate_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `level` enum('1','2','3','4','5','6','7','8','9','10') NOT NULL,
-  `description` varchar(256) DEFAULT NULL
+                         `candidate_id` int(10) UNSIGNED NOT NULL,
+                         `name` varchar(32) NOT NULL,
+                         `level` enum('1','2','3','4','5','6','7','8','9','10') NOT NULL,
+                         `description` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -437,8 +440,8 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
-(1, 'Figma', '8', NULL),
-(1, 'Photoshop', '9', NULL);
+                                                                         (1, 'Figma', '8', NULL),
+                                                                         (1, 'Photoshop', '9', NULL);
 
 -- --------------------------------------------------------
 
@@ -447,9 +450,9 @@ INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
 --
 
 CREATE TABLE `social_account` (
-  `profile_id` int(10) UNSIGNED NOT NULL,
-  `name` enum('facebook','instagram','linkedin','website') NOT NULL,
-  `uri` varchar(256) DEFAULT NULL
+                                  `profile_id` int(10) UNSIGNED NOT NULL,
+                                  `name` enum('facebook','instagram','linkedin','website') NOT NULL,
+                                  `uri` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -457,9 +460,9 @@ CREATE TABLE `social_account` (
 --
 
 INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
-(1, 'facebook', 'facebook.com'),
-(1, 'instagram', 'instagram.com'),
-(2, 'website', 'cnbcomunicazione.com');
+                                                               (1, 'facebook', 'facebook.com'),
+                                                               (1, 'instagram', 'instagram.com'),
+                                                               (2, 'website', 'cnbcomunicazione.com');
 
 -- --------------------------------------------------------
 
@@ -468,10 +471,10 @@ INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
 --
 
 CREATE TABLE `user` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `username` varchar(32) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `email` varchar(64) NOT NULL
+                        `id` int(10) UNSIGNED NOT NULL,
+                        `username` varchar(32) NOT NULL,
+                        `password` varchar(32) NOT NULL,
+                        `email` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -479,15 +482,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
-(1, 'admin', 'admin', 'admin@example.com'),
-(2, 'candidate', 'candidate', 'candidate@example.com'),
-(3, 'employer', 'employer', 'employer@example.com'),
-(4, 'luigi', 'luigi', 'luigi@gmail.com'),
-(5, 'valerio', 'valerio', 'valerio@gmail.com'),
-(7, 'alessio', 'alessio', 'alessio@gmail.com'),
-(8, 'giulia', 'giulia', 'giulia@gmail.com'),
-(13, 'amazon', 'amazon', 'amazon@amazon.com'),
-(14, 'Fabioooooo86', 'volo', 'pswrd.volo@alto.com');
+                                                               (1, 'admin', 'admin', 'admin@example.com'),
+                                                               (2, 'candidate', 'candidate', 'candidate@example.com'),
+                                                               (3, 'employer', 'employer', 'employer@example.com'),
+                                                               (4, 'luigi', 'luigi', 'luigi@gmail.com'),
+                                                               (5, 'valerio', 'valerio', 'valerio@gmail.com'),
+                                                               (7, 'alessio', 'alessio', 'alessio@gmail.com'),
+                                                               (8, 'giulia', 'giulia', 'giulia@gmail.com'),
+                                                               (13, 'amazon', 'amazon', 'amazon@amazon.com'),
+                                                               (14, 'Fabioooooo86', 'volo', 'pswrd.volo@alto.com');
 
 -- --------------------------------------------------------
 
@@ -496,8 +499,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 --
 
 CREATE TABLE `user_role` (
-  `username` varchar(32) NOT NULL,
-  `role_id` int(10) UNSIGNED NOT NULL
+                             `username` varchar(32) NOT NULL,
+                             `role_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -505,15 +508,15 @@ CREATE TABLE `user_role` (
 --
 
 INSERT INTO `user_role` (`username`, `role_id`) VALUES
-('admin', 1),
-('alessio', 2),
-('amazon', 3),
-('candidate', 2),
-('employer', 3),
-('Fabioooooo86', 2),
-('giulia', 2),
-('luigi', 2),
-('valerio', 2);
+                                                    ('admin', 1),
+                                                    ('alessio', 2),
+                                                    ('amazon', 3),
+                                                    ('candidate', 2),
+                                                    ('employer', 3),
+                                                    ('Fabioooooo86', 2),
+                                                    ('giulia', 2),
+                                                    ('luigi', 2),
+                                                    ('valerio', 2);
 
 --
 -- Indexes for dumped tables
@@ -523,135 +526,135 @@ INSERT INTO `user_role` (`username`, `role_id`) VALUES
 -- Indexes for table `address`
 --
 ALTER TABLE `address`
-  ADD UNIQUE KEY `foreign_profile_id` (`profile_id`) USING BTREE;
+    ADD UNIQUE KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
 -- Indexes for table `application`
 --
 ALTER TABLE `application`
-  ADD UNIQUE KEY `foreign_candidate_id` (`candidate_id`) USING BTREE,
-  ADD KEY `foreign_job_offer_id` (`job_offer_id`) USING BTREE;
+    ADD UNIQUE KEY `foreign_candidate_id` (`candidate_id`) USING BTREE,
+    ADD KEY `foreign_job_offer_id` (`job_offer_id`) USING BTREE;
 
 --
 -- Indexes for table `candidate`
 --
 ALTER TABLE `candidate`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `foreign_language_id` (`language_id`) USING BTREE;
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `foreign_language_id` (`language_id`) USING BTREE;
 
 --
 -- Indexes for table `employer`
 --
 ALTER TABLE `employer`
-  ADD PRIMARY KEY (`id`) USING BTREE;
+    ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Indexes for table `expertise`
 --
 ALTER TABLE `expertise`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_title` (`title`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `unique_title` (`title`);
 
 --
 -- Indexes for table `image`
 --
 ALTER TABLE `image`
-  ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
+    ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
 -- Indexes for table `job`
 --
 ALTER TABLE `job`
-  ADD KEY `foreign_employer_key` (`employer_id`) USING BTREE,
-  ADD KEY `foreign_candidate_id` (`candidate_id`) USING BTREE;
+    ADD KEY `foreign_employer_key` (`employer_id`) USING BTREE,
+    ADD KEY `foreign_candidate_id` (`candidate_id`) USING BTREE;
 
 --
 -- Indexes for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_job_offer` (`employer_id`,`name`) USING BTREE,
-  ADD KEY `job_offer_ibfk_2` (`language_id`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `unique_job_offer` (`employer_id`,`name`) USING BTREE,
+    ADD KEY `job_offer_ibfk_2` (`language_id`);
 
 --
 -- Indexes for table `language`
 --
 ALTER TABLE `language`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_name` (`name`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `unique_name` (`name`);
 
 --
 -- Indexes for table `profile`
 --
 ALTER TABLE `profile`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `foreign_user_id` (`user_id`) USING BTREE;
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `foreign_user_id` (`user_id`) USING BTREE;
 
 --
 -- Indexes for table `profile_expertise`
 --
 ALTER TABLE `profile_expertise`
-  ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE,
-  ADD KEY `foreign_expertise_id` (`expertise_id`) USING BTREE;
+    ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE,
+    ADD KEY `foreign_expertise_id` (`expertise_id`) USING BTREE;
 
 --
 -- Indexes for table `requirement`
 --
 ALTER TABLE `requirement`
-  ADD UNIQUE KEY `unique_requirement` (`job_offer_id`,`name`) USING BTREE,
-  ADD KEY `foreign_job_offer_id` (`job_offer_id`);
+    ADD UNIQUE KEY `unique_requirement` (`job_offer_id`,`name`) USING BTREE,
+    ADD KEY `foreign_job_offer_id` (`job_offer_id`);
 
 --
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_name` (`name`) USING BTREE;
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `unique_name` (`name`) USING BTREE;
 
 --
 -- Indexes for table `role_service`
 --
 ALTER TABLE `role_service`
-  ADD UNIQUE KEY `unique_role_service` (`role_id`,`service_id`),
-  ADD KEY `foreign_role_id` (`role_id`) USING BTREE,
-  ADD KEY `foreign_service_id` (`service_id`) USING BTREE;
+    ADD UNIQUE KEY `unique_role_service` (`role_id`,`service_id`),
+    ADD KEY `foreign_role_id` (`role_id`) USING BTREE,
+    ADD KEY `foreign_service_id` (`service_id`) USING BTREE;
 
 --
 -- Indexes for table `service`
 --
 ALTER TABLE `service`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_name` (`name`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `unique_name` (`name`);
 
 --
 -- Indexes for table `skill`
 --
 ALTER TABLE `skill`
-  ADD UNIQUE KEY `unique_skill` (`candidate_id`,`name`),
-  ADD KEY `foreign_candidate_id` (`candidate_id`) USING BTREE;
+    ADD UNIQUE KEY `unique_skill` (`candidate_id`,`name`),
+    ADD KEY `foreign_candidate_id` (`candidate_id`) USING BTREE;
 
 --
 -- Indexes for table `social_account`
 --
 ALTER TABLE `social_account`
-  ADD UNIQUE KEY `unique_link` (`profile_id`,`name`),
-  ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
+    ADD UNIQUE KEY `unique_link` (`profile_id`,`name`),
+    ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `unique_username` (`username`) USING BTREE,
-  ADD UNIQUE KEY `unique_email` (`email`) USING BTREE;
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `unique_username` (`username`) USING BTREE,
+    ADD UNIQUE KEY `unique_email` (`email`) USING BTREE;
 
 --
 -- Indexes for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD UNIQUE KEY `unique_user_role` (`username`,`role_id`),
-  ADD KEY `foreign_user_id` (`username`) USING BTREE,
-  ADD KEY `foreign_role_id` (`role_id`) USING BTREE;
+    ADD UNIQUE KEY `unique_user_role` (`username`,`role_id`),
+    ADD KEY `foreign_user_id` (`username`) USING BTREE,
+    ADD KEY `foreign_role_id` (`role_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -661,43 +664,43 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `expertise`
 --
 ALTER TABLE `expertise`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `language`
 --
 ALTER TABLE `language`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+    MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
@@ -707,92 +710,92 @@ ALTER TABLE `user`
 -- Constraints for table `address`
 --
 ALTER TABLE `address`
-  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `application`
 --
 ALTER TABLE `application`
-  ADD CONSTRAINT `application_ibfk_1` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `application_ibfk_2` FOREIGN KEY (`job_offer_id`) REFERENCES `job_offer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `application_ibfk_1` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `application_ibfk_2` FOREIGN KEY (`job_offer_id`) REFERENCES `job_offer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `candidate`
 --
 ALTER TABLE `candidate`
-  ADD CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `candidate_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+    ADD CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `candidate_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `employer`
 --
 ALTER TABLE `employer`
-  ADD CONSTRAINT `employer_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `employer_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `image`
 --
 ALTER TABLE `image`
-  ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `job`
 --
 ALTER TABLE `job`
-  ADD CONSTRAINT `job_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_ibfk_2` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `job_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+    ADD CONSTRAINT `job_ibfk_2` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  ADD CONSTRAINT `job_offer_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `job_offer_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+    ADD CONSTRAINT `job_offer_ibfk_1` FOREIGN KEY (`employer_id`) REFERENCES `employer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `job_offer_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `profile`
 --
 ALTER TABLE `profile`
-  ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `profile_expertise`
 --
 ALTER TABLE `profile_expertise`
-  ADD CONSTRAINT `profile_expertise_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `profile_expertise_ibfk_2` FOREIGN KEY (`expertise_id`) REFERENCES `expertise` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+    ADD CONSTRAINT `profile_expertise_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `profile_expertise_ibfk_2` FOREIGN KEY (`expertise_id`) REFERENCES `expertise` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `requirement`
 --
 ALTER TABLE `requirement`
-  ADD CONSTRAINT `requirement_ibfk_1` FOREIGN KEY (`job_offer_id`) REFERENCES `job_offer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `requirement_ibfk_1` FOREIGN KEY (`job_offer_id`) REFERENCES `job_offer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_service`
 --
 ALTER TABLE `role_service`
-  ADD CONSTRAINT `role_service_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `role_service_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `role_service_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `role_service_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `skill`
 --
 ALTER TABLE `skill`
-  ADD CONSTRAINT `skill_ibfk_1` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `skill_ibfk_1` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `social_account`
 --
 ALTER TABLE `social_account`
-  ADD CONSTRAINT `social_account_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `social_account_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+    ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+    ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
