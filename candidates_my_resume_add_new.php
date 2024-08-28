@@ -23,7 +23,6 @@ $result = $mysqli->query("
     FROM candidate
     WHERE candidate.id = '$id'
     ");
-
 $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);

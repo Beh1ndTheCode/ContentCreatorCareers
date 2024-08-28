@@ -19,7 +19,7 @@ if (isset($_SESSION['user'])) {
     $user_type = $mysqli->query("
         SELECT 'candidate' AS user_type 
         FROM candidate 
-        WHERE id = id 
+        WHERE id = $id 
         UNION 
         SELECT 'employer' AS user_type 
         FROM employer 
@@ -36,6 +36,5 @@ if (isset($_SESSION['user'])) {
         'logged_in' => false
     ];
 }
-
 echo json_encode($data);
 ?>

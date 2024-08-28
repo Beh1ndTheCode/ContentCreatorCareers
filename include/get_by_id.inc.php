@@ -9,7 +9,7 @@ function get_img($mysqli, $profile_id)
 }
 
 function get_skills($mysqli, $profile_id)
-{   
+{
     $skills = [];
     $sql_skills = $mysqli->query("SELECT skill.name,skill.level FROM `skill` WHERE skill.candidate_id = '$profile_id'");
     while ($row = $sql_skills->fetch_assoc())
@@ -18,7 +18,7 @@ function get_skills($mysqli, $profile_id)
 }
 
 function get_socials($mysqli, $profile_id)
-{   
+{
     $socials = [];
     $sql_social = $mysqli->query("SELECT social_account.name,social_account.uri FROM `social_account` JOIN `profile` ON profile.id = social_account.profile_id WHERE profile_id = '$profile_id'");
     while ($row = $sql_social->fetch_assoc())
@@ -70,7 +70,7 @@ function get_current_job($mysqli, $profile_id)
         WHERE profile.id = '$profile_id'
         AND job.type = 'current';
     ");
-    if ($sql_job->num_rows == 0){
+    if ($sql_job->num_rows == 0) {
         $job = [
             'name' => '',
             'emp_name' => '',
@@ -93,8 +93,8 @@ function get_job_offers_employer($mysqli, $employer_id)
         address.city AS city,
         address.country AS country
     FROM `employer`
-        JOIN `job_offer` ON employer.id = job_offer.employer_id
-        JOIN `address` ON employer.id = address.profile_id
+        LEFT JOIN `job_offer` ON employer.id = job_offer.employer_id
+        LEFT JOIN `address` ON employer.id = address.profile_id
         WHERE employer.id = '$employer_id'
     ");
     while ($row = $sql_job_offer->fetch_assoc()) {
@@ -111,11 +111,40 @@ function get_job_offers_employer($mysqli, $employer_id)
 }
 
 function get_portfolio($mysqli, $profile_id)
-{   
+{
     $imgs = [];
     $sql_imgs = $mysqli->query("SELECT image.path FROM `image` WHERE image.profile_id = '$profile_id' and image.type = 'portfolio'");
     while ($row = $sql_imgs->fetch_assoc()) {
         $imgs[] = $row['path'];
     }
     return $imgs;
+}
+
+function get_applied_jobs($mysqli, $profile_id)
+{
+    $applied_jobs = [];
+    $sql_applied_jobs = $mysqli->query("
+        SELECT 
+            application.date AS date,
+            job_offer.name AS job_name,
+            employer.name AS emp_name,
+            address.city AS city,
+            address.country AS country
+        FROM candidate
+        LEFT JOIN application ON application.candidate_id = candidate.id
+        LEFT JOIN job_offer ON job_offer.id = application.job_offer_id
+        LEFT JOIN employer ON employer.id = job_offer.employer_id
+        LEFT JOIN address ON address.profile_id = employer.id
+        WHERE candidate.id = '$profile_id'
+    ");
+    while ($row = $sql_applied_jobs->fetch_assoc()) {
+        $applied_jobs[] = [
+            'date' => $row['date'],
+            'job_name' => $row['job_name'],
+            'emp_name' => $row['emp_name'],
+            'city' => $row['city'],
+            'country' => $row['country']
+        ];
+    }
+    return $applied_jobs;
 }

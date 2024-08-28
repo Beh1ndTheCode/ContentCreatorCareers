@@ -36,9 +36,9 @@
                 if (result.logged_in) {
                     $('.logout').show();
                     $('.register,.login').hide();
-                    if(result.type === 'candidate'){
-                        $('.candidate').toggle();
-                    }else if(result.type === 'employer'){
+                    if (result.type === 'candidate') {
+                        $('.candidate').show();
+                    } else if (result.type === 'employer') {
                         $('.employer').show();
                     }
                 }
@@ -110,7 +110,8 @@
                             <a href="#" title="">Candidates</a>
                             <ul>
                                 <li><a href="candidates_list.php" title="">Candidates List</a></li>
-                                <li class="candidate"><a href="candidates_single.php" title="">Candidates Single</a></li>
+                                <li class="candidate"><a href="candidates_single.php" title="">Candidates Single</a>
+                                </li>
                                 <li class="menu-item-has-children">
                                     <a class="candidate" href="#" title="">Candidates Dashboard</a>
                                     <ul class="candidate">
@@ -119,6 +120,7 @@
                                                 new</a></li>
                                         <li><a href="candidates_profile.php" title="">Candidates Profile</a></li>
                                         <li><a href="candidates_change_password.php" title="">Change Password</a></li>
+                                        <li><a href="candidates_applied_jobs.php" title="">Applied Jobs</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -165,7 +167,7 @@
                             </li>
                         </ul>
                     </div><!-- Btn Extras -->
-                    <nav>
+                    <nav style="position: relative; left: -8%;">
                         <ul>
                             <li class="menu-item-has-children">
                                 <a href="#" title="">Employers</a>
@@ -177,7 +179,7 @@
                                         <ul class="employer">
                                             <li><a href="employer_manage_jobs.php" title="">Employer Job Manager</a>
                                             </li>
-\                                            <li><a href="employer_post_new.php" title="">Employer Post New</a></li>
+                                            <li><a href="employer_post_new.php" title="">Employer Post New</a></li>
                                             <li><a href="employer_profile.php" title="">Employer Profile</a></li>
                                             <li><a href="employer_resume.php" title="">Employer Resume</a></li>
                                             <li><a href="employer_change_password.php" title="">Employer Change
@@ -191,7 +193,8 @@
                                 <a href="#" title="">Candidates</a>
                                 <ul>
                                     <li><a href="candidates_list.php" title="">Candidates List</a></li>
-                                    <li class="candidate"><a href="candidates_single.php" title="">Candidates Single</a></li>
+                                    <li class="candidate"><a href="candidates_single.php" title="">Candidates Single</a>
+                                    </li>
                                     <li class="menu-item-has-children">
                                         <a class="candidate" href="#" title="">Candidates Dashboard</a>
                                         <ul class="candidate">
@@ -200,28 +203,29 @@
                                                     new</a></li>
                                             <li><a href="candidates_profile.php" title="">Candidates Profile</a></li>
                                             <li><a href="candidates_change_password.php" title="">Change Password</a>
-                                            </li>
-                                        </ul>
+                                            <li><a href="candidates_applied_jobs.php" title="">Applied Jobs</a></li>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="menu-item-has-children">
-                                <a href="#" title="">Job</a>
-                                <ul>
-                                    <li><a href="job_list.php">Job List</a></li>
-                                    <li><a href="job_single.php">Job Single</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="#" title="">Pages</a>
-                                <ul>
-                                    <li><a href="about.php" title="">About Us</a></li>
-                                    <li><a href="404.php" title="">404 Error</a></li>
-                                    <li><a href="faq.php" title="">FAQ's</a></li>
-                                    <li><a href="how_it_works.php" title="">How it works</a></li>
-                                    <li><a href="terms_and_condition.php" title="">Terms & Condition</a></li>
-                                </ul>
-                            </li>
+                        </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#" title="">Job</a>
+                            <ul>
+                                <li><a href="job_list.php">Job List</a></li>
+                                <li><a href="job_single.php">Job Single</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                            <a href="#" title="">Pages</a>
+                            <ul>
+                                <li><a href="about.php" title="">About Us</a></li>
+                                <li><a href="404.php" title="">404 Error</a></li>
+                                <li><a href="faq.php" title="">FAQ's</a></li>
+                                <li><a href="how_it_works.php" title="">How it works</a></li>
+                                <li><a href="terms_and_condition.php" title="">Terms & Condition</a></li>
+                            </ul>
+                        </li>
                         </ul>
                     </nav><!-- Menus -->
                 </div>
