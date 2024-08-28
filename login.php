@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 
 # $config['auth'] = "true";
 
-
 require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
