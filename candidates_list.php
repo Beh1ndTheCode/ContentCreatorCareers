@@ -9,25 +9,36 @@ require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
 require "include/auth.inc.php";
-require "include/get_by_id.inc.php";
-
 
 $main = new Template("frame");
 $body = new Template("candidates_list");
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$profile_id = ($profile_id->fetch_assoc()['id']);
-
 $result = $mysqli->query("
-    SELECT
-        candidate.name AS name,
-        candidate.surname AS surname
-    FROM candidate
-    WHERE candidate.id = '$profile_id'
-    ");
+    SELECT 
+        user_role.role_id, 
+        profile.id AS profile_id,
+        candidate.name AS candidate_name,
+        candidate.surname AS candidate_surname,
+        employer.name AS employer_name
+    FROM profile
+    JOIN user ON user.id = profile.user_id
+    JOIN user_role ON user_role.username = user.username
+    LEFT JOIN candidate ON candidate.id = profile.id AND user_role.role_id = 2
+    LEFT JOIN employer ON employer.id = profile.id AND user_role.role_id = 3
+    WHERE user.username = '{$_SESSION["user"]["username"]}'
+");
+
 $data = $result->fetch_assoc();
-$body->setContent("name", $data['name']);
-$body->setContent("surname", $data['surname']);
+$profile_id = $data['profile_id'];
+$user_role = $data['role_id'];
+
+// Set content based on user role
+if ($user_role == 2) {
+    $body->setContent("name", $data['candidate_name']);
+    $body->setContent("surname", $data['candidate_surname']);
+} elseif ($user_role == 3) {
+    $body->setContent("name", $data['employer_name']);
+}
 
 $result = $mysqli->query("
 	SELECT
@@ -88,5 +99,3 @@ $body->setContent("list", $list_html);
 $main->setContent("body", $body->get());
 
 $main->close();
-
-?>

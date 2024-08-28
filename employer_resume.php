@@ -21,31 +21,29 @@ $emp_name = $data['emp_name'];
 $body->setContent("emp_name", $emp_name);
 
 function generateWorkerHtml($candidate) {
-    $url = "candidates_single.php?id=" . urlencode($candidate['can_id']);
+    $can_url = "candidates_single.php?id=" . urlencode($candidate['can_id']);
+    $job_url = "job_single.php?id=" . urlencode($candidate['job_id']);
     $image = $candidate['can_image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $candidate['can_city'] ?? 'Unknown city';
     $country = $candidate['can_country'] ?? 'Unknown country';
 
     return " <div class='emply-resume-list'>
                 <div class='emply-resume-thumb'>
-                    <a href='$url' title=''><img alt='' src='$image'/>
+                    <a href='$can_url' title=''><img alt='' src='$image'/>
                 </div>
                 <div class='emply-resume-info'>
-                    <h3><a href='$url' title=''>{$candidate['can_name']} {$candidate['can_surname']}</a></h3>
+                    <h3><a href='$can_url' title=''>{$candidate['can_name']} {$candidate['can_surname']}</a></h3>
                     <span><i>{$candidate['job_name']}</i></span>
                     <p><i class='la la-map-marker'></i>$city / $country</p>
                 </div>
-                <div class='action-resume'>
-                    <div class='action-center'>
-                        <span>Action <i class='la la-angle-down'></i></span>
-                        <ul>
-                            <li><a href='#' title=''>Linked-in Profile</a></li>
-                            <li><a href='#' title=''>View Profile</a></li>
+                <div style='display: table; height: 13vh; width: 100%;'>
+                    <div style='display: table-cell; vertical-align: middle;'>
+                        <ul class='action_job'>
+                            <li><span>View Job</span><a href='$job_url' title=''><i class='la la-eye'></i></a></li>
+                            <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
+                            <li><span>Delete</span><a href='#' title=''><i class='la la-trash-o'></i></a></li>
                         </ul>
                     </div>
-                </div>
-                <div class='del-resume'>
-                    <a href='#' title=''><i class='la la-trash-o'></i></a>
                 </div>
             </div>";
 }
@@ -55,6 +53,7 @@ $result = $mysqli->query("
         candidate.id AS can_id,
         candidate.name AS can_name,
         candidate.surname AS can_surname,
+        job.id AS job_id,
         job.name AS job_name,
         job.type AS job_type,
         address.city AS can_city,
@@ -67,7 +66,7 @@ $result = $mysqli->query("
     JOIN
         candidate ON candidate.id = job.candidate_id    
     LEFT JOIN 
-        address ON address.profile_id = employer.id
+        address ON address.profile_id = candidate.id
     LEFT JOIN
         image ON image.profile_id = candidate.id AND image.type = 'profilo'    
     WHERE
