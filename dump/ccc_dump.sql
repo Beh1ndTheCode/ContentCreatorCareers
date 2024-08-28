@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2024 at 03:15 PM
+-- Generation Time: Aug 28, 2024 at 03:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -367,6 +367,8 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (2, 9),
 (2, 10),
 (2, 13),
+(2, 19),
+(3, 3),
 (3, 6),
 (3, 11),
 (3, 12),
