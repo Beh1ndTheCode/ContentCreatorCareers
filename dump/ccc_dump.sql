@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2024 at 10:10 PM
+-- Generation Time: Aug 28, 2024 at 03:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -287,16 +287,17 @@ INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 
 CREATE TABLE `profile_expertise` (
   `profile_id` int(10) UNSIGNED NOT NULL,
-  `expertise_id` int(10) UNSIGNED NOT NULL
+  `expertise_id` int(10) UNSIGNED NOT NULL,
+  `experience` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `profile_expertise`
 --
 
-INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`) VALUES
-(1, 2),
-(2, 1);
+INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VALUES
+(1, 2, 4),
+(2, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -365,6 +366,8 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (2, 8),
 (2, 9),
 (2, 10),
+(2, 13),
+(3, 6),
 (3, 11),
 (3, 12),
 (3, 13),
