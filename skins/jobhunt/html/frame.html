@@ -32,11 +32,15 @@
             method: 'GET',
             dataType: 'json',
             success: function (result) {
-                $('.logout,.employer,.candidate').hide();
+                var single_page = result.type + '_single.php';
+                $('.username').html(result.username);
+                $('.img').attr('src', result.img);
+                $('.profile-sec').attr('href', single_page)
+                $('.logout,.employer,.candidate,.profile-sec').hide();
                 if (result.logged_in) {
-                    $('.logout').show();
+                    $('.logout,.profile-sec').show();
                     $('.register,.login').hide();
-                    if (result.type === 'candidate') {
+                    if (result.type === 'candidates') {
                         $('.candidate').show();
                     } else if (result.type === 'employer') {
                         $('.employer').show();
@@ -70,7 +74,6 @@
             </div>
             <div class="responsive-opensec">
                 <div class="btn-extars">
-                    <a class="post-job-btn" href="#" title=""><i class="la la-plus"></i>Post Jobs</a>
                     <ul class="account-btns">
                         <li class="register"><a href="register.php" title=""><i class="la la-key"></i> Sign Up</a>
                         </li>
@@ -81,6 +84,11 @@
                                 Logout</a>
                         </li>
                     </ul>
+                    <a class="profile-sec" href="">
+                        <div class="my-profiles-sec_2">
+                            <span><img class="img" src="" alt=""><span class="username"></span></span>
+                        </div>
+                    </a>
                 </div><!-- Btn Extras -->
                 <form class="res-search">
                     <input placeholder="Job title, keywords or company name" type="text" />
@@ -125,13 +133,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children">
-                            <a href="#" title="">Job</a>
-                            <ul>
-                                <li><a href="job_list.php">Job List</a></li>
-                                <li><a href="job_single.php">Job Single</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="job_list.php">Job List</a></li>
                         <li class="menu-item-has-children">
                             <a href="#" title="">Pages</a>
                             <ul>
@@ -156,17 +158,21 @@
                                 src="skins/jobhunt/images/logo1.png" /></a>
                     </div><!-- Logo -->
                     <div class="btn-extars">
-                        <a class="post-job-btn" href="#" title=""><i class="la la-plus"></i>Post Jobs</a>
                         <ul class="account-btns">
                             <li class="register"><a href="register.php" title=""><i class="la la-key"></i> Sign
                                     Up</a></li>
                             <li class="login"><a href="login.php" title=""><i
-                                        class="la la-external-link-square"></i>Login</a>
+                                        class="la la-external-link-square"></i>Login</a></li>
                             <li class="logout"><a href="logout.php" title=""><i
                                         class="la la-external-link-square"></i>Logout</a>
                             </li>
                         </ul>
                     </div><!-- Btn Extras -->
+                    <a class="profile-sec" href="">
+                        <div class="my-profiles-sec">
+                            <span><img class="img" src="" alt=""><span class="username"></span></span>
+                        </div>
+                    </a>
                     <nav style="position: relative; left: -8%;">
                         <ul>
                             <li class="menu-item-has-children">
@@ -209,13 +215,7 @@
                             </li>
                         </ul>
                         </li>
-                        <li class="menu-item-has-children">
-                            <a href="#" title="">Job</a>
-                            <ul>
-                                <li><a href="job_list.php">Job List</a></li>
-                                <li><a href="job_single.php">Job Single</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="job_list.php">Job List</a></li>
                         <li class="menu-item-has-children">
                             <a href="#" title="">Pages</a>
                             <ul>

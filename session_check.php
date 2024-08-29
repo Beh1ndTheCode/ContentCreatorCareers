@@ -10,6 +10,7 @@ error_reporting(E_ALL);
 require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
+require "include/get_by_id.inc.php";
 
 // Verifica se l'utente è loggato
 if (isset($_SESSION['user'])) {
@@ -17,18 +18,27 @@ if (isset($_SESSION['user'])) {
     $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
     $id = ($profile_id->fetch_assoc()['id']);
     $user_type = $mysqli->query("
-        SELECT 'candidate' AS user_type 
+        SELECT 'candidates' AS user_type 
         FROM candidate 
         WHERE id = $id 
         UNION 
         SELECT 'employer' AS user_type 
         FROM employer 
-        WHERE id = $id;
+        WHERE id = $id
     ");
     $user_type = $user_type->fetch_assoc()['user_type'];
+    $username = $mysqli->query("
+        SELECT user.username AS username
+        FROM user
+        JOIN profile ON profile.user_id = user.id
+        WHERE profile.id = $id
+    ")->fetch_assoc()['username'];
+    $img = get_img($mysqli,$id);
     $data = [
         'logged_in' => true,
-        'type' => $user_type
+        'type' => $user_type,
+        'img' => $img,
+        'username' => $username
     ];
 } else {
     // Utente non loggato

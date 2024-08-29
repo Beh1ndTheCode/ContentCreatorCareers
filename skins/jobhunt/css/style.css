@@ -8701,14 +8701,16 @@ header.gradient{
 }
 .my-profiles-sec > span {
     float: left;
-    font-size: 13px;
-    color: #ffffff;
+    font-size: 17px;
+    color: #000;
     font-family: Open Sans;
     line-height: 50px;
     cursor: pointer;
 }
 .my-profiles-sec > span > img {
     float: left;
+    height: 50px;
+    width: auto;
     
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -8716,7 +8718,29 @@ header.gradient{
     -o-border-radius: 50%;
     border-radius: 50%;
 
-    border: 2px solid #ffffff;
+    border: 2px solid #0B1B66;
+    margin-right: 18px;
+}
+.my-profiles-sec_2 > span {
+    float: left;
+    font-size: 17px;
+    color: #fff;
+    font-family: Open Sans;
+    line-height: 50px;
+    cursor: pointer;
+}
+.my-profiles-sec_2 > span > img {
+    float: left;
+    height: 50px;
+    width: auto;
+    
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+
+    border: 2px solid #fff;
     margin-right: 18px;
 }
 .my-profiles-sec > span > i {
