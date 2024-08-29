@@ -16,7 +16,8 @@ $body = new Template("employer_single");
 if (isset($_GET['id'])) {
     $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 } else {
-    die ("Invalid request, missing required parameters.");
+    $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
+    $id = ($profile_id->fetch_assoc()['id']);
 }
 
 $job_offer_count = $mysqli->query("SELECT COUNT(*) AS count FROM `job_offer` WHERE employer_id = $id");
@@ -84,7 +85,7 @@ $body->setContent("city", $city);
 $body->setContent("image", $image);
 $body->setContent("description", $description);
 
-$socials = $mysqli->query("
+$socials_sql = $mysqli->query("
     SELECT
         social_account.name AS social_name,
         social_account.uri AS social_uri
@@ -96,15 +97,28 @@ $socials = $mysqli->query("
         employer.id = '{$data['id']}'
 ");
 
-if (!$socials) {
+if (!$socials_sql) {
     die("Query failed: " . $mysqli->error);
 }
 
-while ($social = $socials->fetch_assoc()) {
-    $social_name = $social['social_name'];
-    $social_uri = $social['social_uri'];
-    $body->setContent($social_name, $social_uri);
+$socials = [];
+while ($social = $socials_sql->fetch_assoc()) {
+    $socials[] = [
+        'name' => $social['social_name'],
+        'uri' => $social['social_uri']
+    ];
+} 
+function getUri($socialArray, $name) {
+    foreach ($socialArray as $social) {
+        if ($social['name'] === $name) {
+            return $social['uri'];
+        }
+    }
+    return null; // Restituisce null se il nome non è trovato
 }
+$body->setContent('website',getUri($socials,'website'));
+$body->setContent('facebook',getUri($socials,'facebook'));
+$body->setContent('instagram',getUri($socials,'instagram'));
 
 $result = $mysqli->query("
     SELECT
