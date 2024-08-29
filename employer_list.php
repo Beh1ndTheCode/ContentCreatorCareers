@@ -63,6 +63,10 @@ while ($employer = $result->fetch_assoc()) {
     $country = $employer['country'] ?? 'Unknown country';
     $exp_title = $employer['exp_title'] ?? 'No expertise listed';
     $description = $employer['emp_description'] ?? 'No description provided';
+    $max_length = 300;
+    if (strlen($description) > $max_length) {
+        $description = substr($description, 0, $max_length) . '...';
+    }
     $employers_html .= "<div class='emply-list'>
 							<div class='emply-list-thumb'>
 								<a href='$url' title=''><img src='$image' alt='' /></a>

@@ -14,24 +14,43 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("employer_manage_jobs");
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$profile_id = ($profile_id->fetch_assoc()['id']);
+$username = $mysqli->real_escape_string($_SESSION['user']['username']);
 
-$result = $mysqli->query("SELECT employer.name AS emp_name FROM employer WHERE employer.id = $profile_id");
+$result = $mysqli->query("
+    SELECT 
+        employer.id AS emp_id,
+        employer.name AS emp_name,
+        COUNT(DISTINCT job_offer.id) AS job_offer_count,
+        COUNT(DISTINCT application.candidate_id) AS app_count,
+        COUNT(DISTINCT job.candidate_id) AS job_count
+    FROM 
+        employer
+    JOIN 
+        profile ON profile.id = employer.id
+    JOIN 
+        user ON user.id = profile.user_id
+    LEFT JOIN 
+        job_offer ON job_offer.employer_id = employer.id
+    LEFT JOIN 
+        application ON application.job_offer_id = job_offer.id
+    LEFT JOIN 
+        job ON job.employer_id = employer.id
+    WHERE 
+        user.username = '$username'
+");
+
+if (!$result) {
+    die("Query failed: " . $mysqli->error);
+}
+
 $data = $result->fetch_assoc();
+
 $body->setContent("emp_name", $data['emp_name']);
-
-$result = $mysqli->query("SELECT COUNT(*) AS job_offer_count FROM job_offer WHERE job_offer.employer_id = $profile_id");
-$data = $result->fetch_assoc();
 $body->setContent("job_offer_count", $data['job_offer_count']);
-
-$result = $mysqli->query("SELECT COUNT(*) AS app_count FROM application JOIN job_offer ON application.job_offer_id = job_offer.id AND job_offer.employer_id = $profile_id");
-$data = $result->fetch_assoc();
 $body->setContent("app_count", $data['app_count']);
-
-$result = $mysqli->query("SELECT COUNT(*) AS job_count FROM job WHERE job.employer_id = $profile_id");
-$data = $result->fetch_assoc();
 $body->setContent("job_count", $data['job_count']);
+
+$profile_id = $data['emp_id'];
 
 $result = $mysqli->query("
 	SELECT

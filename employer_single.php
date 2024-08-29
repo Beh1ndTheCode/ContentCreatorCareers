@@ -24,7 +24,9 @@ $body->setContent("job_offer_count", $job_offer_count->fetch_assoc()['count']);
 
 $result = $mysqli->query("
     SELECT
+        profile.id AS id,
         employer.name AS name,
+        employer.since AS since,
         profile.phone AS phone_num,
         profile.email AS email,
         profile.description AS description,
@@ -33,8 +35,7 @@ $result = $mysqli->query("
         address.city AS city,
         address.postal_code AS postal_code,
         address.street AS street,
-        address.civic AS civic,
-        social_account.uri AS website
+        address.civic AS civic
     FROM 
         employer 
     JOIN 
@@ -43,8 +44,6 @@ $result = $mysqli->query("
         address ON address.profile_id = profile.id
     LEFT JOIN
         image ON image.profile_id = employer.id AND image.type = 'profilo'    
-    LEFT JOIN 
-        social_account ON profile.id = social_account.profile_id AND social_account.name = 'website'
     WHERE
         employer.id = $id
 ");
@@ -59,7 +58,8 @@ if ($result->num_rows === 0) {
 
 $data = $result->fetch_assoc();
 $image = $data['emp_image'] ?? 'skins/jobhunt/images/profile.png';
-$website = $data['website'] ?? 'N/A';
+$since = $data['since'] ?? 'N/A';
+$website = $data['social'] ?? 'N/A';
 $phone_num = $data['phone_num'] ?? 'N/A';
 $email = $data['email'] ?? 'N/A';
 $description = $data['description'] ?? 'No Company Information provided';
@@ -76,13 +76,35 @@ if (!$postcode || !$street || !$civic) {
 }
 
 $body->setContent("name", $data['name']);
+$body->setContent("since", $since);
 $body->setContent("phone_num", $phone_num);
 $body->setContent("email", $email);
 $body->setContent("country", $country);
 $body->setContent("city", $city);
 $body->setContent("image", $image);
 $body->setContent("description", $description);
-$body->setContent("website", $website);
+
+$socials = $mysqli->query("
+    SELECT
+        social_account.name AS social_name,
+        social_account.uri AS social_uri
+    FROM
+        social_account
+    JOIN
+        employer ON employer.id = social_account.profile_id
+    WHERE
+        employer.id = '{$data['id']}'
+");
+
+if (!$socials) {
+    die("Query failed: " . $mysqli->error);
+}
+
+while ($social = $socials->fetch_assoc()) {
+    $social_name = $social['social_name'];
+    $social_uri = $social['social_uri'];
+    $body->setContent($social_name, $social_uri);
+}
 
 $result = $mysqli->query("
     SELECT
