@@ -58,24 +58,24 @@
                             </div>
                         </div>
                         <div class="profile-form-edit">
-                            <form>
+                            <form action="update_employer_profile.php" method="post">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <span class="pf-title">Company Name</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[name]>" type="text"/>
+                                            <input name="name" type="text" value="<[name]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <span class="pf-title">Since</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[since]>" type="text"/>
+                                            <input name="since" type="text" value="<[since]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <span class="pf-title">Description</span>
                                         <div class="pf-field">
-                                            <textarea><[description]></textarea>
+                                            <textarea name="description"><[description]></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -84,108 +84,99 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="social-edit" id="sn">
-                            <h3>Social Edit</h3>
-                            <form>
+                        <form action="update_contact_info.php" method="post">
+                            <div class="social-edit" id="sn">
+                                <h3>Social Edit</h3>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <span class="pf-title">Facebook</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[facebook]>" type="text"/>
+                                            <input name="facebook" type="text" value="<[facebook]>"/>
                                             <i class="fa fa-facebook"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Instagram</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[instagram]>" type="text"/>
+                                            <input name="instagram" type="text" value="<[instagram]>"/>
                                             <i class="fa fa-instagram"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Website</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[website]>" type="text"/>
+                                            <input name="website" type="text" value="<[website]>"/>
                                             <i class="la la-unlink"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <span class="pf-title">Linkedin</span>
+                                        <span class="pf-title">LinkedIn</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[linkedin]>" type="text"/>
+                                            <input name="linkedin" type="text" value="<[linkedin]>"/>
                                             <i class="la la-linkedin"></i>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="contact-edit" id="ci">
-                            <h3>Contact</h3>
-                            <form>
+                            </div>
+                            <div class="contact-edit" id="ci">
+                                <h3>Contact</h3>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <span class="pf-title">Phone Number</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[phone_num]>" type="text"/>
+                                            <input name="phone_num" type="text" value="<[phone_num]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Email</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[email]>" type="text"/>
+                                            <input name="email" type="text" value="<[email]>"/>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                            <h3>Company Address</h3>
-                            <form>
+                                <h3>Company Address</h3>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <span class="pf-title">Country</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[country]>" type="text"/>
+                                            <input name="country" type="text" value="<[country]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">City</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[city]>" type="text"/>
+                                            <input name="city" type="text" value="<[city]>"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">City</span>
+                                    <div class="col-lg-3">
+                                        <span class="pf-title">Postcode</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[city]>" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Postal code</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[postcode]>" type="text"/>
+                                            <input name="postcode" type="text" value="<[postcode]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Street</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[street]>" type="text"/>
+                                            <input name="street" type="text" value="<[street]>"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <span class="pf-title">Civic</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[civic]>" type="text"/>
+                                            <input name="civic" type="text" value="<[civic]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <button type="submit">Update</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 

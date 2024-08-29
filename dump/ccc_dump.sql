@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 29, 2024 at 04:51 PM
+-- Generation Time: Aug 29, 2024 at 08:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -66,7 +66,7 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
 (1, 'Italy', 67100, 'L\'Aquila', 'Viale Duca degli Abruzzi', '7'),
-(2, 'Italy', 118, 'Rome', 'Via Verdi', '3');
+(2, 'Italy', 118, 'Rome', 'Via Verdi', '4');
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,7 @@ CREATE TABLE `employer` (
 --
 
 INSERT INTO `employer` (`id`, `name`, `since`) VALUES
-(2, 'CNB Comunicazione', '2009'),
+(2, 'CNB', '2009'),
 (12, 'Amazon', NULL);
 
 -- --------------------------------------------------------
@@ -162,7 +162,7 @@ INSERT INTO `expertise` (`id`, `title`) VALUES
 CREATE TABLE `image` (
   `profile_id` int(10) UNSIGNED NOT NULL,
   `type` enum('profilo','banner','portfolio') NOT NULL,
-  `path` varchar(256) NOT NULL
+  `path` varchar(256) NOT NULL DEFAULT 'skins/jobhunt/images/profile.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -174,7 +174,8 @@ INSERT INTO `image` (`profile_id`, `type`, `path`) VALUES
 (1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
 (1, 'portfolio', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_52lBzRWCcDC-h6WAf_8wnB47n0uDPcPMfw&s'),
 (1, 'portfolio', 'https://img.freepik.com/premium-psd/aesthetic-personal-portfolio-website-template_200778-21.jpg'),
-(1, 'portfolio', 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295831592/original/3b2b26ce0255183519b8325ebfc18c0963eaebd4/design-aesthetic-landing-for-you.jpg');
+(1, 'portfolio', 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295831592/original/3b2b26ce0255183519b8325ebfc18c0963eaebd4/design-aesthetic-landing-for-you.jpg'),
+(2, 'profilo', 'skins/jobhunt/images/profile.png');
 
 -- --------------------------------------------------------
 
@@ -272,7 +273,7 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 (1, 2, 'mariorossi@gmail.com', '+393333333333', NULL),
-(2, 3, 'contact@cnb.com', '+390862000000', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia.\r\n\r\nCome agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari.\r\n\r\nAl suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della  Brand Identity e la produzione di video e di servizi fotografici.\r\n\r\nCNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari.\r\nAttraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema.\r\n\r\nDal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
+(2, 3, 'contact@cnb.com', '+390862111111', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
 (3, 4, NULL, NULL, NULL),
 (4, 5, NULL, NULL, NULL),
 (6, 7, NULL, NULL, NULL),
@@ -461,9 +462,9 @@ CREATE TABLE `social_account` (
 --
 
 INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
-(1, 'facebook', 'https://facebook.com'),
-(1, 'instagram', 'https://instagram.com'),
-(2, 'facebook', 'https://facebook.com/CNBcomunicazione'),
+(1, 'facebook', 'facebook.com'),
+(1, 'instagram', 'instagram.com'),
+(2, 'facebook', 'https://www.facebook.com/CNBcomunicazione'),
 (2, 'website', 'cnbcomunicazione.com');
 
 -- --------------------------------------------------------
