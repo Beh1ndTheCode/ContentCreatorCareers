@@ -46,9 +46,14 @@
                             <div class="upload-img-bar">
                                 <span><img alt="" src="<[image]>"/></span>
                                 <div class="upload-info">
-                                    <a href="#" title="">Browse</a>
-                                    <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files are .jpg &
-										.png</span>
+                                    <!-- Form for file upload -->
+                                    <form action="upload_profile_image.php" enctype="multipart/form-data" method="post">
+                                        <!-- Hidden file input -->
+                                        <input id="fileToUpload" style="display:none;" type="file"/>
+                                        <!-- Browse link triggers file input -->
+                                        <a href="#" id="browseButton" title="">Browse</a>
+                                        <span>Max file size is 1MB</span>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -183,3 +188,11 @@
         </div>
     </div>
 </section>
+
+<!-- JavaScript to trigger the file input -->
+<script>
+    document.getElementById('browseButton').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('fileToUpload').click();
+    });
+</script>
