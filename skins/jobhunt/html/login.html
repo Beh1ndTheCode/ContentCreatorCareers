@@ -57,12 +57,9 @@
                                 $(this).fadeOut();
                             })
                     } else if (result === '1') {
-                        $("#notification")
-                            .html('You are not authorised to access')
-                            .fadeIn()
-                            .click(function () {
-                                $(this).fadeOut();
-                            })
+                        $("#form")
+                            .attr('action', 'dashboard.php')
+                            .submit();
                     } else if (result === '2') {
                         $("#form")
                             .attr('action', 'candidates_profile.php')

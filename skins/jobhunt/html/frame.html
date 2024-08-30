@@ -34,18 +34,27 @@
             success: function (result) {
                 var single_page = result.type + '_single.php';
                 $('.username').html(result.username);
-                $('.img').attr('src', result.img);
-                $('.profile-sec').attr('href', single_page)
-                $('.logout,.employer,.candidate,.profile-sec').hide();
+                $('.profile-sec').attr('href', single_page);
+                $('.logout,.employer,.candidate,.profile-sec,.logged_in,.admin').hide();
                 if (result.logged_in) {
-                    $('.logout,.profile-sec').show();
+                    $('.logout').show();
                     $('.register,.login').hide();
-                    if (result.type === 'candidates') {
-                        $('.candidate').show();
-                    } else if (result.type === 'employer') {
-                        $('.employer').show();
+                    if (result.type === '1') {
+                        $('.admin').show();
+                    } else {
+                        $('.img').attr('src', result.img);
+                        if (result.type === '3') {
+                            $('.employer,.logged_in,.profile-sec').show();
+                        } else if (result.type === '2') {
+                            $('.candidate,.logged_in,.profile-sec').show();
+                        }
                     }
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log("Errore AJAX:", error);
+                console.log("Dettagli dello stato:", status);
+                console.log("Response Text:", xhr.responseText);
             }
         })
     })
@@ -96,7 +105,9 @@
                 </form>
                 <div class="responsivemenu">
                     <ul>
-                        <li class="menu-item-has-children">
+                        <li class="admin"><a href="dashboard.php">Dashboard</a></li>
+                        <li class="admin"><a href="dashboard.php">Manage content</a></li>
+                        <li class="menu-item-has-children logged_in">
                             <a href="#" title="">Employers</a>
                             <ul>
                                 <li><a href="employer_list.php" title=""> Employer List</a></li>
@@ -114,7 +125,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children">
+                        <li class="menu-item-has-children logged_in">
                             <a href="#" title="">Candidates</a>
                             <ul>
                                 <li><a href="candidates_list.php" title="">Candidates List</a></li>
@@ -175,7 +186,9 @@
                     </a>
                     <nav style="position: relative; left: -8%;">
                         <ul>
-                            <li class="menu-item-has-children">
+                            <li class="admin"><a href="dashboard.php">Dashboard</a></li>
+                            <li class="admin"><a href="dashboard.php">Manage content</a></li>
+                            <li class="menu-item-has-children logged_in">
                                 <a href="#" title="">Employers</a>
                                 <ul>
                                     <li><a href="employer_list.php" title=""> Employer List</a></li>
@@ -195,7 +208,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="menu-item-has-children">
+                            <li class="menu-item-has-children logged_in">
                                 <a href="#" title="">Candidates</a>
                                 <ul>
                                     <li><a href="candidates_list.php" title="">Candidates List</a></li>

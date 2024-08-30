@@ -1,17 +1,17 @@
 <?php
 
-    session_start();
+session_start();
 
-    require "include/config.inc.php";
-    require "include/dbms.inc.php";
-    require "include/template2.inc.php";
-    require "include/auth.inc.php";
+require "include/config.inc.php";
+require "include/dbms.inc.php";
+require "include/template2.inc.php";
+require "include/auth.inc.php";
 
 
-    $main = new Template("frame");
-    $body = new Template("homepage");
+$main = new Template("frame");
+$body = new Template("dashboard");
 
-    $main->setContent("body", $body->get());
-    $main->close();
+$main->setContent("body", $body->get());
+$main->close();
 
 ?>
