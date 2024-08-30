@@ -29,9 +29,10 @@ $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
 
-$applied_jobs = get_applied_jobs($mysqli,$id);
+$applied_jobs = get_applied_jobs($mysqli, $id);
 $applied_jobs_html = '';
-foreach($applied_jobs as $applied_job){
+foreach ($applied_jobs as $applied_job) {
+    $formatted_date = DateTime::createFromFormat('Y-m-d', $applied_job['date'])->format('F j, Y');
     $applied_jobs_html .= " <tr>
 							    <td>
 									<div class='table-list-title'>
@@ -45,7 +46,7 @@ foreach($applied_jobs as $applied_job){
     								</div>
 								</td>
 								<td>
-									<span>{$applied_job['date']}</span><br />
+									<span>$formatted_date</span><br />
 								</td>
 								<td>
 									<ul class='action_job'>
@@ -60,5 +61,3 @@ $body->setContent("applied_jobs", $applied_jobs_html);
 $main->setContent("body", $body->get());
 
 $main->close();
-
-?>

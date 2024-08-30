@@ -19,7 +19,6 @@ if (isset($_GET['id'])) {
 } else {
     $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
     $id = ($profile_id->fetch_assoc()['id']);
-    //die("Invalid request, missing required parameters.");
 }
 
 $img = get_img($mysqli, $id);
@@ -43,10 +42,11 @@ $result = $mysqli->query("
     LEFT JOIN address ON address.profile_id = profile.id
     WHERE profile.id = '$id'
 ");
+
 $data = $result->fetch_assoc();
-$about = $data['about'] ?? 'No description founded';
-$job_title = $data['job_title'] ?? 'Unknown job_title';
-$email = $data['email'] ?? 'No email founded';
+$about = $data['about'] ?? 'No description found';
+$job_title = $data['job_title'] ?? 'Unknown Job title';
+$email = $data['email'] ?? 'No email found';
 $country = $data['country'] ?? 'Unknown country';
 $city = $data['city'] ?? 'Unknown city';
 
@@ -62,7 +62,7 @@ $skills = get_skills($mysqli, $id);
 $top_skills_html = '';
 $detail_skills_html = '';
 if (empty($skills))
-    $body->setContent("no_skills", 'No skill founded');
+    $body->setContent("no_skills", 'No skill found');
 else
     $body->setContent("no_skills", '');
 foreach ($skills as $skill) {
@@ -82,15 +82,21 @@ $body->setContent("detail_skills", $detail_skills_html);
 $jobs = get_jobs($mysqli, $id);
 $jobs_html = '';
 if (empty($jobs))
-    $body->setContent("no_jobs", 'No job founded');
+    $body->setContent("no_jobs", 'No job found');
 else
     $body->setContent("no_jobs", '');
 foreach ($jobs as $job) {
+    $start = DateTime::createFromFormat('Y-m-d', $job['start'])->format('F j, Y');
+    if ($job['type'] === 'past') {
+        $end = DateTime::createFromFormat('Y-m-d', $job['end'])->format('F j, Y');
+    } else {
+        $end = 'now';
+    }
     $jobs_html .= " <div class='edu-history style2'>
 		                <i></i>
 		                <div class='edu-hisinfo'>
 		                    <h3>{$job['name']} <span>{$job['emp_name']}</span></h3>
-		                    <i>{$job['start']}  to  {$job['end']}</i>
+		                    <i>$start  to  $end</i>
 	                        <p>{$job['description']}</p>
 		                </div>
 	                </div>";
@@ -105,7 +111,7 @@ else
     $body->setContent("no_portfolio", '');
 foreach ($portfolio as $img) {
     $portfolio_html .= "<div class='mp-col'>
-							<div class='mportolio'><img src='{$img}'
+							<div class='mportolio'><img src='$img'
 								alt='' /><a href='#' title=''><i class='la la-search'></i></a>
 							</div>
 						</div>";
@@ -115,4 +121,3 @@ $body->setContent("portfolio", $portfolio_html);
 $main->setContent("body", $body->get());
 $main->close();
 
-?>

@@ -42,11 +42,10 @@ function get_jobs($mysqli, $profile_id)
     ");
     $jobs = [];
     while ($row = $sql_job->fetch_assoc()) {
-        if ($row['type'] == 'current')
-            $row['end'] = 'now';
         $jobs[] = [
             'name' => $row['name'],
             'emp_name' => $row['emp_name'],
+            'type' => $row['type'],
             'start' => $row['start'],
             'end' => $row['end'],
             'description' => $row['description']
