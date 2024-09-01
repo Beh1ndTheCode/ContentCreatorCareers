@@ -14,9 +14,9 @@ $username = $mysqli->real_escape_string($_SESSION['user']['username']);
 $source = $_POST['source'];
 
 // Sanitize user inputs
-$old_password = isset($_POST['old_password']) ? $mysqli->real_escape_string($_POST['old_password']) : '';
-$new_password = isset($_POST['new_password']) ? $mysqli->real_escape_string($_POST['new_password']) : '';
-$confirm_new_password = isset($_POST['confirm_new_password']) ? $mysqli->real_escape_string($_POST['confirm_new_password']) : '';
+$old_password = (!empty($_POST['old_password'])) ? $mysqli->real_escape_string($_POST['old_password']) : null;
+$new_password = (!empty($_POST['new_password'])) ? $mysqli->real_escape_string($_POST['new_password']) : null;
+$confirm_new_password = (!empty($_POST['confirm_new_password'])) ? $mysqli->real_escape_string($_POST['confirm_new_password']) : null;
 
 if ($new_password !== $confirm_new_password) {
     $result = 0;
