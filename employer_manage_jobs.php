@@ -87,6 +87,7 @@ if ($result->num_rows === 0) {
 $jobs_html = '';
 while ($job = $result->fetch_assoc()) {
     $view_url = "job_single.php?id=" . urlencode($job['id']);
+    $delete_url = "remove_job_offer.php?id=" . urlencode($job['id']);
     $city = $job['city'] ?? 'Unknown city';
     $country = $job['country'] ?? 'Unknown country';
     $formatted_date = DateTime::createFromFormat('Y-m-d', $job['date'])->format('F j, Y');
@@ -112,8 +113,7 @@ while ($job = $result->fetch_assoc()) {
 						<td>
 							<ul class='action_job'>
 								<li><span>View Job</span><a href='$view_url' title=''><i class='la la-eye'></i></a></li>
-                                <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
-                                <li><span>Delete</span><a href='#' title=''><i class='la la-trash-o'></i></a></li>
+                                <li><span>Remove Job</span><a href='$delete_url' title=''><i class='la la-trash-o'></i></a></li>
                             </ul>
                         </td>
                     </tr>";

@@ -19,6 +19,7 @@ $body = new Template("employer_resume");
 function generateWorkerHtml($candidate)
 {
     $can_url = "candidates_single.php?id=" . urlencode($candidate['can_id']);
+    $remove_url = "remove_job.php?id=" . urlencode($candidate['job_id']);
     $image = $candidate['can_image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $candidate['can_city'] ?? 'Unknown city';
     $country = $candidate['can_country'] ?? 'Unknown country';
@@ -51,9 +52,9 @@ function generateWorkerHtml($candidate)
                     <p>$formatted_from</p>
                 </div>
                 $formatted_to_html
-                <div class='del-resume'>
-                    <a href='#' title=''><i class='la la-trash-o'></i></a>
-                </div>
+                <ul class='action_job'>
+                    <li><span>Remove Job</span><a href='$remove_url' title=''><i class='la la-trash-o'></i></a></li>
+                </ul>
             </div>";
 }
 
@@ -87,6 +88,7 @@ $result = $mysqli->query("
         candidate.id AS can_id,
         candidate.name AS can_name,
         candidate.surname AS can_surname,
+        job.id AS job_id,
         job.name AS job_name,
         job.type AS job_type,
         job.first_work_date AS job_from,

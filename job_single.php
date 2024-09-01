@@ -24,6 +24,7 @@ $result = $mysqli->query("
 	    job_offer.description AS job_description,
 	    job_offer.salary AS job_salary,
 	    job_offer.date AS job_date,
+	    language.name AS lang_name,
 	    requirement.name AS requirement_name,
 	    requirement.level AS requirement_level,
 	    requirement.description AS requirement_description,
@@ -39,6 +40,8 @@ $result = $mysqli->query("
 		address.civic AS civic
 	FROM 
 	    job_offer
+    LEFT JOIN
+        language ON language.id = job_offer.language_id
     LEFT JOIN 
 	    requirement ON requirement.job_offer_id = job_offer.id
 	JOIN 
@@ -90,6 +93,7 @@ $body->setContent("job_name", $data['job_name']);
 $body->setContent("type", $type);
 $body->setContent("job_type", $data['job_type']);
 $body->setContent("job_description", $data['job_description']);
+$body->setContent("language", $data['lang_name']);
 $body->setContent("requirement_name", $data['requirement_name']);
 $body->setContent("requirement_level", $data['requirement_level']);
 $body->setContent("requirement_description", $data['requirement_description']);
@@ -106,7 +110,7 @@ $body->setContent("country", $country);
 $requirements = $mysqli->query("
     SELECT requirement.name, requirement.level, requirement.description
     FROM requirement
-    JOIN job_offer ON job_offer.id = $id");
+    JOIN job_offer ON job_offer.id = requirement.job_offer_id AND job_offer.id = $id");
 $requirements_html = '';
 while ($requirement = $requirements->fetch_assoc()) {
     $requirement_name = $requirement['name'];

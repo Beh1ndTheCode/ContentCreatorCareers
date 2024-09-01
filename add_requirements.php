@@ -10,9 +10,6 @@ error_reporting(E_ALL);
 require "include/config.inc.php";
 require "include/dbms.inc.php";
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$id = ($profile_id->fetch_assoc()['id']);
-
 $job_offer_id = $_POST['job_offer_id'];
 $names = $_POST['requirement_name'];
 $levels = $_POST['requirement_level'];
