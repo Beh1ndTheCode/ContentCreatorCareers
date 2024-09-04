@@ -112,8 +112,7 @@ while ($job = $result->fetch_assoc()) {
 						</td>
 						<td>
 							<ul class='action_job'>
-								<li><span>View Job</span><a href='$view_url' title=''><i class='la la-eye'></i></a></li>
-                                <li><span>Remove Job</span><a href='$delete_url' title=''><i class='la la-trash-o'></i></a></li>
+                                <li><span>Delete</span><a href='$delete_url' title=''><i class='la la-trash-o'></i></a></li>
                             </ul>
                         </td>
                     </tr>";

@@ -107,6 +107,9 @@ $body->setContent("employer_image", $image);
 $body->setContent("city", $city);
 $body->setContent("country", $country);
 
+$apply_url = "apply_for_job.php?id=" . urlencode($id);
+$body->setContent("apply_url", $apply_url);
+
 $requirements = $mysqli->query("
     SELECT requirement.name, requirement.level, requirement.description
     FROM requirement

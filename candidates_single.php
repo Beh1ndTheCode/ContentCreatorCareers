@@ -44,9 +44,9 @@ $result = $mysqli->query("
     WHERE profile.id = '$id'
 ");
 $data = $result->fetch_assoc();
-$about = $data['about'] ?? 'No description founded';
+$about = $data['about'] ?? 'No description found';
 $job_title = $data['job_title'] ?? 'Unknown job_title';
-$email = $data['email'] ?? 'No email founded';
+$email = $data['email'] ?? 'No email found';
 $country = $data['country'] ?? 'Unknown country';
 $city = $data['city'] ?? 'Unknown city';
 
@@ -62,7 +62,7 @@ $skills = get_skills($mysqli, $id);
 $top_skills_html = '';
 $detail_skills_html = '';
 if (empty($skills))
-    $body->setContent("no_skills", 'No skill founded');
+    $body->setContent("no_skills", 'No skill found');
 else
     $body->setContent("no_skills", '');
 foreach ($skills as $skill) {
@@ -82,7 +82,7 @@ $body->setContent("detail_skills", $detail_skills_html);
 $jobs = get_jobs($mysqli, $id);
 $jobs_html = '';
 if (empty($jobs))
-    $body->setContent("no_jobs", 'No job founded');
+    $body->setContent("no_jobs", 'No job found');
 else
     $body->setContent("no_jobs", '');
 foreach ($jobs as $job) {
@@ -105,7 +105,7 @@ else
     $body->setContent("no_portfolio", '');
 foreach ($portfolio as $img) {
     $portfolio_html .= "<div class='mp-col'>
-							<div class='mportolio'><img src='{$img}'
+							<div class='mportolio'><img src='$img'
 								alt='' /><a href='#' title=''><i class='la la-search'></i></a>
 							</div>
 						</div>";
@@ -114,5 +114,3 @@ $body->setContent("portfolio", $portfolio_html);
 
 $main->setContent("body", $body->get());
 $main->close();
-
-?>
