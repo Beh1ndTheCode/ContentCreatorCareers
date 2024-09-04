@@ -21,7 +21,6 @@ $result = $mysqli->query("
     SELECT
         candidate.name AS name,
         candidate.surname AS surname,
-        candidate.age AS age,
         profile.description AS about
     FROM candidate
     JOIN profile ON profile.id = candidate.id
@@ -31,29 +30,12 @@ $result = $mysqli->query("
 $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
-$body->setContent("age", $data['age']);
 $body->setContent("about", $data['about']);
 
-
-$skills = get_skills($mysqli,$profile_id);
-$skills_html = '';
-foreach($skills as $skill){
-    $skills_html .= "<div class='progress-sec with-edit' style='padding-left: 15px;'>
-                        <span>{$skill['name']}</span>
-                        <div class='progressbar' >
-                            <div class='progress' style='width: {$skill['level']}0%;'><span>{$skill['level']}0%</span></div>
-                        </div>
-                        <ul class='action_job'>
-                            <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
-                            <li><span>Delete</span><a href='#' title=''><i class='la la-trash-o'></i></a></li>
-                        </ul>
-                    </div>";
-}
-$body->setContent("skills",$skills_html);
-
-$jobs = get_jobs($mysqli,$profile_id);
+$jobs = get_jobs($mysqli, $profile_id);
 $jobs_html = '';
-foreach($jobs as $job){
+foreach ($jobs as $job) {
+    $delete_job_url = "remove_job.php?id=" . urlencode($job['id']) . "&type=2";
     $jobs_html .= "<div class='edu-history style2'>
                         <i></i>
                         <div class='edu-hisinfo'>
@@ -63,28 +45,45 @@ foreach($jobs as $job){
                         </div>
                         <ul class='action_job'>
                             <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
-                            <li><span>Delete</span><a href='#' title=''><i class='la la-trash-o'></i></a></li>
+                            <li><span>Delete</span><a href=$delete_job_url title=''><i class='la la-trash-o'></i></a></li>
                         </ul>
                     </div>";
 }
-$body->setContent("jobs",$jobs_html);
+$body->setContent("jobs", $jobs_html);
 
-$portfolio = get_portfolio($mysqli,$profile_id);
+$portfolio = get_portfolio($mysqli, $profile_id);
 $portfolio_html = '';
-foreach($portfolio as $img){
+foreach ($portfolio as $img) {
+    $delete_image_url = "remove_image.php?id=" . urlencode($img['id']);
     $portfolio_html .= "<div class='mp-col'>
-						    <div class='mportolio'><img src={$img} alt=''/><a href='#' title=''><i class='la la-search'></i></a>
+						    <div class='mportolio'><img src={$img['path']} alt=''/><a href='#' title=''><i class='la la-search'></i></a>
                             </div>
 							<ul class='action_job'>
 								<li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
-								<li><span>Delete</span><a href='#' title=''><i class='la la-trash-o'></i></a></li>
+								<li><span>Delete</span><a href=$delete_image_url title=''><i class='la la-trash-o'></i></a></li>
 							</ul>
 						</div>";
 }
-$body->setContent("portfolio",$portfolio_html);
+$body->setContent("portfolio", $portfolio_html);
+
+$skills = get_skills($mysqli, $profile_id);
+$skills_html = '';
+foreach ($skills as $skill) {
+    $delete_skill_url = "remove_skill.php?can_id=" . urlencode($profile_id) . "&skill_name=" . urlencode($skill['name']);
+    $skills_html .= "<div class='progress-sec with-edit' style='padding-left: 15px;'>
+                        <span>{$skill['name']}</span>
+                        <div class='progressbar' >
+                            <div class='progress' style='width: {$skill['level']}0%;'><span>{$skill['level']}0%</span></div>
+                        </div>
+                        <ul class='action_job'>
+                            <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
+                            <li><span>Delete</span><a href=$delete_skill_url title=''><i class='la la-trash-o'></i></a></li>
+                        </ul>
+                    </div>";
+}
+$body->setContent("skills", $skills_html);
 
 $main->setContent("body", $body->get());
 
 $main->close();
 
-?>

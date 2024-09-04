@@ -8,9 +8,8 @@ require "include/config.inc.php";
 require "include/dbms.inc.php";
 
 $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
-$type = filter_var($_GET['type'], FILTER_SANITIZE_NUMBER_INT);
 
-$stmt = $mysqli->prepare("DELETE FROM job WHERE job.id = ?");
+$stmt = $mysqli->prepare("DELETE FROM image WHERE image.id = ?");
 
 if (!$stmt) {
     die('Prepared failed: ' . $mysqli->error);
@@ -25,12 +24,5 @@ if (!$stmt->execute()) {
 $stmt->close();
 $mysqli->close();
 
-if ($type == 2) {
-    header("Location: candidates_my_resume.php");
-} elseif ($type == 3) {
-    header("Location: employer_resume.php");
-} else {
-    error_log("Unknown source");
-}
-
+header("Location: candidates_my_resume.php");
 exit();

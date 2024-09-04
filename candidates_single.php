@@ -45,7 +45,7 @@ $result = $mysqli->query("
 ");
 $data = $result->fetch_assoc();
 $about = $data['about'] ?? 'No description found';
-$job_title = $data['job_title'] ?? 'Unknown job_title';
+$job_title = $data['job_title'] ?? 'No current job';
 $email = $data['email'] ?? 'No email found';
 $country = $data['country'] ?? 'Unknown country';
 $city = $data['city'] ?? 'Unknown city';

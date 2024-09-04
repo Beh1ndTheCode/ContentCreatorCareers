@@ -19,7 +19,7 @@ $body = new Template("employer_resume");
 function generateWorkerHtml($candidate)
 {
     $can_url = "candidates_single.php?id=" . urlencode($candidate['can_id']);
-    $remove_url = "remove_job.php?id=" . urlencode($candidate['job_id']);
+    $remove_url = "remove_job.php?id=" . urlencode($candidate['job_id']) . "&3";
     $image = $candidate['can_image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $candidate['can_city'] ?? 'Unknown city';
     $country = $candidate['can_country'] ?? 'Unknown country';
