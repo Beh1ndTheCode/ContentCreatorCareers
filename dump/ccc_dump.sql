@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 29, 2024 at 08:30 PM
+-- Generation Time: Sep 05, 2024 at 10:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddCandidate` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), IN `in_surname` VARCHAR(16), INOUT `new_user_id` INT, INOUT `new_profile_id` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddCandidate` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), IN `in_surname` VARCHAR(16), INOUT `new_user_id` INT(10) UNSIGNED, INOUT `new_profile_id` INT(10) UNSIGNED)   BEGIN
     INSERT INTO user (username, password, email) VALUES (in_username, in_password, in_email);
     SET new_user_id = LAST_INSERT_ID();
     INSERT INTO profile (user_id) VALUES (new_user_id);
@@ -34,13 +34,22 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `AddCandidate` (IN `in_username` VAR
     INSERT INTO user_role (username, role_id) VALUES (in_username, 2);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEmployer` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), INOUT `new_user_id` INT, INOUT `new_profile_id` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddEmployer` (IN `in_username` VARCHAR(32), IN `in_password` VARCHAR(32), IN `in_email` VARCHAR(64), IN `in_name` VARCHAR(16), INOUT `new_user_id` INT(10) UNSIGNED, INOUT `new_profile_id` INT(10) UNSIGNED)   BEGIN
     INSERT INTO user (username, password, email) VALUES (in_username, in_password, in_email);
     SET new_user_id = LAST_INSERT_ID();
     INSERT INTO profile (user_id) VALUES (new_user_id);
     SET new_profile_id = LAST_INSERT_ID();
     INSERT INTO employer (id, name) VALUES (new_profile_id, in_name);
     INSERT INTO user_role (username, role_id) VALUES (in_username, 3);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddJobOffer` (IN `in_employer_id` INT(10) UNSIGNED, IN `in_name` VARCHAR(32), IN `in_salary` FLOAT UNSIGNED, IN `in_type` VARCHAR(16), IN `in_language_id` INT(10) UNSIGNED, IN `in_quantity` SMALLINT(5) UNSIGNED, IN `in_description` TEXT, INOUT `job_offer_id` INT(10) UNSIGNED)   BEGIN
+    INSERT INTO job_offer (employer_id, name, salary, type, language_id, quantity, description) VALUES (in_employer_id, in_name, in_salary, in_type, in_language_id, in_quantity, in_description);
+    SET job_offer_id = LAST_INSERT_ID();
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddRequirement` (IN `in_job_offer_id` INT(10) UNSIGNED, IN `in_name` VARCHAR(32), IN `in_level` TINYINT(2) UNSIGNED, IN `in_description` TEXT)   BEGIN
+    INSERT INTO requirement (job_offer_id, name, level, description) VALUES (in_job_offer_id, in_name, in_level, in_description);
 END$$
 
 DELIMITER ;
@@ -54,10 +63,10 @@ DELIMITER ;
 CREATE TABLE `address` (
   `profile_id` int(10) UNSIGNED NOT NULL,
   `country` varchar(32) NOT NULL,
-  `postal_code` int(10) UNSIGNED NOT NULL,
+  `postal_code` int(10) UNSIGNED DEFAULT NULL,
   `city` varchar(32) NOT NULL,
-  `street` varchar(64) NOT NULL,
-  `civic` varchar(8) NOT NULL
+  `street` varchar(64) DEFAULT NULL,
+  `civic` varchar(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,8 +74,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
-(1, 'Italy', 67100, 'L\'Aquila', 'Viale Duca degli Abruzzi', '7'),
-(2, 'Italy', 118, 'Rome', 'Via Verdi', '4');
+(1, 'France', NULL, 'Roma', NULL, NULL),
+(2, 'Italy', NULL, 'Rome', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -77,7 +86,7 @@ INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`,
 CREATE TABLE `application` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `job_offer_id` int(10) UNSIGNED NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -85,7 +94,7 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`candidate_id`, `job_offer_id`, `date`) VALUES
-(1, 1, '2024-08-17');
+(3, 1, '2024-09-04');
 
 -- --------------------------------------------------------
 
@@ -107,7 +116,7 @@ CREATE TABLE `candidate` (
 --
 
 INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`) VALUES
-(1, 'Mario', 'Rossi', 30, 2, NULL),
+(1, 'Mario', 'Rosso', 33, 6, NULL),
 (3, 'Luigi', 'Luigini', NULL, NULL, NULL),
 (4, 'Valerio', 'Valeri', NULL, NULL, NULL),
 (6, 'Alessio', 'Alessi', NULL, NULL, NULL),
@@ -131,7 +140,7 @@ CREATE TABLE `employer` (
 --
 
 INSERT INTO `employer` (`id`, `name`, `since`) VALUES
-(2, 'CNB', '2009'),
+(2, 'CNB Comunicazione', '2009'),
 (12, 'Amazon', NULL);
 
 -- --------------------------------------------------------
@@ -151,7 +160,7 @@ CREATE TABLE `expertise` (
 
 INSERT INTO `expertise` (`id`, `title`) VALUES
 (1, 'Ads'),
-(2, 'UX Design');
+(2, 'Sasso carta forbice');
 
 -- --------------------------------------------------------
 
@@ -160,6 +169,7 @@ INSERT INTO `expertise` (`id`, `title`) VALUES
 --
 
 CREATE TABLE `image` (
+  `id` int(10) UNSIGNED NOT NULL,
   `profile_id` int(10) UNSIGNED NOT NULL,
   `type` enum('profilo','banner','portfolio') NOT NULL,
   `path` varchar(256) NOT NULL DEFAULT 'skins/jobhunt/images/profile.png'
@@ -169,13 +179,11 @@ CREATE TABLE `image` (
 -- Dumping data for table `image`
 --
 
-INSERT INTO `image` (`profile_id`, `type`, `path`) VALUES
-(2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
-(1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
-(1, 'portfolio', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_52lBzRWCcDC-h6WAf_8wnB47n0uDPcPMfw&s'),
-(1, 'portfolio', 'https://img.freepik.com/premium-psd/aesthetic-personal-portfolio-website-template_200778-21.jpg'),
-(1, 'portfolio', 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/295831592/original/3b2b26ce0255183519b8325ebfc18c0963eaebd4/design-aesthetic-landing-for-you.jpg'),
-(2, 'profilo', 'skins/jobhunt/images/profile.png');
+INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
+(1, 2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
+(2, 1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
+(6, 2, 'profilo', 'skins/jobhunt/images/profile.png'),
+(7, 1, 'portfolio', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
 
 -- --------------------------------------------------------
 
@@ -184,6 +192,7 @@ INSERT INTO `image` (`profile_id`, `type`, `path`) VALUES
 --
 
 CREATE TABLE `job` (
+  `id` int(10) UNSIGNED NOT NULL,
   `employer_id` int(10) UNSIGNED NOT NULL,
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
@@ -197,9 +206,10 @@ CREATE TABLE `job` (
 -- Dumping data for table `job`
 --
 
-INSERT INTO `job` (`employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
-(12, 1, 'Social media menager', 'current', '2022-10-04', NULL, NULL),
-(2, 1, 'UX designer', 'past', '2016-08-01', '2021-03-12', 'tante belle cose belle');
+INSERT INTO `job` (`id`, `employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
+(4, 2, 1, 'jqiodwhfsdgye', 'past', '2024-09-01', '2024-09-05', 'jdiofeduy'),
+(5, 12, 1, 'jdIASUBIYR', 'current', '2024-09-01', NULL, NULL),
+(6, 12, 1, 'Graphic Editor', 'past', '2024-06-06', '2024-07-31', '');
 
 -- --------------------------------------------------------
 
@@ -224,8 +234,7 @@ CREATE TABLE `job_offer` (
 --
 
 INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `language_id`, `quantity`, `description`, `date`) VALUES
-(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
-(2, 2, 'Social Media Manager', 2700, 'Full time', 1, 1, NULL, '2024-08-08');
+(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21');
 
 -- --------------------------------------------------------
 
@@ -272,7 +281,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
-(1, 2, 'mariorossi@gmail.com', '+393333333333', NULL),
+(1, 2, 'mariorossi@gmail.com', '+393333333333', 'ojfiwaiiafwknisa'),
 (2, 3, 'contact@cnb.com', '+390862111111', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
 (3, 4, NULL, NULL, NULL),
 (4, 5, NULL, NULL, NULL),
@@ -298,7 +307,7 @@ CREATE TABLE `profile_expertise` (
 --
 
 INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VALUES
-(1, 2, 4),
+(1, 2, 5),
 (2, 1, 7);
 
 -- --------------------------------------------------------
@@ -380,7 +389,8 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (3, 16),
 (3, 17),
 (3, 18),
-(3, 19);
+(3, 19),
+(3, 20);
 
 -- --------------------------------------------------------
 
@@ -422,7 +432,8 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 (16, 'employer post new', 'employer_post_new.php', '', NULL, '', '', ''),
 (17, 'employer profile', 'employer_profile.php', '', NULL, '', '', ''),
 (18, 'employer resume', 'employer_resume.php', '', NULL, '', '', ''),
-(19, 'employer single', 'employer_single.php', '', NULL, '', '', '');
+(19, 'employer single', 'employer_single.php', '', NULL, '', '', ''),
+(20, 'Employer Add Requirements', 'employer_add_requirements.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -433,7 +444,7 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 CREATE TABLE `skill` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
-  `level` enum('1','2','3','4','5','6','7','8','9','10') NOT NULL,
+  `level` tinyint(3) UNSIGNED NOT NULL,
   `description` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -442,8 +453,8 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
-(1, 'Figma', '8', NULL),
-(1, 'Photoshop', '9', NULL);
+(1, 'BBBBB', 33, NULL),
+(1, 'Teamwork', 10, 'AAA');
 
 -- --------------------------------------------------------
 
@@ -487,7 +498,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'admin', 'admin@example.com'),
 (2, 'candidate', 'candidate', 'candidate@example.com'),
-(3, 'employer', 'employer', 'employer@example.com'),
+(3, 'employer', 'sas', 'employer@example.com'),
 (4, 'luigi', 'luigi', 'luigi@gmail.com'),
 (5, 'valerio', 'valerio', 'valerio@gmail.com'),
 (7, 'alessio', 'alessio', 'alessio@gmail.com'),
@@ -535,8 +546,9 @@ ALTER TABLE `address`
 -- Indexes for table `application`
 --
 ALTER TABLE `application`
-  ADD UNIQUE KEY `foreign_candidate_id` (`candidate_id`) USING BTREE,
-  ADD KEY `foreign_job_offer_id` (`job_offer_id`) USING BTREE;
+  ADD UNIQUE KEY `unique_application` (`candidate_id`,`job_offer_id`),
+  ADD KEY `foreign_job_offer_id` (`job_offer_id`) USING BTREE,
+  ADD KEY `foreign_candidate_id` (`candidate_id`) USING BTREE;
 
 --
 -- Indexes for table `candidate`
@@ -562,12 +574,14 @@ ALTER TABLE `expertise`
 -- Indexes for table `image`
 --
 ALTER TABLE `image`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
 -- Indexes for table `job`
 --
 ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `foreign_employer_key` (`employer_id`) USING BTREE,
   ADD KEY `foreign_candidate_id` (`candidate_id`) USING BTREE;
 
@@ -670,10 +684,22 @@ ALTER TABLE `expertise`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `image`
+--
+ALTER TABLE `image`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `job`
+--
+ALTER TABLE `job`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -697,7 +723,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user`

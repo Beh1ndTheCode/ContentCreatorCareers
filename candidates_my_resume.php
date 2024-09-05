@@ -20,17 +20,14 @@ $profile_id = ($profile_id->fetch_assoc()['id']);
 $result = $mysqli->query("
     SELECT
         candidate.name AS name,
-        candidate.surname AS surname,
-        profile.description AS about
+        candidate.surname AS surname
     FROM candidate
-    JOIN profile ON profile.id = candidate.id
-    WHERE profile.id = $profile_id
+    WHERE candidate.id = $profile_id
     ");
 
 $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
-$body->setContent("about", $data['about']);
 
 $jobs = get_jobs($mysqli, $profile_id);
 $jobs_html = '';
@@ -73,7 +70,7 @@ foreach ($skills as $skill) {
     $skills_html .= "<div class='progress-sec with-edit' style='padding-left: 15px;'>
                         <span>{$skill['name']}</span>
                         <div class='progressbar' >
-                            <div class='progress' style='width: {$skill['level']}0%;'><span>{$skill['level']}0%</span></div>
+                            <div class='progress' style='width: {$skill['level']}%;'><span>{$skill['level']}%</span></div>
                         </div>
                         <ul class='action_job'>
                             <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
