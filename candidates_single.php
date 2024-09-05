@@ -19,7 +19,6 @@ if (isset($_GET['id'])) {
 } else {
     $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
     $id = ($profile_id->fetch_assoc()['id']);
-    //die("Invalid request, missing required parameters.");
 }
 
 $img = get_img($mysqli, $id);
@@ -43,9 +42,11 @@ $result = $mysqli->query("
     LEFT JOIN address ON address.profile_id = profile.id
     WHERE profile.id = '$id'
 ");
+
 $data = $result->fetch_assoc();
 $about = $data['about'] ?? 'No description found';
 $job_title = $data['job_title'] ?? 'No current job';
+$job_title = $data['job_title'] ?? 'Unknown Job title';
 $email = $data['email'] ?? 'No email found';
 $country = $data['country'] ?? 'Unknown country';
 $city = $data['city'] ?? 'Unknown city';
@@ -86,11 +87,17 @@ if (empty($jobs))
 else
     $body->setContent("no_jobs", '');
 foreach ($jobs as $job) {
+    $start = DateTime::createFromFormat('Y-m-d', $job['start'])->format('F j, Y');
+    if ($job['type'] === 'past') {
+        $end = DateTime::createFromFormat('Y-m-d', $job['end'])->format('F j, Y');
+    } else {
+        $end = 'now';
+    }
     $jobs_html .= " <div class='edu-history style2'>
 		                <i></i>
 		                <div class='edu-hisinfo'>
 		                    <h3>{$job['name']} <span>{$job['emp_name']}</span></h3>
-		                    <i>{$job['start']}  to  {$job['end']}</i>
+		                    <i>$start  to  $end</i>
 	                        <p>{$job['description']}</p>
 		                </div>
 	                </div>";

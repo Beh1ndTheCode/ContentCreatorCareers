@@ -74,7 +74,7 @@ if ($result->num_rows === 0) {
 
 $list_html = '';
 while ($candidate = $result->fetch_assoc()) {
-    $url = "candidate_single.php?id=" . urlencode($candidate['cand_id']);
+    $url = "candidates_single.php?id=" . urlencode($candidate['cand_id']);
     $image = $candidate['img'] ?? 'skins/jobhunt/images/profile.png';
     $city = $candidate['city'] ?? 'Unknown city';
     $country = $candidate['country'] ?? 'Unknown country';
