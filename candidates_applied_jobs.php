@@ -17,11 +17,9 @@ $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON us
 $id = ($profile_id->fetch_assoc()['id']);
 
 $result = $mysqli->query("
-    SELECT
-        candidate.name AS name,
-        candidate.surname AS surname
-    FROM candidate
-    WHERE candidate.id = '$id'
+    SELECT name, surname
+    FROM `candidate`
+    WHERE id = $id
     ");
 $data = $result->fetch_assoc();
 
@@ -38,13 +36,13 @@ $result = $mysqli->query("
 	    address.city AS emp_city,
 	    address.country AS emp_country
 	FROM 
-	    application
+	    `application`
 	JOIN 
-	    job_offer ON job_offer.id = application.job_offer_id
+	    `job_offer` ON job_offer.id = application.job_offer_id
     JOIN 
-        employer ON employer.id = job_offer.employer_id
+        `employer` ON employer.id = job_offer.employer_id
 	LEFT JOIN
-	    address ON address.profile_id = employer.id
+	    `address` ON address.profile_id = employer.id
 	WHERE
 	    application.candidate_id = $id
     ");
@@ -62,8 +60,8 @@ while ($application = $result->fetch_assoc()) {
     $emp_url = "employer_single.php?id=" . urlencode($application['emp_id']);
     $view_url = "job_single.php?id=" . urlencode($application['job_id']);
     $remove_url = "remove_application.php?job_id=" . urlencode($application['job_id']) . "&can_id=" . urlencode($id);
-    $city = $job['city'] ?? 'Unknown city';
-    $country = $job['country'] ?? 'Unknown country';
+    $city = $skill['city'] ?? 'Unknown city';
+    $country = $skill['country'] ?? 'Unknown country';
     $formatted_date = DateTime::createFromFormat('Y-m-d', $application['app_date'])->format('F j, Y');
 
     $applied_jobs_html .= "

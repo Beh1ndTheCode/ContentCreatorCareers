@@ -40,6 +40,7 @@ function get_jobs($mysqli, $profile_id)
         JOIN `profile` ON profile.id = job.candidate_id 
         JOIN `employer` ON employer.id = job.employer_id 
         WHERE profile.id = '$profile_id'
+    ORDER BY start
     ");
     $jobs = [];
     while ($row = $sql_job->fetch_assoc()) {
