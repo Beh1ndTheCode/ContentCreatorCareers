@@ -27,8 +27,23 @@ $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
 
+$employers_sql = $mysqli->query("SELECT name FROM employer ORDER BY name");
+if ($employers_sql) {
+    $employers_html = '';
+    $selected_employer = '';
+    while ($row = $employers_sql->fetch_assoc()) {
+        $employer_name = htmlspecialchars($row['name']);
+        $selected = ($employer_name == $selected_employer) ? 'selected' : '';
+        $employers_html .= "<option $selected>$employer_name</option>";
+    }
+
+    $body->setContent("employers", $employers_html);
+} else {
+    error_log("SQL Error: " . $mysqli->error);
+    $body->setContent("employers", '<option>No Employers found</option>');
+}
+
 $main->setContent("body", $body->get());
 
 $main->close();
 
-?>

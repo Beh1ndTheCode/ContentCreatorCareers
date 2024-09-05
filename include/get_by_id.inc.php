@@ -29,6 +29,7 @@ function get_jobs($mysqli, $profile_id)
 {
     $sql_job = $mysqli->query("
     SELECT
+        job.id AS id,
         job.name AS name,
         job.type AS type,
         job.first_work_date AS start,
@@ -43,6 +44,7 @@ function get_jobs($mysqli, $profile_id)
     $jobs = [];
     while ($row = $sql_job->fetch_assoc()) {
         $jobs[] = [
+            'id' => $row['id'],
             'name' => $row['name'],
             'emp_name' => $row['emp_name'],
             'type' => $row['type'],
@@ -112,9 +114,12 @@ function get_job_offers_employer($mysqli, $employer_id)
 function get_portfolio($mysqli, $profile_id)
 {
     $imgs = [];
-    $sql_imgs = $mysqli->query("SELECT image.path FROM `image` WHERE image.profile_id = '$profile_id' and image.type = 'portfolio'");
+    $sql_imgs = $mysqli->query("SELECT image.id, image.path FROM `image` WHERE image.profile_id = '$profile_id' and image.type = 'portfolio'");
     while ($row = $sql_imgs->fetch_assoc()) {
-        $imgs[] = $row['path'];
+        $imgs[] = [
+            'id' => $row['id'],
+            'path' => $row['path']
+            ];
     }
     return $imgs;
 }
@@ -125,6 +130,7 @@ function get_applied_jobs($mysqli, $profile_id)
     $sql_applied_jobs = $mysqli->query("
         SELECT 
             application.date AS date,
+            job_offer.id AS job_id,
             job_offer.name AS job_name,
             employer.name AS emp_name,
             address.city AS city,
@@ -139,6 +145,7 @@ function get_applied_jobs($mysqli, $profile_id)
     while ($row = $sql_applied_jobs->fetch_assoc()) {
         $applied_jobs[] = [
             'date' => $row['date'],
+            'job_id' => $row['job_id'],
             'job_name' => $row['job_name'],
             'emp_name' => $row['emp_name'],
             'city' => $row['city'],

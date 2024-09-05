@@ -45,6 +45,7 @@ $result = $mysqli->query("
 
 $data = $result->fetch_assoc();
 $about = $data['about'] ?? 'No description found';
+$job_title = $data['job_title'] ?? 'No current job';
 $job_title = $data['job_title'] ?? 'Unknown Job title';
 $email = $data['email'] ?? 'No email found';
 $country = $data['country'] ?? 'Unknown country';
@@ -120,4 +121,3 @@ $body->setContent("portfolio", $portfolio_html);
 
 $main->setContent("body", $body->get());
 $main->close();
-
