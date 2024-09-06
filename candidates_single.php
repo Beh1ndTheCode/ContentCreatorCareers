@@ -62,9 +62,7 @@ $body->setContent("city", $city);
 $skills = get_skills($mysqli, $id);
 $top_skills_html = '';
 $detail_skills_html = '';
-if (empty($skills))
-    $body->setContent("no_skills", 'No skill found');
-else
+if (empty($skills)) $body->setContent("no_skills", 'No skill found'); else
     $body->setContent("no_skills", '');
 foreach ($skills as $skill) {
     $top_skills_html .= "<span>{$skill['name']}</span>";
@@ -73,18 +71,18 @@ foreach ($skills as $skill) {
 								<div class='progressbar'>
 									<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
 								    <div class='progress'>";
-    for ($i = 1; $i <= $skill['level']; $i++)
+    $num_points = floor($skill['level'] / 10);  // floor ensures integer value
+    for ($i = 1; $i <= $num_points; $i++) {
         $detail_skills_html .= "<i></i>";
-    $detail_skills_html .= "</div></div><p>{$skill['level']}0%</p></div>";
+    }
+    $detail_skills_html .= "</div></div><p>{$skill['level']}%</p></div>";
 }
 $body->setContent("top_skills", $top_skills_html);
 $body->setContent("detail_skills", $detail_skills_html);
 
 $jobs = get_jobs($mysqli, $id);
 $jobs_html = '';
-if (empty($jobs))
-    $body->setContent("no_jobs", 'No job found');
-else
+if (empty($jobs)) $body->setContent("no_jobs", 'No job found'); else
     $body->setContent("no_jobs", '');
 foreach ($jobs as $job) {
     $start = DateTime::createFromFormat('Y-m-d', $job['start'])->format('F j, Y');
@@ -106,14 +104,12 @@ $body->setContent("jobs", $jobs_html);
 
 $portfolio = get_portfolio($mysqli, $id);
 $portfolio_html = '';
-if (empty($portfolio))
-    $body->setContent("no_portfolio", 'The portfolio is empty');
-else
+if (empty($portfolio)) $body->setContent("no_portfolio", 'The portfolio is empty'); else
     $body->setContent("no_portfolio", '');
 foreach ($portfolio as $img) {
     $portfolio_html .= "<div class='mp-col'>
-							<div class='mportolio'><img src='$img'
-								alt='' /><a href='#' title=''><i class='la la-search'></i></a>
+							<div class='mportolio'><img src={$img['path']} alt=''/>
+							    <a href='#' title=''><i class='la la-search'></i></a>
 							</div>
 						</div>";
 }

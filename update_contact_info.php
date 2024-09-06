@@ -9,7 +9,8 @@ error_reporting(E_ALL);
 require "include/config.inc.php";
 require "include/dbms.inc.php";
 
-$username = $mysqli->real_escape_string($_SESSION['user']['username']);
+$profileResult = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
+$profile_id = ($profileResult->fetch_assoc()['id']);
 $source = $_POST['source'];
 
 // Sanitize user inputs
@@ -35,8 +36,6 @@ $stmt = $mysqli->prepare("
         UPDATE 
             profile
         JOIN
-            user ON user.id = profile.user_id
-        JOIN
             address ON address.profile_id = profile.id
         SET
             profile.email = ?,
@@ -47,14 +46,14 @@ $stmt = $mysqli->prepare("
             address.street = ?,
             address.civic = ?
         WHERE
-            user.username = ?
+            profile.id = ?
     ");
 
 if (!$stmt) {
     die('Prepare failed: ' . $mysqli->error);
 }
 
-$stmt->bind_param('ssssisss', $email, $phone_num, $country, $city, $postcode, $street, $civic, $username);
+$stmt->bind_param('ssssisss', $email, $phone_num, $country, $city, $postcode, $street, $civic, $profile_id);
 
 // Execute the prepared statement
 if (!$stmt->execute()) {
@@ -63,6 +62,48 @@ if (!$stmt->execute()) {
 
 // Close the statement and connection
 $stmt->close();
+
+$social_accounts = ['facebook' => $facebook, 'instagram' => $instagram, 'linkedin' => $linkedin, 'website' => $website,];
+
+foreach ($social_accounts as $name => $uri) {
+    if ($uri) {
+        // Check if the social account already exists for this profile
+        $stmt = $mysqli->prepare("SELECT 1 FROM social_account WHERE profile_id = ? AND name = ?");
+        if (!$stmt) {
+            die('Prepare failed: ' . $mysqli->error);
+        }
+        $stmt->bind_param('is', $profile_id, $name);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            // If record exists, update the URI
+            $stmt->close();
+            $updateStmt = $mysqli->prepare("UPDATE social_account SET uri = ? WHERE profile_id = ? AND name = ?");
+            if (!$updateStmt) {
+                die('Prepare failed: ' . $mysqli->error);
+            }
+            $updateStmt->bind_param('sis', $uri, $profile_id, $name);
+            if (!$updateStmt->execute()) {
+                error_log('Update failed: ' . $updateStmt->error);
+            }
+            $updateStmt->close();
+        } else {
+            // If record does not exist, insert new record
+            $stmt->close();
+            $insertStmt = $mysqli->prepare("INSERT INTO social_account (profile_id, name, uri) VALUES (?, ?, ?)");
+            if (!$insertStmt) {
+                die('Prepare failed: ' . $mysqli->error);
+            }
+            $insertStmt->bind_param('iss', $profile_id, $name, $uri);
+            if (!$insertStmt->execute()) {
+                error_log('Insert failed: ' . $insertStmt->error);
+            }
+            $insertStmt->close();
+        }
+    }
+}
+
 $mysqli->close();
 
 // Redirect based on the source page after update
