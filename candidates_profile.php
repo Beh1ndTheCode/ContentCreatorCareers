@@ -14,7 +14,7 @@ $body = new Template("candidates_profile");
 $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
 $id = ($profile_id->fetch_assoc()['id']);
 
-$img = get_img($mysqli,$id);
+$img = get_img($mysqli, $id);
 $body->setContent("image", $img);
 
 $result = $mysqli->query("
@@ -26,6 +26,7 @@ $result = $mysqli->query("
         profile_expertise.experience AS experience,
         profile.phone AS phone_num,
         profile.email AS email,
+        profile.description,
         address.country AS country,
         address.city AS city
     FROM candidate 
@@ -35,6 +36,15 @@ $result = $mysqli->query("
     LEFT JOIN address ON address.profile_id = profile.id
     WHERE profile.id = '$id'
     ");
+
+if (!$result) {
+    die("Query failed: " . $mysqli->error);
+}
+
+if ($result->num_rows === 0) {
+    die("Employer not found.");
+}
+
 $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
@@ -43,6 +53,7 @@ $body->setContent("job_title", $data['job_title']);
 $body->setContent("experience", $data['experience']);
 $body->setContent("phone_num", $data['phone_num']);
 $body->setContent("email", $data['email']);
+$body->setContent("description", $data['description']);
 $body->setContent("country", $data['country']);
 $body->setContent("city", $data['city']);
 
@@ -62,9 +73,9 @@ foreach ($languages as $language) {
 $body->setContent("languages", $languages_html);
 
 
-$socials = get_socials($mysqli,$id);
-foreach($socials as $social)
-    $body->setContent($social["name"],$social["uri"]);
+$socials = get_socials($mysqli, $id);
+foreach ($socials as $social)
+    $body->setContent($social["name"], $social["uri"]);
 
 
 $main->setContent("body", $body->get());

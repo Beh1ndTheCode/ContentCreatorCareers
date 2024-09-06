@@ -107,8 +107,9 @@ while ($social = $socials_sql->fetch_assoc()) {
         'name' => $social['social_name'],
         'uri' => $social['social_uri']
     ];
-} 
-function getUri($socialArray, $name) {
+}
+function getUri($socialArray, $name)
+{
     foreach ($socialArray as $social) {
         if ($social['name'] === $name) {
             return $social['uri'];
@@ -116,9 +117,10 @@ function getUri($socialArray, $name) {
     }
     return null; // Restituisce null se il nome non è trovato
 }
-$body->setContent('website',getUri($socials,'website'));
-$body->setContent('facebook',getUri($socials,'facebook'));
-$body->setContent('instagram',getUri($socials,'instagram'));
+
+$body->setContent('website', getUri($socials, 'website'));
+$body->setContent('facebook', getUri($socials, 'facebook'));
+$body->setContent('instagram', getUri($socials, 'instagram'));
 
 $result = $mysqli->query("
     SELECT
@@ -146,6 +148,11 @@ if (!$result) {
 $jobs_html = '';
 while ($job_offer = $result->fetch_assoc()) {
     $url = "job_single.php?id=" . urlencode($job_offer['job_id']);
+    $type = match ($job_offer['type']) {
+        "Full time" => 'ft',
+        "Part time" => 'pt',
+        default => 'fl',
+    };
     $jobs_html .= " <div class='job-listing wtabs noimg'>
 						<div class='job-title-sec'>
 							<h3><a href='$url'>{$job_offer['name']}</a></h3>
@@ -153,7 +160,7 @@ while ($job_offer = $result->fetch_assoc()) {
                             <div class='job-lctn'><i class='la la-map-marker'></i>{$job_offer['city']}, {$job_offer['country']}</div>
                         </div>
                         <div class='job-style-bx'>
-							<span class='job-is ft'>{$job_offer['type']}</span>
+							<span class='job-is $type'>{$job_offer['type']}</span>
 							<i>{$job_offer['date_diff']} days ago</i>
 						</div>
 	                </div>";

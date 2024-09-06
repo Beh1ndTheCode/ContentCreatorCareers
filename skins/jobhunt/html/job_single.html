@@ -42,29 +42,35 @@
                         <div class="job-details">
                             <h3>Job Description</h3>
                             <p><[job_description]></p>
-                            <h3>Job Requirements</h3>
+                            <h3>Skill Requirements</h3>
                             <ul>
-                                <li><[requirement_name]> - <[requirement_description]></li>
+                                <[requirements]>
                             </ul>
                         </div>
                         <div class="job-overview">
                             <h3>Job Overview</h3>
                             <ul>
                                 <li><i class="la la-money"></i>
-                                    <h3>Offerd Salary</h3><span>\$<[job_salary]></span>
+                                    <h3>Offered Salary</h3><span>\$<[job_salary]></span>
                                 </li>
-                                <li><i class="la la-thumb-tack"></i>
-                                    <h3>Career Level</h3><span>Executive</span>
+                                <li><i class="la la-language"></i>
+                                    <h3>Required Language</h3><span><[language]></span>
                                 </li>
-                                <li><i class="la la-puzzle-piece"></i>
-                                    <h3>Industry</h3><span>Management</span>
+                                <li><i class="la la-flag"></i>
+                                    <h3>Positions</h3><span>2</span>
                                 </li>
-                                <li><i class="la la-shield"></i>
-                                    <h3>Experience</h3><span>2 Years</span>
-                                </li>
-                                <li><i class="la la-line-chart "></i>
-                                    <h3>Qualification</h3><span>Bachelor Degree</span>
-                                </li>
+                                <!-- <li><i class="la la-thumb-tack"></i>
+                                   <h3>Career Level</h3><span>Executive</span>
+                               </li>
+                               <li><i class="la la-puzzle-piece"></i>
+                                   <h3>Industry</h3><span>Management</span>
+                               </li>
+                               <li><i class="la la-shield"></i>
+                                   <h3>Experience</h3><span>2 Years</span>
+                               </li>
+                               <li><i class="la la-line-chart "></i>
+                                   <h3>Qualification</h3><span>Bachelor Degree</span>
+                               </li> -->
                             </ul>
                         </div><!-- Job Overview -->
                     </div>
@@ -79,8 +85,9 @@
                             <p><i class="la la-phone"></i><[employer_number]></p>
                             <p><i class="la la-envelope-o"></i><[employer_email]></p>
                         </div>
-                        <a class="apply-job-btn" href="#" title=""><i class="la la-paper-plane"></i>Apply for job</a>
-                        <a class="viewall-jobs" href="#" title="">View all Jobs</a>
+                        <a class="apply-job-btn" href="<[apply_url]>" title=""><i class="la la-paper-plane"></i>Apply
+                            for job</a>
+                        <a class="viewall-jobs" href="job_list.php" title="">View all Jobs</a>
                     </div><!-- Job Head -->
                 </div>
             </div>

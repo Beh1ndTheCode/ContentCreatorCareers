@@ -74,7 +74,7 @@ if ($result->num_rows === 0) {
 
 $list_html = '';
 while ($candidate = $result->fetch_assoc()) {
-    $url = "candidate_single.php?id=" . urlencode($candidate['cand_id']);
+    $url = "candidates_single.php?id=" . urlencode($candidate['cand_id']);
     $image = $candidate['img'] ?? 'skins/jobhunt/images/profile.png';
     $city = $candidate['city'] ?? 'Unknown city';
     $country = $candidate['country'] ?? 'Unknown country';
@@ -82,7 +82,7 @@ while ($candidate = $result->fetch_assoc()) {
     $emp_name = $candidate['emp_name'] ?? 'Unknown employer';
     $list_html .= "<div class='emply-resume-list square'>
 						<div class='emply-resume-thumb'>
-							<img src=$image alt='' />
+							<a href=$url><img src=$image alt='' /></a>
 						</div>
 						<div class='emply-resume-info'>
 							<h3><a href=$url title=''>{$candidate['name']} {$candidate['surname']}</a></h3>

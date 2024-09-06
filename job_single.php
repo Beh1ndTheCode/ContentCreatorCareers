@@ -24,7 +24,9 @@ $result = $mysqli->query("
 	    job_offer.description AS job_description,
 	    job_offer.salary AS job_salary,
 	    job_offer.date AS job_date,
+	    language.name AS lang_name,
 	    requirement.name AS requirement_name,
+	    requirement.level AS requirement_level,
 	    requirement.description AS requirement_description,
 		employer.name AS employer_name,
 		profile.phone AS employer_number, 
@@ -38,6 +40,8 @@ $result = $mysqli->query("
 		address.civic AS civic
 	FROM 
 	    job_offer
+    LEFT JOIN
+        language ON language.id = job_offer.language_id
     LEFT JOIN 
 	    requirement ON requirement.job_offer_id = job_offer.id
 	JOIN 
@@ -67,6 +71,7 @@ $image = $data['employer_image'] ?? 'skins/jobhunt/images/profile.png';
 $website = $data['employer_website'] ?? 'N/A';
 $phone_num = $data['employer_number'] ?? 'N/A';
 $email = $data['employer_email'] ?? 'N/A';
+$date = DateTime::createFromFormat('Y-m-d', $data['job_date'])->format('F j, Y');
 $type = match ($data['job_type']) {
     "Full time" => 'ft',
     "Part time" => 'pt',
@@ -88,10 +93,12 @@ $body->setContent("job_name", $data['job_name']);
 $body->setContent("type", $type);
 $body->setContent("job_type", $data['job_type']);
 $body->setContent("job_description", $data['job_description']);
+$body->setContent("language", $data['lang_name']);
 $body->setContent("requirement_name", $data['requirement_name']);
+$body->setContent("requirement_level", $data['requirement_level']);
 $body->setContent("requirement_description", $data['requirement_description']);
 $body->setContent("job_salary", $data['job_salary']);
-$body->setContent("job_date", $data['job_date']);
+$body->setContent("job_date", $date);
 $body->setContent("employer_name", $data['employer_name']);
 $body->setContent("employer_number", $phone_num);
 $body->setContent("employer_email", $email);
@@ -99,6 +106,25 @@ $body->setContent("employer_website", $website);
 $body->setContent("employer_image", $image);
 $body->setContent("city", $city);
 $body->setContent("country", $country);
+
+$apply_url = "apply_for_job.php?id=" . urlencode($id);
+$body->setContent("apply_url", $apply_url);
+
+$requirements = $mysqli->query("
+    SELECT requirement.name, requirement.level, requirement.description
+    FROM requirement
+    JOIN job_offer ON job_offer.id = requirement.job_offer_id AND job_offer.id = $id");
+$requirements_html = '';
+while ($requirement = $requirements->fetch_assoc()) {
+    $requirement_name = $requirement['name'];
+    $requirement_level = $requirement['level'];
+    $requirement_description = $requirement['description'] ?? 'No description provided';
+    $requirements_html .= "<li>
+                                <strong>$requirement_name</strong> - $requirement_level/10
+                                <p>$requirement_description</p>
+                            </li>";
+}
+$body->setContent("requirements", $requirements_html);
 
 $main->setContent("body", $body->get());
 
