@@ -19,7 +19,7 @@ $profile_id = ($profile_id->fetch_assoc()['id']);
 
 $result = $mysqli->query("
     SELECT name, surname
-    FROM candidate
+    FROM `candidate`
     WHERE id = $profile_id
     ");
 
@@ -38,7 +38,7 @@ foreach ($jobs as $job) {
     } else {
         $end = 'now';
     }
-  
+
     $jobs_html .= "<div class='edu-history style2'>
                         <i></i>
                         <div class='edu-hisinfo'>
@@ -62,7 +62,6 @@ foreach ($portfolio as $img) {
 						    <div class='mportolio'><img src={$img['path']} alt='#'/><a href='#' title=''><i class='la la-search'></i></a>
                             </div>
 							<ul class='action_job'>
-								<li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
 								<li><span>Delete</span><a href=$delete_image_url title=''><i class='la la-trash-o'></i></a></li>
 							</ul>
 						</div>";
