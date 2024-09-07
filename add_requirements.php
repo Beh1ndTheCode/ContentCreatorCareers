@@ -20,7 +20,7 @@ if (is_array($names) && is_array($levels) && is_array($descriptions)) {
     for ($i = 0; $i < count($names); $i++) {
         // Sanitize user inputs
         $name = (!empty($names[$i])) ? trim($mysqli->real_escape_string($names[$i])) : null;
-        $level = (!empty($levels[$i])) ? floatval($levels[$i]) : null;
+        $level = (!empty($levels[$i])) ? intval($levels[$i]) : null;
         $description = (!empty($descriptions[$i])) ? trim($mysqli->real_escape_string($descriptions[$i])) : null;
 
         // Prepare the main statement for adding the job offer

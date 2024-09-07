@@ -9,19 +9,43 @@ require "include/dbms.inc.php";
 
 $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
 
-$stmt = $mysqli->prepare("DELETE FROM image WHERE image.id = ?");
-
-if (!$stmt) {
+// Fetch the photo path from the database before deleting the record
+$select_stmt = $mysqli->prepare("SELECT path FROM `image` WHERE id = ?");
+if (!$select_stmt) {
     die('Prepared failed: ' . $mysqli->error);
 }
 
-$stmt->bind_param('i', $id);
+$select_stmt->bind_param('i', $id);
 
-if (!$stmt->execute()) {
-    die('Execute failed: ' . $stmt->error);
+if (!$select_stmt->execute()) {
+    die('Execute failed: ' . $select_stmt->error);
 }
 
-$stmt->close();
+// Get the result and fetch the path
+$select_stmt->bind_result($path);
+$select_stmt->fetch();
+$select_stmt->close();
+
+// Delete the file from the server if the path exists
+if ($path && file_exists($path)) {
+    if (!unlink($path)) {
+        die('Failed to delete the file: ' . $path);
+    }
+}
+
+// Now proceed to delete the record from the database
+$delete_stmt = $mysqli->prepare("DELETE FROM `image` WHERE id = ?");
+if (!$delete_stmt) {
+    die('Prepared failed: ' . $mysqli->error);
+}
+
+$delete_stmt->bind_param('i', $id);
+
+if (!$delete_stmt->execute()) {
+    die('Execute failed: ' . $delete_stmt->error);
+}
+
+$delete_stmt->close();
 $mysqli->close();
 
 header("Location: candidates_my_resume.php");

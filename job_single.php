@@ -23,11 +23,13 @@ $result = $mysqli->query("
 	    job_offer.type AS job_type,
 	    job_offer.description AS job_description,
 	    job_offer.salary AS job_salary,
+	    job_offer.quantity AS job_quantity,
 	    job_offer.date AS job_date,
 	    language.name AS lang_name,
 	    requirement.name AS requirement_name,
 	    requirement.level AS requirement_level,
 	    requirement.description AS requirement_description,
+	    employer.id AS employer_id,
 		employer.name AS employer_name,
 		profile.phone AS employer_number, 
         profile.email AS employer_email, 
@@ -38,24 +40,15 @@ $result = $mysqli->query("
 		address.postal_code AS postal_code,
 		address.street AS street,
 		address.civic AS civic
-	FROM 
-	    job_offer
-    LEFT JOIN
-        language ON language.id = job_offer.language_id
-    LEFT JOIN 
-	    requirement ON requirement.job_offer_id = job_offer.id
-	JOIN 
-        employer ON job_offer.employer_id = employer.id
-    JOIN 
-        profile ON profile.id = employer.id
-    LEFT JOIN 
-        social_account ON employer.id = social_account.profile_id AND social_account.name = 'Website'
-    LEFT JOIN 
-        image ON image.profile_id = employer.id AND image.type = 'profilo'
-	LEFT JOIN 
-        address ON employer.id = address.profile_id
-    WHERE 
-        job_offer.id = $id 
+	FROM `job_offer`
+    LEFT JOIN `language` ON language.id = job_offer.language_id
+    LEFT JOIN `requirement` ON requirement.job_offer_id = job_offer.id
+	JOIN `employer` ON job_offer.employer_id = employer.id
+    JOIN `profile` ON profile.id = employer.id
+    LEFT JOIN `social_account` ON employer.id = social_account.profile_id AND social_account.name = 'Website'
+    LEFT JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
+	LEFT JOIN `address` ON employer.id = address.profile_id
+    WHERE job_offer.id = $id 
 	");
 
 if (!$result) {
@@ -93,6 +86,7 @@ $body->setContent("job_name", $data['job_name']);
 $body->setContent("type", $type);
 $body->setContent("job_type", $data['job_type']);
 $body->setContent("job_description", $data['job_description']);
+$body->setContent("job_quantity", $data['job_quantity']);
 $body->setContent("language", $data['lang_name']);
 $body->setContent("requirement_name", $data['requirement_name']);
 $body->setContent("requirement_level", $data['requirement_level']);
@@ -107,20 +101,23 @@ $body->setContent("employer_image", $image);
 $body->setContent("city", $city);
 $body->setContent("country", $country);
 
+$emp_url = "employer_single.php?id=" . urlencode($data['employer_id']);
 $apply_url = "apply_for_job.php?id=" . urlencode($id);
+$body->setContent("emp_url", $emp_url);
 $body->setContent("apply_url", $apply_url);
 
 $requirements = $mysqli->query("
     SELECT requirement.name, requirement.level, requirement.description
-    FROM requirement
-    JOIN job_offer ON job_offer.id = requirement.job_offer_id AND job_offer.id = $id");
+    FROM `requirement`
+    JOIN `job_offer` ON job_offer.id = requirement.job_offer_id AND job_offer.id = $id
+    ");
 $requirements_html = '';
 while ($requirement = $requirements->fetch_assoc()) {
     $requirement_name = $requirement['name'];
     $requirement_level = $requirement['level'];
     $requirement_description = $requirement['description'] ?? 'No description provided';
     $requirements_html .= "<li>
-                                <strong>$requirement_name</strong> - $requirement_level/10
+                                <strong>$requirement_name</strong> - $requirement_level%
                                 <p>$requirement_description</p>
                             </li>";
 }

@@ -60,7 +60,7 @@
                         </div>
                         <div class="profile-form-edit">
                             <form action="add_requirements.php" method="post">
-                                <input type="hidden" name="job_offer_id" value=<[job_offer_id]>>
+                                <input name="job_offer_id" type="hidden" value=<[job_offer_id]>>
                                 <div class="row">
                                     <div id="skill-container">
                                         <!-- Skill sets will be added dynamically here -->
@@ -68,7 +68,8 @@
 
                                     <!-- Add Skill button -->
                                     <div class="col-lg-12">
-                                        <button type="button" id="add-skill-btn" class="btn btn-primary">Add Skill</button>
+                                        <button class="btn btn-primary" id="add-skill-btn" type="button">Add Skill
+                                        </button>
                                     </div>
 
                                     <!-- Submit button -->
@@ -99,9 +100,9 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <span class="pf-title">Skill level in decimals</span>
+                <span class="pf-title">Skill level percentage</span>
                 <div class="pf-field">
-                    <input name="requirement_level[]" type="text" />
+                    <input name="requirement_level[]" type="number" min="1" max="100" />
                 </div>
             </div>
             <div class="col-lg-12">

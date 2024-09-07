@@ -23,20 +23,13 @@ $result = $mysqli->query("
         COUNT(DISTINCT job_offer.id) AS job_offer_count,
         COUNT(DISTINCT application.candidate_id) AS app_count,
         COUNT(DISTINCT job.candidate_id) AS job_count
-    FROM 
-        employer
-    JOIN 
-        profile ON profile.id = employer.id
-    JOIN 
-        user ON user.id = profile.user_id
-    LEFT JOIN 
-        job_offer ON job_offer.employer_id = employer.id
-    LEFT JOIN 
-        application ON application.job_offer_id = job_offer.id
-    LEFT JOIN 
-        job ON job.employer_id = employer.id
-    WHERE 
-        user.username = '$username'
+    FROM `employer`
+    JOIN `profile` ON profile.id = employer.id
+    JOIN `user` ON user.id = profile.user_id
+    LEFT JOIN `job_offer` ON job_offer.employer_id = employer.id
+    LEFT JOIN `application` ON application.job_offer_id = job_offer.id
+    LEFT JOIN `job` ON job.employer_id = employer.id
+    WHERE user.username = '$username'
 ");
 
 if (!$result) {
@@ -44,13 +37,12 @@ if (!$result) {
 }
 
 $data = $result->fetch_assoc();
+$profile_id = $data['emp_id'];
 
 $body->setContent("emp_name", $data['emp_name']);
 $body->setContent("job_offer_count", $data['job_offer_count']);
 $body->setContent("app_count", $data['app_count']);
 $body->setContent("job_count", $data['job_count']);
-
-$profile_id = $data['emp_id'];
 
 $result = $mysqli->query("
 	SELECT
@@ -62,18 +54,12 @@ $result = $mysqli->query("
 	    job_offer.date AS date,
 	    job_offer.type AS type,
 	    job_offer.quantity AS quantity
-	FROM 
-	    job_offer
-	JOIN 
-	    employer ON job_offer.employer_id = employer.id
-    LEFT JOIN 
-        address ON address.profile_id = employer.id
-	LEFT JOIN
-	    application ON application.job_offer_id = job_offer.id
-	WHERE
-	    job_offer.employer_id = $profile_id
-	GROUP BY 
-        job_offer.id, job_offer.name, address.city, address.country, job_offer.date
+	FROM `job_offer`
+	JOIN `employer` ON job_offer.employer_id = employer.id
+    LEFT JOIN `address` ON address.profile_id = employer.id
+	LEFT JOIN `application` ON application.job_offer_id = job_offer.id
+	WHERE job_offer.employer_id = $profile_id
+	GROUP BY job_offer.id, job_offer.name, address.city, address.country, job_offer.date
     ");
 
 if (!$result) {
@@ -112,6 +98,7 @@ while ($job = $result->fetch_assoc()) {
 						</td>
 						<td>
 							<ul class='action_job'>
+                                <li><span>View</span><a href='$view_url' title=''><i class='la la-eye'></i></a></li>
                                 <li><span>Delete</span><a href='$delete_url' title=''><i class='la la-trash-o'></i></a></li>
                             </ul>
                         </td>
