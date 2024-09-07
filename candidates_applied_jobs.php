@@ -46,10 +46,6 @@ if (!$result) {
     die("Query failed: " . $mysqli->error);
 }
 
-if ($result->num_rows === 0) {
-    die("No job offers found.");
-}
-
 $applied_jobs_html = '';
 while ($application = $result->fetch_assoc()) {
     $emp_url = "employer_single.php?id=" . urlencode($application['emp_id']);

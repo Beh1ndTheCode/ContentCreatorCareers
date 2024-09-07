@@ -13,6 +13,7 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("candidates_list");
 
+// Fetch the user role and profile information
 $result = $mysqli->query("
     SELECT 
         user_role.role_id, 
@@ -40,57 +41,65 @@ if ($user_role == 2) {
     $body->setContent("name", $data['employer_name']);
 }
 
+// Fetch all candidates and their jobs
 $result = $mysqli->query("
-	SELECT
+    SELECT
         candidate.id AS can_id,
-	    candidate.name AS name,
+        candidate.name AS name,
         candidate.surname AS surname,
-	    address.city AS city,
-	    address.country AS country,
+        address.city AS city,
+        address.country AS country,
         job.name AS job_name,
         employer.id AS emp_id,
         employer.name AS emp_name,
-	    image.path AS img
-	FROM `candidate`
+        image.path AS img
+    FROM `candidate`
     JOIN `profile` ON profile.id = candidate.id 
+    JOIN `image` ON image.profile_id = candidate.id AND image.type = 'profilo'
     LEFT JOIN `address` ON candidate.id = address.profile_id
-	LEFT JOIN `job` ON job.candidate_id = candidate.id AND job.type = 'current'
+    LEFT JOIN `job` ON job.candidate_id = candidate.id AND job.type = 'current'
     LEFT JOIN `employer` ON employer.id = job.employer_id
-    LEFT JOIN `image` ON image.profile_id = candidate.id AND image.type = 'profilo'
-	");
+");
 
 if (!$result) {
     die("Query failed: " . $mysqli->error);
 }
 
-if ($result->num_rows === 0) {
-    die("No candidate found.");
+// Prepare an array to store candidates and their jobs
+$candidates = [];
+
+// Process the result set to organize jobs under each candidate
+while ($row = $result->fetch_assoc()) {
+    $can_id = $row['can_id'];
+
+    // Initialize candidate data if not already set
+    if (!isset($candidates[$can_id])) {
+        $candidates[$can_id] = ['url' => "candidates_single.php?id=" . urlencode($can_id), 'name' => $row['name'], 'surname' => $row['surname'], 'city' => $row['city'] ?? 'Unknown city', 'country' => $row['country'] ?? 'Unknown country', 'image' => $row['img'] ?? 'skins/jobhunt/images/profile.png', 'jobs' => []];
+    }
+
+    // Add job information if job and employer names are available
+    if ($row['job_name'] && $row['emp_name']) {
+        $job_info = "<i>{$row['job_name']}</i> at <a href='employer_single.php?id=" . urlencode($row['emp_id']) . "'>{$row['emp_name']}</a>";
+        $candidates[$can_id]['jobs'][] = $job_info;
+    }
 }
 
+// Generate the HTML for each candidate
 $list_html = '';
-while ($candidate = $result->fetch_assoc()) {
-    $can_url = "candidates_single.php?id=" . urlencode($candidate['can_id']);
-    $emp_url = "employer_single.php?id=" . urlencode($candidate['emp_id']);
-    $image = $candidate['img'] ?? 'skins/jobhunt/images/profile.png';
-    $city = $candidate['city'] ?? 'Unknown city';
-    $country = $candidate['country'] ?? 'Unknown country';
-    $job = $candidate['job_name'] ?? 'No current job';
-    $emp_name = $candidate['emp_name'] ?? null;
-
-    // Check if emp_name is not null or empty
-    $employer_display = $emp_name ? " at <a href='$emp_url'>$emp_name</a>" : '';
-
+foreach ($candidates as $candidate) {
+    $jobs = !empty($candidate['jobs']) ? implode(', ', $candidate['jobs']) : '<i>No current job</i>';
     $list_html .= "<div class='emply-resume-list square'>
-						<div class='emply-resume-thumb'>
-							<a href=$can_url><img src=$image alt='' /></a>
-						</div>
-						<div class='emply-resume-info'>
-							<h3><a href=$can_url title=''>{$candidate['name']} {$candidate['surname']}</a></h3>
-							<span><i>$job</i>$employer_display</span>
-							<p><i class='la la-map-marker'></i>$city / $country</p>
-						</div>
-					</div><!-- Emply List -->";
+                        <div class='emply-resume-thumb'>
+                            <a href='{$candidate['url']}'><img src='{$candidate['image']}' alt='' /></a>
+                        </div>
+                        <div class='emply-resume-info'>
+                            <h3><a href='{$candidate['url']}' title=''>{$candidate['name']} {$candidate['surname']}</a></h3>
+                            <span>$jobs</span>
+                            <p><i class='la la-map-marker'></i>{$candidate['city']} / {$candidate['country']}</p>
+                        </div>
+                    </div><!-- Emply List -->";
 }
+
 $body->setContent("list", $list_html);
 
 $main->setContent("body", $body->get());

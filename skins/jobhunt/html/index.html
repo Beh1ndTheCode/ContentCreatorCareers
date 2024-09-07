@@ -35,10 +35,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                <div class="or-browser">
-                                    <span>Browse job offers by</span>
-                                    <a href="#" title="">Category</a>
-                                </div>
                             </div>
                         </div>
                         <div class="scroll-to">
@@ -64,19 +60,7 @@
                     </div><!-- Heading -->
                     <div class="cat-sec">
                         <div class="row no-gape">
-                            <div class="col-lg-3 col-md-3 col-sm-6">
-                                <div class="p-category">
-                                    <a href="#" title="">
-                                        <i class="la la-bullhorn"></i>
-                                        <span>
-											<[expertise]>
-										</span>
-                                        <p>
-                                            (<[jobs_count_category]> open positions)
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
+                            <[expertise_areas]>
                         </div>
                     </div>
                 </div>
@@ -94,14 +78,15 @@
     <div class="block double-gap-top double-gap-bottom">
         <div class="parallax scrolly-invisible layer color"
              data-velocity="-.1"
-             style="background: url(http://placehold.it/1920x1000) repeat scroll 50% 422.28px transparent;"></div><!-- PARALLAX BACKGROUND IMAGE -->
+             style="background: url(http://placehold.it/1920x1000) repeat scroll 50% 422.28px transparent;"></div>
+        <!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="simple-text-block">
                         <h3>Make a Difference with Your Online Resume!</h3>
                         <span>Your resume in minutes with JobHunt resume assistant is ready!</span>
-                        <a href="#" title="">Create an Account</a>
+                        <a href="register.php" title="">Create an Account</a>
                     </div>
                 </div>
             </div>
@@ -115,30 +100,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="heading">
-                        <h2>Featured Jobs</h2>
+                        <h2>Latest Jobs</h2>
                         <span>Leading Employers already using job and talent.</span>
                     </div><!-- Heading -->
                     <div class="job-listings-sec">
-                        <div class="job-listing">
-                            <div class="job-title-sec">
-                                <div class="c-logo"><img alt="" height=auto src="<[employer_image]>" width=60%/></div>
-                                <h3>
-                                    <!-- <a href="#" title="">Web Designer / Developer</a> -->
-                                    <[job_name]>
-                                </h3>
-                                <span>
-									<!-- Massimo Artemisis -->
-									<[employer_name]>
-								</span>
-                            </div>
-                            <span class="job-lctn"><i class="la la-map-marker"></i>
-                                <!-- Sacramento, California -->
-								<[city]>, <[country]>
-							</span>
-                            <span class="job-is ft">
-								<[job_type::format mode="upper" library="stringtag"]>
-							</span>
-                        </div><!-- Job -->
+                        <[jobs]>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -159,8 +125,7 @@
                 <div class="col-lg-12">
                     <div class="simple-text">
                         <h3>Gat a question?</h3>
-                        <span>We're here to help. Check out our FAQs, send us an email or call us at 1 (800)
-							555-5555</span>
+                        <span>We're here to help. Check out our <a href="faq.php">FAQs</a></span>
                     </div>
                 </div>
             </div>

@@ -45,8 +45,8 @@ $result = $mysqli->query("
     LEFT JOIN `requirement` ON requirement.job_offer_id = job_offer.id
 	JOIN `employer` ON job_offer.employer_id = employer.id
     JOIN `profile` ON profile.id = employer.id
+    JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
     LEFT JOIN `social_account` ON employer.id = social_account.profile_id AND social_account.name = 'Website'
-    LEFT JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
 	LEFT JOIN `address` ON employer.id = address.profile_id
     WHERE job_offer.id = $id 
 	");
@@ -60,7 +60,6 @@ if ($result->num_rows === 0) {
 }
 
 $data = $result->fetch_assoc();
-$image = $data['employer_image'] ?? 'skins/jobhunt/images/profile.png';
 $website = $data['employer_website'] ?? 'N/A';
 $phone_num = $data['employer_number'] ?? 'N/A';
 $email = $data['employer_email'] ?? 'N/A';
@@ -97,7 +96,7 @@ $body->setContent("employer_name", $data['employer_name']);
 $body->setContent("employer_number", $phone_num);
 $body->setContent("employer_email", $email);
 $body->setContent("employer_website", $website);
-$body->setContent("employer_image", $image);
+$body->setContent("employer_image", $data['employer_image']);
 $body->setContent("city", $city);
 $body->setContent("country", $country);
 
