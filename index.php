@@ -53,7 +53,7 @@ $jobsResult = $mysqli->query("
 		address.country AS country
 	FROM `job_offer`
 	JOIN `employer` ON job_offer.employer_id = employer.id
-    JOIN `image` ON employer.id = image.profile_id AND image.type = 'profilo'
+    LEFT JOIN `image` ON employer.id = image.profile_id AND image.type = 'profilo'
 	LEFT JOIN `address` ON employer.id = address.profile_id
 	ORDER BY job_offer.date DESC
 	LIMIT 10
@@ -63,6 +63,7 @@ $jobs_html = '';
 while ($job = $jobsResult->fetch_assoc()) {
     $job_url = "job_single.php?id=" . urlencode($job['job_id']);
     $emp_url = "employer_single.php?id=" . urlencode($job['employer_id']);
+    $image = $job['employer_image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $job['city'] ?? 'Unknown city';
     $country = $job['country'] ?? 'Unknown country';
     $type = match ($job['job_type']) {
@@ -73,7 +74,7 @@ while ($job = $jobsResult->fetch_assoc()) {
     $jobs_html .= "<div class='job-listing'>
                         <div class='job-title-sec'>
                             <div class='c-logo'>
-                                <a href='$job_url'><img alt='' src='{$job['employer_image']}' height='96' width='96'/></a>
+                                <a href='$job_url'><img alt='' src='$image' height='96' width='96'/></a>
                             </div>
                             <h3><a href='$job_url'>{$job['job_name']}</a></h3>
                             <span><a href='$emp_url'>{$job['employer_name']}</a></span>

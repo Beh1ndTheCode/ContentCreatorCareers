@@ -13,13 +13,11 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("employer_change_password");
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$id = ($profile_id->fetch_assoc()['id']);
-
 $result = $mysqli->query("
-    SELECT employer.name AS name
-    FROM employer
-    WHERE employer.id = '$id'
+    SELECT employer.name 
+    FROM `employer` 
+    JOIN `profile` ON employer.id = profile.id 
+    JOIN `user` ON user.id = profile.user_id AND user.username = '{$_SESSION["user"]["username"]}'
     ");
 
 $data = $result->fetch_assoc();

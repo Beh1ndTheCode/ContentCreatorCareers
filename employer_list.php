@@ -31,7 +31,7 @@ $result = $mysqli->query("
 	    COUNT(job_offer.id) AS job_offer_count
 	FROM `employer`
     JOIN `profile` ON profile.id = employer.id 
-    JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
+    LEFT JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
     LEFT JOIN `address` ON employer.id = address.profile_id
     LEFT JOIN `profile_expertise` ON employer.id = profile_expertise.profile_id
 	LEFT JOIN `expertise` ON expertise.id = profile_expertise.expertise_id
@@ -46,6 +46,7 @@ if (!$result) {
 $employers_html = '';
 while ($employer = $result->fetch_assoc()) {
     $url = "employer_single.php?id=" . urlencode($employer['emp_id']);
+    $image = $employer['image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $employer['city'] ?? 'Unknown city';
     $country = $employer['country'] ?? 'Unknown country';
     $exp_title = $employer['exp_title'] ?? 'No expertise listed';
@@ -56,7 +57,7 @@ while ($employer = $result->fetch_assoc()) {
     }
     $employers_html .= "<div class='emply-list'>
 							<div class='emply-list-thumb'>
-								<a href='$url' title=''><img src='{$employer['image']}' alt='' /></a>
+								<a href='$url' title=''><img src='$image' alt='' /></a>
                             </div>
 							<div class='emply-list-info'>
 								<div class='emply-pstn'>{$employer['job_offer_count']} Open Positions</div>
