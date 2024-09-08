@@ -2,7 +2,8 @@
     <div class="block no-padding">
         <div class="parallax scrolly-invisible no-parallax"
              data-velocity="-.1"
-             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div><!-- PARALLAX BACKGROUND IMAGE -->
+             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
+        <!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -20,136 +21,90 @@
         <div class="container">
             <div class="row no-gape">
                 <aside class="col-lg-3 column border-right">
-					<div class="widget">
-						<div class="tree_widget-sec">
-							<ul>
-								<li><a href="candidates_profile.php" title=""><i class="la la-file-text"></i>My
-										Profile</a></li>
-								<li><a href="candidates_my_resume.php" title=""><i class="la la-briefcase"></i>My
-										Resume</a></li>
-								<li><a href="candidates_change_password.php" title=""><i class="la la-flash"></i>Change
-										Password</a></li>
-								<li><a href="candidates_applied_jobs.php" title=""><i class="la la-paper-plane"></i>Applied
-										Jobs</a></li>
-								<li><a href="logout.php" title=""><i class="la la-unlink"></i>Logout</a></li>
-							</ul>
-						</div>
-					</div>
-				</aside>
+                    <div class="widget">
+                        <div class="tree_widget-sec">
+                            <ul>
+                                <li><a href="candidates_profile.php" title=""><i class="la la-file-text"></i>My
+                                    Profile</a></li>
+                                <li><a href="candidates_my_resume.php" title=""><i class="la la-briefcase"></i>My
+                                    Resume</a></li>
+                                <li><a href="candidates_change_password.php" title=""><i class="la la-flash"></i>Change
+                                    Password</a></li>
+                                <li><a href="candidates_applied_jobs.php" title=""><i class="la la-paper-plane"></i>Applied
+                                    Jobs</a></li>
+                                <li><a href="logout.php" title=""><i class="la la-unlink"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
                 <div class="col-lg-9 column">
                     <div class="padding-left">
                         <div class="profile-title">
                             <h3>My Profile</h3>
                             <div class="upload-img-bar">
                                 <span class="round"><img alt="" src="<[image]>"/></span>
-                                <div class="upload-info">
-                                    <a href="#" title="">Browse</a>
-                                    <span>Max file size is 1MB, Minimum dimension: 270x210 And Suitable files are .jpg &
-										.png</span>
-                                </div>
+                                <!-- Form for file upload -->
+                                <form action="upload_profile_image.php" enctype="multipart/form-data" id="uploadForm"
+                                      method="post">
+                                    <div class="upload-info">
+                                        <input name="source" type="hidden" value="candidate">
+                                        <!-- File input with a name attribute and change event listener -->
+                                        <input id="fileToUpload" name="fileToUpload" onchange="submitForm()"
+                                               style="display:none;"
+                                               type="file"/>
+                                        <!-- Browse link triggers file input -->
+                                        <a href="#" id="browseButton" title="">Browse</a>
+                                        <span>Max file size is 1MB, suitable files are .jpg & .png</span>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="profile-form-edit">
-                            <form>
+                            <form action="update_candidate_profile.php" method="post">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <span class="pf-title">Full Name</span>
+                                        <span class="pf-title">Name</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[name]> <[surname]>" type="text"/>
+                                            <input name="name" type="text" value="<[name]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <span class="pf-title">Job Title</span>
+                                        <span class="pf-title">Surname</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[job_title]>" type="text"/>
+                                            <input name="surname" type="text" value="<[surname]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <span class="pf-title">Experience</span>
+                                        <span class="pf-title">Your Expertise</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[experience]>" type="text"/>
+                                            <input name="job_title" type="text" value="<[job_title]>"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Years of Experience</span>
+                                        <div class="pf-field">
+                                            <input name="experience" type="text" value="<[experience]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Age</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[age]>" type="text"/>
+                                            <input name="age" type="text" value="<[age]>"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <span class="pf-title">Languages</span>
+                                        <span class="pf-title">Language</span>
                                         <div class="pf-field">
                                             <div class="pf-field">
-                                                <select class="chosen" data-placeholder="Please Select Specialism">
-                                                    <[languages]>
-                                                </select>
+                                                <select class="chosen" data-placeholder="Please Select Specialism"
+                                                        name="language"><[languages]></select>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="social-edit">
-                            <h3>Social Edit</h3>
-                            <form>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Facebook</span>
+                                    <div class="col-lg-12">
+                                        <span class="pf-title">Description</span>
                                         <div class="pf-field">
-                                            <input placeholder="<[facebook]>" type="text"/>
-                                            <i class="fa fa-facebook"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Instagram</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[instagram]>" type="text"/>
-                                            <i class="fa fa-instagram"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">WebSite</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[website]>" type="text"/>
-                                            <i class="la la-unlink"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Linkedin</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[linkedin]>" type="text"/>
-                                            <i class="la la-linkedin"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="contact-edit">
-                            <h3>Contact</h3>
-                            <form>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Phone Number</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[phone_num]>" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Email</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[email]>" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">Country</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[country]>" type="text"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span class="pf-title">City</span>
-                                        <div class="pf-field">
-                                            <input placeholder="<[city]>" type="text"/>
+                                            <textarea name="description"><[description]></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -158,9 +113,90 @@
                                 </div>
                             </form>
                         </div>
+                        <form action="update_contact_info.php" method="post">
+                            <input name="source" type="hidden" value="candidate">
+                            <div class="social-edit">
+                                <h3>Social Edit</h3>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Facebook</span>
+                                        <div class="pf-field">
+                                            <input name="facebook" type="text" value="<[facebook]>"/>
+                                            <i class="fa fa-facebook"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Instagram</span>
+                                        <div class="pf-field">
+                                            <input name="instagram" type="text" value="<[instagram]>"/>
+                                            <i class="fa fa-instagram"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">WebSite</span>
+                                        <div class="pf-field">
+                                            <input name="website" type="text" value="<[website]>"/>
+                                            <i class="la la-unlink"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Linkedin</span>
+                                        <div class="pf-field">
+                                            <input name="linkedin" type="text" value="<[linkedin]>"/>
+                                            <i class="la la-linkedin"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-edit">
+                                <h3>Contact</h3>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Phone Number</span>
+                                        <div class="pf-field">
+                                            <input name="phone_num" type="text" value="<[phone_num]>"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Email</span>
+                                        <div class="pf-field">
+                                            <input name="email" type="text" value="<[email]>"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">Country</span>
+                                        <div class="pf-field">
+                                            <input name="country" type="text" value="<[country]>"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="pf-title">City</span>
+                                        <div class="pf-field">
+                                            <input name="city" type="text" value="<[city]>"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="submit">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- JavaScript to trigger the file input and form submission -->
+<script>
+    document.getElementById('browseButton').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('fileToUpload').click();
+    });
+
+    // Function to submit the form automatically when a file is selected
+    function submitForm() {
+        document.getElementById('uploadForm').submit();
+    }
+</script>

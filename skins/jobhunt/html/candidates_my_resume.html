@@ -1,88 +1,104 @@
+<style>
+    .upload-row {
+        display: flex; /* Use flexbox to place elements side by side */
+    }
+
+    .spacer {
+        width: 30px; /* Adjust the width to create the desired horizontal space */
+    }
+
+</style>
+
 <section class="overlape">
-	<div class="block no-padding">
-		<div data-velocity="-.1"
-			style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"
-			class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
-		<div class="container fluid">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="inner-header">
-						<h3>Welcome <[name]>
-								<[surname]>
-						</h3>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="block no-padding">
+        <div class="parallax scrolly-invisible no-parallax"
+             data-velocity="-.1"
+             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
+        <!-- PARALLAX BACKGROUND IMAGE -->
+        <div class="container fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-header">
+                        <h3>Welcome <[name]>
+                            <[surname]>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section>
-	<div class="block remove-top">
-		<div class="container">
-			<div class="row no-gape">
-				<aside class="col-lg-3 column border-right">
-					<div class="widget">
-						<div class="tree_widget-sec">
-							<ul>
-								<li><a href="candidates_profile.php" title=""><i class="la la-file-text"></i>My
-										Profile</a></li>
-								<li><a href="candidates_my_resume.php" title=""><i class="la la-briefcase"></i>My
-										Resume</a></li>
-								<li><a href="candidates_change_password.php" title=""><i class="la la-flash"></i>Change
-										Password</a></li>
-								<li><a href="candidates_applied_jobs.php" title=""><i class="la la-paper-plane"></i>Applied
-										Jobs</a></li>
-								<li><a href="logout.php" title=""><i class="la la-unlink"></i>Logout</a></li>
-							</ul>
-						</div>
-					</div>
-				</aside>
-				<div class="col-lg-9 column">
-					<div class="padding-left">
-						<div class="manage-jobs-sec">
-							<div class="border-title">
-								<h3>Select your CV</h3><a href="#" title=""><i class="la la-plus"></i> Add new CV</a>
-							</div>
-							<div class="col-lg-6">
-								<div class="pf-field">
-									<select data-placeholder="Select Your CV" class="chosen">
-										<option>alitufan-cv</option>
-										<option>alitufan-cv old</option>
-									</select>
-								</div>
-							</div>
-							<div class="border-title">
-								<h3>Candidate About</h3><a href="#" title=""><i class="la la-pencil"></i> Change</a>
-							</div>
-							<div class="pf-field" style="padding-left: 15px;">
-								<textarea><[about]></textarea>
-							</div>
-							<div class="border-title">
-								<h3>Work Experience</h3>
-							</div>
-							<div class="edu-history-sec">
-								<[jobs]>
-							</div>
-							<div class="border-title">
-								<h3>Portfolio</h3><a href="candidates_my_resume_add_new.php" title=""><i
-										class="la la-plus"></i> Add Portfolio</a>
-							</div>
-							<div class="mini-portfolio">
-								<div class='mp-row'>
-									<[portfolio]>
-								</div>
-							</div>
-							<div class="border-title">
-								<h3>Professional Skills</h3><a href="candidates_my_resume_add_new.php" title=""><i
-										class="la la-plus"></i> Add
-									Skills</a>
-							</div>
-							<[skills]>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="block remove-top">
+        <div class="container">
+            <div class="row no-gape">
+                <aside class="col-lg-3 column border-right">
+                    <div class="widget">
+                        <div class="tree_widget-sec">
+                            <ul>
+                                <li><a href="candidates_profile.php" title=""><i class="la la-file-text"></i>My
+                                    Profile</a></li>
+                                <li><a href="candidates_my_resume.php" title=""><i class="la la-briefcase"></i>My
+                                    Resume</a></li>
+                                <li><a href="candidates_change_password.php" title=""><i class="la la-flash"></i>Change
+                                    Password</a></li>
+                                <li><a href="candidates_applied_jobs.php" title=""><i class="la la-paper-plane"></i>Applied
+                                    Jobs</a></li>
+                                <li><a href="logout.php" title=""><i class="la la-unlink"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-lg-9 column">
+                    <div class="padding-left">
+                        <div class="manage-jobs-sec">
+                            <div class="border-title">
+                                <h3>Work Experience</h3><a href="candidates_my_resume_add_new.php" title=""><i
+                                    class="la la-plus"></i> Add Experience</a>
+                            </div>
+                            <div class="edu-history-sec">
+                                <[jobs]>
+                            </div>
+                            <div class="border-title">
+                                <h3>Portfolio</h3>
+                            </div>
+                            <div class="mini-portfolio">
+                                <div class="upload-row">
+                                    <form action="upload_portfolio.php" enctype="multipart/form-data"
+                                          id="uploadForm"
+                                          method="post">
+                                        <div class="uploadbox">
+                                            <label class="custom-file-upload" for="file-upload">
+                                                <i class="la la-cloud-upload"></i> <span>Upload Image</span>
+                                            </label>
+                                            <input id="file-upload" name="fileToUpload" onchange="submitForm()"
+                                                   style="display: none;" type="file"/>
+                                        </div>
+                                    </form>
+                                    <div class="spacer"></div>
+                                    <div class='mp-row'>
+                                        <[portfolio]>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-title">
+                                <h3>Professional Skills</h3><a href="candidates_my_resume_add_new.php" title=""><i
+                                    class="la la-plus"></i> Add
+                                Skills</a>
+                            </div>
+                            <[skills]>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script>
+    // Function to submit the form automatically when a file is selected
+    function submitForm() {
+        document.getElementById('uploadForm').submit();
+    }
+</script>

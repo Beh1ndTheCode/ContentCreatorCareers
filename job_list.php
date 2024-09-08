@@ -11,7 +11,7 @@ require "include/template2.inc.php";
 $main = new Template("frame");
 $body = new Template("job_list");
 
-$result = $mysqli->query("SELECT COUNT(*) AS jobs_count FROM job_offer");
+$result = $mysqli->query("SELECT COUNT(*) AS jobs_count FROM `job_offer`");
 
 $data = $result->fetch_assoc();
 $body->setContent("jobs_count", $data['jobs_count']);
@@ -21,33 +21,26 @@ $result = $mysqli->query("
 	    job_offer.id AS job_id,
 	    job_offer.name AS job_name,
         job_offer.type AS job_type,
+        employer.id AS emp_id,
 		employer.name AS emp_name, 
 		image.path AS emp_image,
 		address.city AS city, 
 		address.country AS country,
 	    DATEDIFF(CURRENT_DATE, job_offer.date) AS date_diff
-	FROM 
-	    job_offer
-	JOIN 
-	    employer ON job_offer.employer_id = employer.id
-    LEFT JOIN 
-	    image ON image.profile_id = employer.id AND image.type = 'profilo'
-	LEFT JOIN 
-	    address ON employer.id = address.profile_id
+	FROM `job_offer`
+	JOIN `employer` ON job_offer.employer_id = employer.id
+    JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
+	LEFT JOIN `address` ON employer.id = address.profile_id
 	");
 
 if (!$result) {
     die("Query failed: " . $mysqli->error);
 }
 
-if ($result->num_rows === 0) {
-    die("No job offers found.");
-}
-
 $jobs_html = '';
 while ($job = $result->fetch_assoc()) {
-    $url = "job_single.php?id=" . urlencode($job['job_id']);
-    $image = $job['emp_image'] ?? 'skins/jobhunt/images/profile.png';
+    $job_url = "job_single.php?id=" . urlencode($job['job_id']);
+    $emp_url = "employer_single.php?id=" . urlencode($job['emp_id']);
     $city = $job['city'] ?? 'Unknown city';
     $country = $job['country'] ?? 'Unknown country';
     $type = match ($job['job_type']) {
@@ -58,14 +51,19 @@ while ($job = $result->fetch_assoc()) {
     $jobs_html .= "<div class='job-listing wtabs'>
                         <div class='job-title-sec'>
                             <div class='c-logo'>
-                                <a href='$url' title=''><img alt='' height=auto src='$image' width='70'/>
+                                <a href='$job_url'><img alt='' src='{$job['emp_image']}' height='96' width='96'/></a>
                             </div>
-                            <h3><a href='$url' title=''>{$job['job_name']}</a></h3>
-                            <span>{$job['emp_name']}</span>
-                            <div class='job-lctn'><i class='la la-map-marker'></i>$city, $country</div>
+                            <h3><a href='$job_url'>{$job['job_name']}</a></h3>
+                            <span><a href='$emp_url'>{$job['emp_name']}</a></span>
+                            <div class='job-lctn'>
+                                <i class='la la-map-marker'></i>
+                                $city, $country
+                            </div>
                         </div>
                         <div class='job-style-bx'>
-                            <span class='job-is $type'>{$job['job_type']}</span>
+                            <span class='job-is $type'>
+                                {$job['job_type']}
+                            </span>
                             <i>{$job['date_diff']} days ago</i>
                         </div>
                     </div>";
