@@ -5,7 +5,7 @@
 -- Host: localhost
 -- Generation Time: Sep 08, 2024 at 06:59 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -123,6 +123,29 @@ INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`)
 (6, 'Alessio', 'Alessi', NULL, NULL, NULL),
 (7, 'Giulia', 'Giuliani', NULL, NULL, NULL),
 (13, 'fabio', 'volo', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+CREATE TABLE `content` (
+  `service_id` int(10) UNSIGNED DEFAULT NULL,
+  `nome` varchar(63) DEFAULT NULL,
+  `titolo1` varchar(127) DEFAULT NULL,
+  `titolo2` varchar(127) DEFAULT NULL,
+  `titolo3` varchar(127) DEFAULT NULL,
+  `sottotitolo1` varchar(255) DEFAULT NULL,
+  `sottotitolo2` varchar(255) DEFAULT NULL,
+  `sottotitolo3` varchar(255) DEFAULT NULL,
+  `testo1` text DEFAULT NULL,
+  `testo2` text DEFAULT NULL,
+  `testo3` text DEFAULT NULL,
+  `immagine1` varchar(255) DEFAULT NULL,
+  `immagine2` varchar(255) DEFAULT NULL,
+  `immagine3` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -373,6 +396,7 @@ CREATE TABLE `role_service` (
 
 INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (1, 1),
+(1, 20),
 (2, 2),
 (2, 3),
 (2, 4),
@@ -443,6 +467,11 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 (20, 'Employer Add Requirements', 'employer_add_requirements.php', '', NULL, '', '', ''),
 (21, 'Candidates edit job', 'candidates_edit_job.php', '', NULL, '', '', ''),
 (22, 'Candidates edit skill', 'candidates_edit_skill.php', '', NULL, '', '', '');
+(23, 'Content Menagment', 'content_menagment.php', '', NULL, '', '', ''),
+(24, 'FAQ', 'faq.php', '', NULL, '', '', ''),
+(25, 'How It Works', 'how_it_works.php', '', NULL, '', '', ''),
+(26, 'Terms And Condition', 'terms_and_condition.php', '', NULL, '', '', ''),
+(27, 'About', 'about.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -566,6 +595,12 @@ ALTER TABLE `application`
 ALTER TABLE `candidate`
   ADD PRIMARY KEY (`id`),
   ADD KEY `foreign_language_id` (`language_id`) USING BTREE;
+
+--
+-- Indexes for table `content`
+--
+ALTER TABLE `content`
+  ADD UNIQUE KEY `service_id` (`service_id`);
 
 --
 -- Indexes for table `employer`
@@ -733,7 +768,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -764,6 +799,12 @@ ALTER TABLE `application`
 ALTER TABLE `candidate`
   ADD CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `candidate_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `content`
+--
+ALTER TABLE `content`
+  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `employer`

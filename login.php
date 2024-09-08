@@ -4,8 +4,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-# $config['auth'] = "true";
-
 require "include/config.inc.php";
 require "include/dbms.inc.php";
 require "include/template2.inc.php";
