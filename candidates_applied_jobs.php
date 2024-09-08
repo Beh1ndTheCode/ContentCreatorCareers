@@ -37,7 +37,7 @@ $result = $mysqli->query("
 	    address.country AS emp_country
 	FROM `application`
 	JOIN `job_offer` ON job_offer.id = application.job_offer_id
-    JOIN `employer` ON employer.id = job_offer.employer_id
+  JOIN `employer` ON employer.id = job_offer.employer_id
 	LEFT JOIN `address` ON address.profile_id = employer.id
 	WHERE application.candidate_id = $id
     ");
