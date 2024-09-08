@@ -31,26 +31,23 @@
         padding: 10px;
         margin-bottom: 10px;
     }
+
     form#signup {
         margin-top: -0px;
     }
 </style>
-<script crossorigin="anonymous" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 
     $(document).ready(function () {
         $('#signin').click(function () {
-
             let user = $('#username').val();
             let passwd = $('#password').val();
 
             $.ajax({
                 method: "POST",
                 url: "login-check.php",
-                data: { username: user, password: passwd }
+                data: {username: user, password: passwd}
             })
-
                 .done(function (result) {
                     if (result === '0') {
                         $('#notification')
@@ -59,18 +56,26 @@
                             .click(function () {
                                 $(this).fadeOut();
                             })
-                    } else {
-                        if (result === '1') {
-                            $("#form").submit();
-                        }
+                    } else if (result === '1') {
+                        $("#notification")
+                            .html('You are not authorised to access')
+                            .fadeIn()
+                            .click(function () {
+                                $(this).fadeOut();
+                            })
+                    } else if (result === '2') {
+                        $("#form")
+                            .attr('action', 'candidates_single.php')
+                            .submit();
+                    } else if (result === '3') {
+                        $("#form")
+                            .attr('action', 'employer_single.php')
+                            .submit();
                     }
                 });
-
             return false;
         });
-
     });
-
 </script>
 
 <section>
@@ -82,28 +87,28 @@
                         <div class="account-popup">
                             <span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
                                 ullamcorper</span>
-                            <form id="form" action="candidates_profile.php" method="POST">
+                            <form id="form" method="POST">
                                 <div id="notification"></div>
 
                                 <div class="cfield">
-                                    <input id="username" name="username" placeholder="Username" type="text" />
+                                    <input id="username" name="username" placeholder="Username" type="text"/>
                                     <i class="la la-user"></i>
                                 </div>
                                 <div class="cfield">
-                                    <input id="password" name="password" placeholder="********" type="password" />
+                                    <input id="password" name="password" placeholder="********" type="password"/>
                                     <i class="la la-key"></i>
                                 </div>
                                 <p class="remember-label">
                                     <input id="cb1" name="cb" type="checkbox"><label for="cb1">Remember me</label>
                                 </p>
                                 <a href="#" title="">Forgot Password?</a>
-                                <button type="submit" id="signin">Login</button>
+                                <button id="signin" type="submit">Login</button>
                             </form>
                             <div class="extra-login">
                                 <span>Or</span>
                             </div>
                             <!-- Fare il bottone di un altro colore (es. bianco) e aggiungere link -->
-                            <form id="signup" action="register.php" method="POST">
+                            <form action="register.php" id="signup" method="POST">
                                 <div>
                                     <button type="submit">Signup</button>
                                 </div>
