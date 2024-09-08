@@ -44,11 +44,14 @@
                             <div class="upload-img-bar">
                                 <span class="round"><img alt="" src="<[image]>"/></span>
                                 <!-- Form for file upload -->
-                                <form action="upload_profile_image.php" enctype="multipart/form-data" method="post">
+                                <form action="upload_profile_image.php" enctype="multipart/form-data" id="uploadForm"
+                                      method="post">
                                     <div class="upload-info">
-
-                                        <!-- Hidden file input -->
-                                        <input id="fileToUpload" style="display:none;" type="file"/>
+                                        <input name="source" type="hidden" value="candidate">
+                                        <!-- File input with a name attribute and change event listener -->
+                                        <input id="fileToUpload" name="fileToUpload" onchange="submitForm()"
+                                               style="display:none;"
+                                               type="file"/>
                                         <!-- Browse link triggers file input -->
                                         <a href="#" id="browseButton" title="">Browse</a>
                                         <span>Max file size is 1MB, suitable files are .jpg & .png</span>
@@ -78,7 +81,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <span class="pf-title">Experience</span>
+                                        <span class="pf-title">Years of Experience</span>
                                         <div class="pf-field">
                                             <input name="experience" type="text" value="<[experience]>"/>
                                         </div>
@@ -185,10 +188,15 @@
     </div>
 </section>
 
-<!-- JavaScript to trigger the file input -->
+<!-- JavaScript to trigger the file input and form submission -->
 <script>
     document.getElementById('browseButton').addEventListener('click', function (e) {
         e.preventDefault();
         document.getElementById('fileToUpload').click();
     });
+
+    // Function to submit the form automatically when a file is selected
+    function submitForm() {
+        document.getElementById('uploadForm').submit();
+    }
 </script>

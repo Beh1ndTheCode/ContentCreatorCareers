@@ -13,20 +13,18 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("candidates_applied_jobs");
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$id = ($profile_id->fetch_assoc()['id']);
-
-$result = $mysqli->query("
-    SELECT
-        candidate.name AS name,
-        candidate.surname AS surname
-    FROM candidate
-    WHERE candidate.id = '$id'
+$profileResult = $mysqli->query("
+    SELECT profile.id, candidate.name, candidate.surname 
+    FROM `profile`
+    JOIN `candidate` ON profile.id = candidate.id
+    JOIN `user` ON user.id = profile.user_id 
+    WHERE user.username = '{$_SESSION["user"]["username"]}'
     ");
-$data = $result->fetch_assoc();
+$profileData = $profileResult->fetch_assoc();
+$id = ($profileData['id']);
 
-$body->setContent("name", $data['name']);
-$body->setContent("surname", $data['surname']);
+$body->setContent("name", $profileData['name']);
+$body->setContent("surname", $profileData['surname']);
 
 $result = $mysqli->query("
 	SELECT
@@ -37,24 +35,15 @@ $result = $mysqli->query("
 	    employer.name AS emp_name,
 	    address.city AS emp_city,
 	    address.country AS emp_country
-	FROM 
-	    application
-	JOIN 
-	    job_offer ON job_offer.id = application.job_offer_id
-    JOIN 
-        employer ON employer.id = job_offer.employer_id
-	LEFT JOIN
-	    address ON address.profile_id = employer.id
-	WHERE
-	    application.candidate_id = $id
+	FROM `application`
+	JOIN `job_offer` ON job_offer.id = application.job_offer_id
+    JOIN `employer` ON employer.id = job_offer.employer_id
+	LEFT JOIN `address` ON address.profile_id = employer.id
+	WHERE application.candidate_id = $id
     ");
 
 if (!$result) {
     die("Query failed: " . $mysqli->error);
-}
-
-if ($result->num_rows === 0) {
-    die("No job offers found.");
 }
 
 $applied_jobs_html = '';
@@ -62,21 +51,21 @@ while ($application = $result->fetch_assoc()) {
     $emp_url = "employer_single.php?id=" . urlencode($application['emp_id']);
     $view_url = "job_single.php?id=" . urlencode($application['job_id']);
     $remove_url = "remove_application.php?job_id=" . urlencode($application['job_id']) . "&can_id=" . urlencode($id);
-    $city = $job['city'] ?? 'Unknown city';
-    $country = $job['country'] ?? 'Unknown country';
+    $city = $skill['city'] ?? 'Unknown city';
+    $country = $skill['country'] ?? 'Unknown country';
     $formatted_date = DateTime::createFromFormat('Y-m-d', $application['app_date'])->format('F j, Y');
 
     $applied_jobs_html .= "
         <tr>
             <td>
                 <div class='table-list-title'>
-                    <i><a href='$view_url'>{$application['job_name']}</a></i><br />
+                    <i><a href='$emp_url'>{$application['emp_name']}</a></i><br />
                     <span><i class='la la-map-marker'></i>{$application['emp_city']}, {$application['emp_country']}</span>
                 </div>
             </td>
             <td>
                 <div class='table-list-title'>
-                    <h3><a href=$emp_url title=''>{$application['emp_name']}</a></h3>
+                    <h3><a href=$view_url title=''>{$application['job_name']}</a></h3>
                 </div>
             </td>
             <td>

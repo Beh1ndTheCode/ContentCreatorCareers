@@ -18,11 +18,9 @@ $profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON us
 $profile_id = ($profile_id->fetch_assoc()['id']);
 
 $result = $mysqli->query("
-    SELECT
-        candidate.name AS name,
-        candidate.surname AS surname
-    FROM candidate
-    WHERE candidate.id = $profile_id
+    SELECT name, surname
+    FROM `candidate`
+    WHERE id = $profile_id
     ");
 
 $data = $result->fetch_assoc();
@@ -32,6 +30,7 @@ $body->setContent("surname", $data['surname']);
 $jobs = get_jobs($mysqli, $profile_id);
 $jobs_html = '';
 foreach ($jobs as $job) {
+    $edit_job_url = "candidates_edit_job.php?id=" . urlencode($job['id']);
     $delete_job_url = "remove_job.php?id=" . urlencode($job['id']) . "&type=2";
     $start = DateTime::createFromFormat('Y-m-d', $job['start'])->format('F j, Y');
     if ($job['type'] === 'past') {
@@ -39,7 +38,7 @@ foreach ($jobs as $job) {
     } else {
         $end = 'now';
     }
-  
+
     $jobs_html .= "<div class='edu-history style2'>
                         <i></i>
                         <div class='edu-hisinfo'>
@@ -48,7 +47,7 @@ foreach ($jobs as $job) {
                             <p>{$job['description']}</p>
                         </div>
                         <ul class='action_job'>
-                            <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
+                            <li><span>Edit</span><a href=$edit_job_url title=''><i class='la la-pencil'></i></a></li>
                             <li><span>Delete</span><a href=$delete_job_url title=''><i class='la la-trash-o'></i></a></li>
                         </ul>
                     </div>";
@@ -63,7 +62,6 @@ foreach ($portfolio as $img) {
 						    <div class='mportolio'><img src={$img['path']} alt='#'/><a href='#' title=''><i class='la la-search'></i></a>
                             </div>
 							<ul class='action_job'>
-								<li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
 								<li><span>Delete</span><a href=$delete_image_url title=''><i class='la la-trash-o'></i></a></li>
 							</ul>
 						</div>";
@@ -73,6 +71,7 @@ $body->setContent("portfolio", $portfolio_html);
 $skills = get_skills($mysqli, $profile_id);
 $skills_html = '';
 foreach ($skills as $skill) {
+    $edit_skill_url = "candidates_edit_skill.php?skill_name=" . urlencode($skill['name']);
     $delete_skill_url = "remove_skill.php?can_id=" . urlencode($profile_id) . "&skill_name=" . urlencode($skill['name']);
     $skills_html .= "<div class='progress-sec with-edit' style='padding-left: 15px;'>
                         <span>{$skill['name']}</span>
@@ -80,7 +79,7 @@ foreach ($skills as $skill) {
                             <div class='progress' style='width: {$skill['level']}%;'><span>{$skill['level']}%</span></div>
                         </div>
                         <ul class='action_job'>
-                            <li><span>Edit</span><a href='#' title=''><i class='la la-pencil'></i></a></li>
+                            <li><span>Edit</span><a href=$edit_skill_url title=''><i class='la la-pencil'></i></a></li>
                             <li><span>Delete</span><a href=$delete_skill_url title=''><i class='la la-trash-o'></i></a></li>
                         </ul>
                     </div>";
