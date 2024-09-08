@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 05, 2024 at 10:39 PM
+-- Generation Time: Sep 08, 2024 at 06:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -94,6 +94,7 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`candidate_id`, `job_offer_id`, `date`) VALUES
+(1, 17, '2024-09-07'),
 (3, 1, '2024-09-04');
 
 -- --------------------------------------------------------
@@ -181,8 +182,8 @@ CREATE TABLE `image` (
 
 INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
 (1, 2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
-(2, 1, 'profilo', 'https://www.aircommunication.it/wp-content/uploads/2019/06/profili-instagram-per-chi-ama-la-fotografia.jpg'),
-(6, 2, 'profilo', 'skins/jobhunt/images/profile.png'),
+(2, 1, 'profilo', 'uploads/profile_images/resized_66db5135010ba.jpg'),
+(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg'),
 (7, 1, 'portfolio', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
 
 -- --------------------------------------------------------
@@ -207,9 +208,10 @@ CREATE TABLE `job` (
 --
 
 INSERT INTO `job` (`id`, `employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
-(4, 2, 1, 'jqiodwhfsdgye', 'past', '2024-09-01', '2024-09-05', 'jdiofeduy'),
-(5, 12, 1, 'jdIASUBIYR', 'current', '2024-09-01', NULL, NULL),
-(6, 12, 1, 'Graphic Editor', 'past', '2024-06-06', '2024-07-31', '');
+(4, 12, 1, 'Social Media Manager', 'current', '2024-09-01', NULL, 'jdiofeduy'),
+(6, 12, 1, 'Graphic Editor', 'past', '2024-06-06', '2024-07-31', ''),
+(7, 2, 1, '1234', 'current', '2024-09-02', NULL, NULL),
+(8, 2, 1, '5678', 'past', '2024-09-04', '2024-09-05', NULL);
 
 -- --------------------------------------------------------
 
@@ -234,7 +236,8 @@ CREATE TABLE `job_offer` (
 --
 
 INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `language_id`, `quantity`, `description`, `date`) VALUES
-(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21');
+(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
+(17, 2, 'Spazzino', 1, 'Freelance', 6, 1, 'Pulire, TAAC', '2024-09-07');
 
 -- --------------------------------------------------------
 
@@ -319,7 +322,7 @@ INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VAL
 CREATE TABLE `requirement` (
   `job_offer_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
-  `level` enum('1','2','3','4','5') NOT NULL,
+  `level` tinyint(3) UNSIGNED NOT NULL,
   `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -328,7 +331,9 @@ CREATE TABLE `requirement` (
 --
 
 INSERT INTO `requirement` (`job_offer_id`, `name`, `level`, `description`) VALUES
-(1, 'Adobe Photoshop', '3', 'Basic knowledge of the tool');
+(1, 'Adobe Photoshop', 60, 'Basic knowledge of the tool'),
+(17, 'Maneggiare la scopa', 80, 'Buona padronanza dello strumento'),
+(17, 'Maneggiare lo straccio', 70, 'Lu paviment t\\\'à splenn');
 
 -- --------------------------------------------------------
 
@@ -379,6 +384,8 @@ INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (2, 10),
 (2, 13),
 (2, 19),
+(2, 21),
+(2, 22),
 (3, 3),
 (3, 6),
 (3, 11),
@@ -433,7 +440,9 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 (17, 'employer profile', 'employer_profile.php', '', NULL, '', '', ''),
 (18, 'employer resume', 'employer_resume.php', '', NULL, '', '', ''),
 (19, 'employer single', 'employer_single.php', '', NULL, '', '', ''),
-(20, 'Employer Add Requirements', 'employer_add_requirements.php', '', NULL, '', '', '');
+(20, 'Employer Add Requirements', 'employer_add_requirements.php', '', NULL, '', '', ''),
+(21, 'Candidates edit job', 'candidates_edit_job.php', '', NULL, '', '', ''),
+(22, 'Candidates edit skill', 'candidates_edit_skill.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -453,8 +462,8 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
-(1, 'BBBBB', 33, NULL),
-(1, 'Teamwork', 10, 'AAA');
+(1, 'Maneggio della scopa', 100, 'AAAA'),
+(1, 'Teamwork', 40, 'AAA');
 
 -- --------------------------------------------------------
 
@@ -475,8 +484,9 @@ CREATE TABLE `social_account` (
 INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
 (1, 'facebook', 'facebook.com'),
 (1, 'instagram', 'instagram.com'),
+(1, 'website', 'mariorossi.it'),
 (2, 'facebook', 'https://www.facebook.com/CNBcomunicazione'),
-(2, 'website', 'cnbcomunicazione.com');
+(2, 'website', 'https://cnbcomunicazione.com');
 
 -- --------------------------------------------------------
 
@@ -687,19 +697,19 @@ ALTER TABLE `expertise`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -723,7 +733,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user`
