@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 08, 2024 at 06:59 PM
+-- Host: 127.0.0.1
+-- Generation Time: Sep 08, 2024 at 09:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -132,7 +132,6 @@ INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`)
 
 CREATE TABLE `content` (
   `service_id` int(10) UNSIGNED DEFAULT NULL,
-  `nome` varchar(63) DEFAULT NULL,
   `titolo1` varchar(127) DEFAULT NULL,
   `titolo2` varchar(127) DEFAULT NULL,
   `titolo3` varchar(127) DEFAULT NULL,
@@ -307,7 +306,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
-(1, 2, 'mariorossi@gmail.com', '+393333333333', 'ojfiwaiiafwknisa'),
+(1, 2, 'mariorossi@gmail.com', '+393333333333', 'ojfiwaiiafwkugx5x'),
 (2, 3, 'contact@cnb.com', '+390862111111', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
 (3, 4, NULL, NULL, NULL),
 (4, 5, NULL, NULL, NULL),
@@ -396,7 +395,7 @@ CREATE TABLE `role_service` (
 
 INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (1, 1),
-(1, 20),
+(1, 23),
 (2, 2),
 (2, 3),
 (2, 4),
@@ -470,8 +469,8 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 (23, 'Content Menagment', 'content_menagment.php', '', NULL, '', '', ''),
 (24, 'FAQ', 'faq.php', '', NULL, '', '', ''),
 (25, 'How It Works', 'how_it_works.php', '', NULL, '', '', ''),
-(26, 'Terms And Condition', 'terms_and_condition.php', '', NULL, '', '', ''),
-(27, 'About', 'about.php', '', NULL, '', '', '');
+(26, 'Terms & Condition', 'terms_and_condition.php', '', NULL, '', '', ''),
+(27, 'About Us', 'about.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -768,7 +767,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `user`
