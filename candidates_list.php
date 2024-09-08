@@ -55,7 +55,7 @@ $result = $mysqli->query("
         image.path AS img
     FROM `candidate`
     JOIN `profile` ON profile.id = candidate.id 
-    JOIN `image` ON image.profile_id = candidate.id AND image.type = 'profilo'
+    LEFT JOIN `image` ON image.profile_id = candidate.id AND image.type = 'profilo'
     LEFT JOIN `address` ON candidate.id = address.profile_id
     LEFT JOIN `job` ON job.candidate_id = candidate.id AND job.type = 'current'
     LEFT JOIN `employer` ON employer.id = job.employer_id

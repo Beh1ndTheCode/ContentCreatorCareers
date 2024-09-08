@@ -466,7 +466,7 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 (19, 'employer single', 'employer_single.php', '', NULL, '', '', ''),
 (20, 'Employer Add Requirements', 'employer_add_requirements.php', '', NULL, '', '', ''),
 (21, 'Candidates edit job', 'candidates_edit_job.php', '', NULL, '', '', ''),
-(22, 'Candidates edit skill', 'candidates_edit_skill.php', '', NULL, '', '', '');
+(22, 'Candidates edit skill', 'candidates_edit_skill.php', '', NULL, '', '', ''),
 (23, 'Content Menagment', 'content_menagment.php', '', NULL, '', '', ''),
 (24, 'FAQ', 'faq.php', '', NULL, '', '', ''),
 (25, 'How It Works', 'how_it_works.php', '', NULL, '', '', ''),
