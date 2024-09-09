@@ -3,7 +3,7 @@
 		margin-bottom: 20px;
 	}
 
-	.browseButton {
+	.browse {
 		margin-top: 30px;
 	}
 </style>
@@ -26,7 +26,7 @@
 													<select class="chosen" data-placeholder="">
 														<[pages]>
 													</select>
-													<input id="id" name="id" type="hidden"/>
+													<input id="id" name="id" type="hidden" />
 												</div>
 											</div>
 										</div>
@@ -132,15 +132,16 @@
 											<span class=""><img id="img_1" alt="" src="" /></span>
 											<!-- Form for file upload -->
 											<form action="upload_content_image.php" enctype="multipart/form-data"
-												id="uploadForm" method="post">
+												id="uploadForm1" method="post">
 												<div class="upload-info">
-													<input name="source" type="hidden" value="candidate">
+													<input name="number" type="hidden" value="immagine1">
+													<input class="page" name="page" type="hidden" value="immagine1">
 													<!-- File input with a name attribute and change event listener -->
-													<input id="fileToUpload" name="fileToUpload" onchange="submitForm()"
-														style="display:none;" type="file" />
+													<input id="fileToUpload1" name="fileToUpload"
+														onchange="submitForm()" style="display:none;" type="file" />
 													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
 													<!-- Browse link triggers file input -->
-													<a href="#" class="browseButton" title="">Browse</a>
+													<a href="#" class="browse" id="browseButton1" title="">Browse</a>
 												</div>
 											</form>
 										</div>
@@ -150,15 +151,16 @@
 											<span class=""><img id="img_2" alt="" src="" /></span>
 											<!-- Form for file upload -->
 											<form action="upload_content_image.php" enctype="multipart/form-data"
-												id="uploadForm" method="post">
+												id="uploadForm2" method="post">
 												<div class="upload-info">
-													<input name="source" type="hidden" value="candidate">
+													<input name="number" type="hidden" value="immagine2">
+													<input class="page" name="page" type="hidden">
 													<!-- File input with a name attribute and change event listener -->
-													<input id="fileToUpload" name="fileToUpload" onchange="submitForm()"
-														style="display:none;" type="file" />
+													<input id="fileToUpload2" name="fileToUpload"
+														onchange="submitForm()" style="display:none;" type="file" />
 													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
 													<!-- Browse link triggers file input -->
-													<a href="#" class="browseButton" title="">Browse</a>
+													<a href="#" class="browse" id="browseButton2" title="">Browse</a>
 												</div>
 											</form>
 										</div>
@@ -168,15 +170,16 @@
 											<span class=""><img id="img_3" alt="" src="" /></span>
 											<!-- Form for file upload -->
 											<form action="upload_content_image.php" enctype="multipart/form-data"
-												id="uploadForm" method="post">
+												id="uploadForm3" method="post">
 												<div class="upload-info">
-													<input name="source" type="hidden" value="candidate">
+													<input name="number" type="hidden" value="immagine3">
+													<input class="page" name="page" type="hidden">
 													<!-- File input with a name attribute and change event listener -->
-													<input id="fileToUpload" name="fileToUpload" onchange="submitForm()"
-														style="display:none;" type="file" />
+													<input id="fileToUpload3" name="fileToUpload"
+														onchange="submitForm()" style="display:none;" type="file" />
 													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
 													<!-- Browse link triggers file input -->
-													<a href="#" class="browseButton" title="">Browse</a>
+													<a href="#" class="browse" id="browseButton3" title="">Browse</a>
 												</div>
 											</form>
 										</div>
@@ -193,10 +196,31 @@
 
 <!-- JavaScript to trigger the file input and form submission -->
 <script>
+	$('#browseButton1').on('click', function (e1) {
+		e1.preventDefault();
+		$('#fileToUpload1').click();
+	});
+	function submitForm() {
+		$('#uploadForm1').submit();
+	}
+	$('#browseButton2').on('click', function (e2) {
+		e2.preventDefault();
+		$('#fileToUpload2').click();
+	});
+	function submitForm() {
+		$('#uploadForm2').submit();
+	}
+	$('#browseButton3').on('click', function (e3) {
+		e3.preventDefault();
+		$('#fileToUpload3').click();
+	});
+	function submitForm() {
+		$('#uploadForm3').submit();
+	}
 	function get_content() {
 		var val = $('.chosen').val();
 		$('#id').val(val);
-		console.log(val);
+		$('.page').val(val);
 		$.ajax({
 			method: "POST",
 			url: "get_content.php",
@@ -303,12 +327,4 @@
 			get_content();
 		})
 	});
-	document.getElementById('browseButton').addEventListener('click', function (e) {
-		e.preventDefault();
-		document.getElementById('fileToUpload').click();
-	});
-	// Function to submit the form automatically when a file is selected
-	function submitForm() {
-		document.getElementById('uploadForm').submit();
-	}
 </script>
