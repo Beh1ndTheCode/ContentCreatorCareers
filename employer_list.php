@@ -46,7 +46,6 @@ if (!$result) {
 $employers_html = '';
 while ($employer = $result->fetch_assoc()) {
     $url = "employer_single.php?id=" . urlencode($employer['emp_id']);
-    $image = $employer['image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $employer['city'] ?? 'Unknown city';
     $country = $employer['country'] ?? 'Unknown country';
     $exp_title = $employer['exp_title'] ?? 'No expertise listed';
@@ -57,7 +56,7 @@ while ($employer = $result->fetch_assoc()) {
     }
     $employers_html .= "<div class='emply-list'>
 							<div class='emply-list-thumb'>
-								<a href='$url' title=''><img src='$image' alt='' /></a>
+								<a href='$url' title=''><img src='{$employer['image']}' alt='' /></a>
                             </div>
 							<div class='emply-list-info'>
 								<div class='emply-pstn'>{$employer['job_offer_count']} Open Positions</div>

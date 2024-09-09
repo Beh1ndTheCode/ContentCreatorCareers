@@ -536,7 +536,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'admin', 'admin@example.com'),
 (2, 'candidate', 'candidate', 'candidate@example.com'),
-(3, 'employer', 'employer', 'employer@example.com'),
+(3, 'employer', 'sas', 'employer@example.com'),
 (4, 'luigi', 'luigi', 'luigi@gmail.com'),
 (5, 'valerio', 'valerio', 'valerio@gmail.com'),
 (7, 'alessio', 'alessio', 'alessio@gmail.com'),

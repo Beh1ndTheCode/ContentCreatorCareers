@@ -97,7 +97,7 @@ $body->setContent("employer_name", $data['employer_name']);
 $body->setContent("employer_number", $phone_num);
 $body->setContent("employer_email", $email);
 $body->setContent("employer_website", $website);
-$body->setContent("employer_image", $image);
+$body->setContent("employer_image", $data['employer_image']);
 $body->setContent("city", $city);
 $body->setContent("country", $country);
 
