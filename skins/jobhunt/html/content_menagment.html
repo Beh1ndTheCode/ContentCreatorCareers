@@ -32,7 +32,7 @@
 										<div class="col-lg-6">
 											<span class="pf-title">Page Name</span>
 											<div class="pf-field">
-												<input name="name" placeholder="<[name]>" type="text" />
+												<input id="name" placeholder="" type="text" />
 											</div>
 										</div>
 									</div>
@@ -43,22 +43,22 @@
 								<div class="social-edit">
 									<h3>SECTION 1</h3>
 									<div class="row">
-										<div class="col-lg-6">
+										<div class="col-lg-6 title_1">
 											<span class="pf-title">Title 1</span>
 											<div class="pf-field">
-												<input name="title_1" placeholder="" type="text" />
+												<input id="title_1" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-6 subtitle_1">
 											<span class="pf-title">Subitle 1</span>
 											<div class="pf-field">
-												<input name="subtitle_1" placeholder="" type="text" />
+												<input id="subtitle_1" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-12">
+										<div class="col-lg-12 text_1">
 											<span class="pf-title">Text 1</span>
 											<div class="pf-field" style="padding-left: 15px;">
-												<textarea name="text_1"></textarea>
+												<textarea id="text_1"></textarea>
 											</div>
 										</div>
 									</div>
@@ -69,22 +69,22 @@
 								<div class="social-edit">
 									<h3>SECTION 2</h3>
 									<div class="row">
-										<div class="col-lg-6">
+										<div class="col-lg-6 title_2">
 											<span class="pf-title">Title 2</span>
 											<div class="pf-field">
-												<input name="title_2" placeholder="" type="text" />
+												<input id="title_2" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-6 subtitle_2">
 											<span class="pf-title">Subitle 2</span>
 											<div class="pf-field">
-												<input name="subtitle_2" placeholder="" type="text" />
+												<input id="subtitle_2" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-12">
+										<div class="col-lg-12 text_2">
 											<span class="pf-title">Text 2</span>
 											<div class="pf-field" style="padding-left: 15px;">
-												<textarea name="text_2"></textarea>
+												<textarea id="text_2"></textarea>
 											</div>
 										</div>
 									</div>
@@ -95,22 +95,22 @@
 								<div class="social-edit">
 									<h3>SECTION 3</h3>
 									<div class="row">
-										<div class="col-lg-6">
+										<div class="col-lg-6 title_3">
 											<span class="pf-title">Title 3</span>
 											<div class="pf-field">
-												<input name="title_3" placeholder="" type="text" />
+												<input id="title_3" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-6 subtitle_3">
 											<span class="pf-title">Subitle 3</span>
 											<div class="pf-field">
-												<input name="subtitle_3" placeholder="" type="text" />
+												<input id="subtitle_3" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-12">
+										<div class="col-lg-12 text_3">
 											<span class="pf-title">Text 3</span>
 											<div class="pf-field" style="padding-left: 15px;">
-												<textarea name="text_3"></textarea>
+												<textarea id="text_3"></textarea>
 											</div>
 										</div>
 									</div>
@@ -124,9 +124,9 @@
 									<h3>IMAGES</h3>
 								</div>
 								<div class="row">
-									<div class="col-lg-4">
+									<div class="col-lg-4 img_1">
 										<div class="upload-img-bar">
-											<span class=""><img alt="" src="<[image]>" /></span>
+											<span class=""><img id="img_1" alt="" src="" /></span>
 											<!-- Form for file upload -->
 											<form action="upload_profile_image.php" enctype="multipart/form-data"
 												id="uploadForm" method="post">
@@ -142,9 +142,9 @@
 											</form>
 										</div>
 									</div>
-									<div class="col-lg-4">
+									<div class="col-lg-4 img_2">
 										<div class="upload-img-bar">
-											<span class=""><img alt="" src="<[image]>" /></span>
+											<span class=""><img id="img_2" alt="" src="" /></span>
 											<!-- Form for file upload -->
 											<form action="upload_profile_image.php" enctype="multipart/form-data"
 												id="uploadForm" method="post">
@@ -160,9 +160,9 @@
 											</form>
 										</div>
 									</div>
-									<div class="col-lg-4">
+									<div class="col-lg-4 img_3">
 										<div class="upload-img-bar">
-											<span class=""><img alt="" src="<[image]>" /></span>
+											<span class=""><img id="img_3" alt="" src="" /></span>
 											<!-- Form for file upload -->
 											<form action="upload_profile_image.php" enctype="multipart/form-data"
 												id="uploadForm" method="post">
@@ -190,6 +190,99 @@
 
 <!-- JavaScript to trigger the file input and form submission -->
 <script>
+	function get_content() {
+		var val = $('.chosen').val();
+		$.ajax({
+			method: "POST",
+			url: "get_content.php",
+			data: { value: val },
+			success: function (response) {
+				let data = JSON.parse(response);
+				$('#name').attr('placeholder', data.name);
+				if (data.titolo1 != null) {
+					$('#title_1').attr('placeholder', data.titolo1);
+					$('.title_1').show();
+				}
+				else
+					$('.title_1').hide();
+				if (data.sottotitolo1 != null) {
+					$('#subtitle_1').attr('placeholder', data.sottotitolo1);
+					$('.subtitle_1').show();
+				}
+				else
+					$('.subtitle_1').hide();
+				if (data.testo1 != null) {
+					$('#text_1').attr('placeholder', data.testo1);
+					$('.text_1').show();
+				}
+				else
+					$('.text_1').hide();
+				if (data.titolo2 != null) {
+					$('#title_2').attr('placeholder', data.titolo2);
+					$('.title_2').show();
+				}
+				else
+					$('.title_2').hide();
+				if (data.sottotitolo2 != null) {
+					$('#subtitle_2').attr('placeholder', data.sottotitolo2);
+					$('.subtitle_2').show();
+				}
+				else
+					$('.subtitle_2').hide();
+				if (data.testo2 != null) {
+					$('#text_2').attr('placeholder', data.testo2);
+					$('.text_2').show();
+				}
+				else
+					$('.text_2').hide();
+				if (data.titolo3 != null) {
+					$('#title_3').attr('placeholder', data.titolo3);
+					$('.title_3').show();
+				}
+				else
+					$('.title_3').hide();
+				if (data.sottotitolo3 != null) {
+					$('#subtitle_3').attr('placeholder', data.sottotitolo3);
+					$('.subtitle_3').show();
+				}
+				else
+					$('.subtitle_3').hide();
+				if (data.testo3 != null) {
+					$('#text_3').attr('placeholder', data.testo3);
+					$('.text_3').show();
+				}
+				else
+					$('.text_3').hide();
+				if (data.immagine1 != null) {
+					$('#img_1').attr('src', data.immagine1);
+					$('.img_1').show();
+				}
+				else
+					$('.img_1').hide();
+				if (data.immagine2 != null) {
+					$('#img_2').attr('src', data.immagine2);
+					$('.img_2').show();
+				}
+				else
+					$('.img_2').hide();
+				if (data.immagine3 != null) {
+					$('#img_3').attr('src', data.immagine3);
+					$('.img_3').show();
+				}
+				else
+					$('.img_3').hide();
+			},
+			error: function () {
+				$('#result').html('Errore durante la richiesta AJAX.');
+			}
+		})
+	}
+	$(document).ready(function () {
+		get_content()
+		$('.chosen').on('change', function () {
+			get_content();
+		})
+	});
 	document.getElementById('browseButton').addEventListener('click', function (e) {
 		e.preventDefault();
 		document.getElementById('fileToUpload').click();
