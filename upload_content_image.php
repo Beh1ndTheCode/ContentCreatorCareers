@@ -12,10 +12,6 @@ $page = $_POST['page'];
 $target_dir = "uploads/content_images/";
 $uploadOk = 1;
 
-echo '<pre>';
-print_r($_FILES);
-echo '</pre>';
-
 // Extract the file extension and create a unique filename
 $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION));
 $target_file = $target_dir . uniqid() . '.' . $imageFileType;

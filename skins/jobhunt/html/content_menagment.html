@@ -137,8 +137,8 @@
 													<input name="number" type="hidden" value="immagine1">
 													<input class="page" name="page" type="hidden" value="immagine1">
 													<!-- File input with a name attribute and change event listener -->
-													<input id="fileToUpload1" name="fileToUpload"
-														onchange="submitForm()" style="display:none;" type="file" />
+													<input type="file" id="fileToUpload1" name="fileToUpload"
+														accept=".jpg, .jpeg, .png" style="display:none;">
 													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
 													<!-- Browse link triggers file input -->
 													<a href="#" class="browse" id="browseButton1" title="">Browse</a>
@@ -154,10 +154,10 @@
 												id="uploadForm2" method="post">
 												<div class="upload-info">
 													<input name="number" type="hidden" value="immagine2">
-													<input class="page" name="page" type="hidden">
+													<input class="page" name="page" type="hidden" value="immagine1">
 													<!-- File input with a name attribute and change event listener -->
-													<input id="fileToUpload2" name="fileToUpload"
-														onchange="submitForm()" style="display:none;" type="file" />
+													<input type="file" id="fileToUpload2" name="fileToUpload"
+														accept=".jpg, .jpeg, .png" style="display:none;">
 													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
 													<!-- Browse link triggers file input -->
 													<a href="#" class="browse" id="browseButton2" title="">Browse</a>
@@ -175,8 +175,8 @@
 													<input name="number" type="hidden" value="immagine3">
 													<input class="page" name="page" type="hidden">
 													<!-- File input with a name attribute and change event listener -->
-													<input id="fileToUpload3" name="fileToUpload"
-														onchange="submitForm()" style="display:none;" type="file" />
+													<input type="file" id="fileToUpload3" name="fileToUpload"
+														accept=".jpg, .jpeg, .png" style="display:none;">
 													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
 													<!-- Browse link triggers file input -->
 													<a href="#" class="browse" id="browseButton3" title="">Browse</a>
@@ -196,27 +196,24 @@
 
 <!-- JavaScript to trigger the file input and form submission -->
 <script>
-	$('#browseButton1').on('click', function (e1) {
-		e1.preventDefault();
+	$('#browseButton1').on('click', function () {
 		$('#fileToUpload1').click();
 	});
-	function submitForm() {
+	$('#fileToUpload1').on('change', function () {
 		$('#uploadForm1').submit();
-	}
-	$('#browseButton2').on('click', function (e2) {
-		e2.preventDefault();
+	});
+	$('#browseButton2').on('click', function () {
 		$('#fileToUpload2').click();
 	});
-	function submitForm() {
+	$('#fileToUpload2').on('change', function () {
 		$('#uploadForm2').submit();
-	}
-	$('#browseButton3').on('click', function (e3) {
-		e3.preventDefault();
+	});
+	$('#browseButton3').on('click', function () {
 		$('#fileToUpload3').click();
 	});
-	function submitForm() {
+	$('#fileToUpload3').on('change', function () {
 		$('#uploadForm3').submit();
-	}
+	});
 	function get_content() {
 		var val = $('.chosen').val();
 		$('#id').val(val);
