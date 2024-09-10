@@ -11,22 +11,19 @@
                             <div class="job-search">
                                 <h3>The Easiest Way to Get Your New Job</h3>
                                 <span>Find Jobs, Employment & Career Opportunities</span>
-                                <form>
+                                <form action="job_list.php" method="get">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                             <div class="job-field">
-                                                <input placeholder="Job title, keywords or company name" type="text"/>
+                                                <input name="name_search" placeholder="Search by job title or company name"
+                                                       type="text"/>
                                                 <i class="la la-keyboard-o"></i>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
                                             <div class="job-field">
-                                                <select class="chosen-city" data-placeholder="City, province or region">
-                                                    <option>New York</option>
-                                                    <option>Istanbul</option>
-                                                    <option>London</option>
-                                                    <option>Russia</option>
-                                                </select>
+                                                <input name="location_search" placeholder="Search by location"
+                                                       type="text"/>
                                                 <i class="la la-map-marker"></i>
                                             </div>
                                         </div>

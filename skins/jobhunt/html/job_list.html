@@ -10,23 +10,22 @@
                     <div class="inner-header wform">
                         <div class="job-search-sec">
                             <div class="job-search">
-                                <h4>Explore Thousand Of Jobs With Just Simple Search...</h4>
-                                <form>
+                                <h4>Explore Thousands Of Jobs With Just Simple Search...</h4>
+                                <form method="get">
                                     <div class="row">
                                         <div class="col-lg-7">
                                             <div class="job-field">
-                                                <input placeholder="Job title, keywords or company name" type="text"/>
+                                                <input name="name_search"
+                                                       placeholder="Search by job title or company name" type="text"
+                                                       value="<[name_search]>"/>
                                                 <i class="la la-keyboard-o"></i>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="job-field">
-                                                <select class="chosen-city" data-placeholder="City, province or region">
-                                                    <option>Istanbul</option>
-                                                    <option>New York</option>
-                                                    <option>London</option>
-                                                    <option>Russia</option>
-                                                </select>
+                                                <input name="location_search" placeholder="Search by location"
+                                                       type="text"
+                                                       value="<[location_search]>"/>
                                                 <i class="la la-map-marker"></i>
                                             </div>
                                         </div>
