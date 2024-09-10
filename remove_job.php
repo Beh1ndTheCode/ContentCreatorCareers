@@ -33,4 +33,6 @@ if ($type == 2) {
     error_log("Unknown source");
 }
 
+header("Location: candidates_my_resume.php?message=Job removed successfully");
+
 exit();

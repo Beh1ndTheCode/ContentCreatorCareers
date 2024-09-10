@@ -54,6 +54,6 @@ $stmt->close();
 $mysqli->close();
 
 // Redirect to the content menagment page after update
-header("Location: content_menagment.php");
+header("Location: content_menagment.php?message=Content updated successfully");
 
 exit();

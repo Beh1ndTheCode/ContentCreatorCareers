@@ -48,5 +48,5 @@ if (!$delete_stmt->execute()) {
 $delete_stmt->close();
 $mysqli->close();
 
-header("Location: candidates_my_resume.php");
+header("Location: candidates_my_resume.php?message=Image removed successfully");
 exit();

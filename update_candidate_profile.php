@@ -63,6 +63,6 @@ $stmt->close();
 $mysqli->close();
 
 // Redirect to the profile page after update
-header("Location: candidates_profile.php");
+header("Location: candidates_profile.php?message=Profile updated successfully");
 
 exit();

@@ -62,7 +62,7 @@ if ($uploadOk == 0) {
         if (!$result) {
             echo "Database update failed: " . $mysqli->error . "<br>";
         } else {
-            header("Location: candidates_my_resume.php");
+            header("Location: candidates_my_resume.php?message=Porfolio updated successfully");
             exit(); // Use exit to stop further script execution after redirect
         }
 

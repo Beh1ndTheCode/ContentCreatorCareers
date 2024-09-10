@@ -16,10 +16,24 @@
     </div>
 </section>
 
+<style>
+    div#notification {
+        width: 100%;
+        height: 60px;
+        background-color: #c5dbbd;
+        border-radius: 8px;
+        display: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+</style>
+
 <section>
     <div class="block no-padding">
         <div class="container">
             <div class="row no-gape">
+                <div id="notification"></div>
                 <aside class="col-lg-3 column border-right">
                     <div class="widget">
                         <div class="tree_widget-sec">
@@ -61,3 +75,20 @@
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function () {
+        // Display notification if message is present in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        console.log(message);
+        if (message) {
+            $('#notification')
+                .html(message)
+                .fadeIn()
+                .click(function () {
+                    $(this).fadeOut();
+                });
+        }
+    });
+</script>

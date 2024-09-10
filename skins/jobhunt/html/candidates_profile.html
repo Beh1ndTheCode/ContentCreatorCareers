@@ -1,14 +1,15 @@
 <section class="overlape">
     <div class="block no-padding">
-        <div class="parallax scrolly-invisible no-parallax"
-             data-velocity="-.1"
-             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
+        <div class="parallax scrolly-invisible no-parallax" data-velocity="-.1"
+            style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
         <!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="inner-header">
-                        <h3>Welcome <[name]> <[surname]></h3>
+                        <h3>Welcome <[name]>
+                                <[surname]>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -16,22 +17,55 @@
     </div>
 </section>
 
+<style>
+    div#notification {
+        width: 100%;
+        height: 60px;
+        background-color: #c5dbbd;
+        border-radius: 8px;
+        display: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .contact-edit>div button {
+        float: right;
+        background: #ffffff;
+        border: 2px solid #fb236a;
+        color: #202020;
+        font-family: Open Sans;
+        font-size: 15px;
+        padding: 11px 40px;
+
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        border-radius: 8px;
+
+        margin-top: 10px;
+    }
+</style>
+
 <section>
     <div class="block no-padding">
         <div class="container">
             <div class="row no-gape">
+                <div id="notification"></div>
                 <aside class="col-lg-3 column border-right">
                     <div class="widget">
                         <div class="tree_widget-sec">
                             <ul>
                                 <li><a href="candidates_profile.php" title=""><i class="la la-file-text"></i>My
-                                    Profile</a></li>
+                                        Profile</a></li>
                                 <li><a href="candidates_my_resume.php" title=""><i class="la la-briefcase"></i>My
-                                    Resume</a></li>
+                                        Resume</a></li>
                                 <li><a href="candidates_change_password.php" title=""><i class="la la-flash"></i>Change
-                                    Password</a></li>
-                                <li><a href="candidates_applied_jobs.php" title=""><i class="la la-paper-plane"></i>Applied
-                                    Jobs</a></li>
+                                        Password</a></li>
+                                <li><a href="candidates_applied_jobs.php" title=""><i
+                                            class="la la-paper-plane"></i>Applied
+                                        Jobs</a></li>
                                 <li><a href="logout.php" title=""><i class="la la-unlink"></i>Logout</a></li>
                             </ul>
                         </div>
@@ -42,16 +76,15 @@
                         <div class="profile-title">
                             <h3>My Profile</h3>
                             <div class="upload-img-bar">
-                                <span class="round"><img alt="" src="<[image]>"/></span>
+                                <span class="round"><img alt="" src="<[image]>" /></span>
                                 <!-- Form for file upload -->
                                 <form action="upload_profile_image.php" enctype="multipart/form-data" id="uploadForm"
-                                      method="post">
+                                    method="post">
                                     <div class="upload-info">
                                         <input name="source" type="hidden" value="candidate">
                                         <!-- File input with a name attribute and change event listener -->
                                         <input id="fileToUpload" name="fileToUpload" onchange="submitForm()"
-                                               style="display:none;"
-                                               type="file"/>
+                                            style="display:none;" type="file" />
                                         <!-- Browse link triggers file input -->
                                         <a href="#" id="browseButton" title="">Browse</a>
                                         <span>Max file size is 1MB, suitable files are .jpg & .png</span>
@@ -65,31 +98,31 @@
                                     <div class="col-lg-6">
                                         <span class="pf-title">Name</span>
                                         <div class="pf-field">
-                                            <input name="name" type="text" value="<[name]>"/>
+                                            <input name="name" type="text" value="<[name]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Surname</span>
                                         <div class="pf-field">
-                                            <input name="surname" type="text" value="<[surname]>"/>
+                                            <input name="surname" type="text" value="<[surname]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Your Expertise</span>
                                         <div class="pf-field">
-                                            <input name="job_title" type="text" value="<[job_title]>"/>
+                                            <input name="job_title" type="text" value="<[job_title]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Years of Experience</span>
                                         <div class="pf-field">
-                                            <input name="experience" type="text" value="<[experience]>"/>
+                                            <input name="experience" type="text" value="<[experience]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Age</span>
                                         <div class="pf-field">
-                                            <input name="age" type="text" value="<[age]>"/>
+                                            <input name="age" type="text" value="<[age]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -97,7 +130,9 @@
                                         <div class="pf-field">
                                             <div class="pf-field">
                                                 <select class="chosen" data-placeholder="Please Select Specialism"
-                                                        name="language"><[languages]></select>
+                                                    name="language">
+                                                    <[languages]>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -121,28 +156,28 @@
                                     <div class="col-lg-6">
                                         <span class="pf-title">Facebook</span>
                                         <div class="pf-field">
-                                            <input name="facebook" type="text" value="<[facebook]>"/>
+                                            <input name="facebook" type="text" value="<[facebook]>" />
                                             <i class="fa fa-facebook"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Instagram</span>
                                         <div class="pf-field">
-                                            <input name="instagram" type="text" value="<[instagram]>"/>
+                                            <input name="instagram" type="text" value="<[instagram]>" />
                                             <i class="fa fa-instagram"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">WebSite</span>
                                         <div class="pf-field">
-                                            <input name="website" type="text" value="<[website]>"/>
+                                            <input name="website" type="text" value="<[website]>" />
                                             <i class="la la-unlink"></i>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Linkedin</span>
                                         <div class="pf-field">
-                                            <input name="linkedin" type="text" value="<[linkedin]>"/>
+                                            <input name="linkedin" type="text" value="<[linkedin]>" />
                                             <i class="la la-linkedin"></i>
                                         </div>
                                     </div>
@@ -154,25 +189,25 @@
                                     <div class="col-lg-6">
                                         <span class="pf-title">Phone Number</span>
                                         <div class="pf-field">
-                                            <input name="phone_num" type="text" value="<[phone_num]>"/>
+                                            <input name="phone_num" type="text" value="<[phone_num]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Email</span>
                                         <div class="pf-field">
-                                            <input name="email" type="text" value="<[email]>"/>
+                                            <input name="email" type="text" value="<[email]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Country</span>
                                         <div class="pf-field">
-                                            <input name="country" type="text" value="<[country]>"/>
+                                            <input name="country" type="text" value="<[country]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">City</span>
                                         <div class="pf-field">
-                                            <input name="city" type="text" value="<[city]>"/>
+                                            <input name="city" type="text" value="<[city]>" />
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -190,6 +225,20 @@
 
 <!-- JavaScript to trigger the file input and form submission -->
 <script>
+    $(document).ready(function () {
+        // Display notification if message is present in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        console.log(message);
+        if (message) {
+            $('#notification')
+                .html(message)
+                .fadeIn()
+                .click(function () {
+                    $(this).fadeOut();
+                });
+        }
+    });
     document.getElementById('browseButton').addEventListener('click', function (e) {
         e.preventDefault();
         document.getElementById('fileToUpload').click();

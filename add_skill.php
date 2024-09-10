@@ -38,6 +38,6 @@ $stmt->close();
 
 $mysqli->close();
 
-header("Location: candidates_my_resume.php?");
+header("Location: candidates_my_resume.php?message=Skill added successfully");
 
 exit();

@@ -76,7 +76,7 @@ $mysqli->close();
 
 if ($job_offer_id) {
 // Redirect to next step
-    header("Location: employer_add_requirements.php?id=" . urlencode($job_offer_id));
+    header("Location: employer_add_requirements.php?id=" . urlencode($job_offer_id) . "?message=Job created successfully");
 } else {
     die('Failed');
 }

@@ -45,6 +45,6 @@ if (is_array($names) && is_array($levels) && is_array($descriptions)) {
 $mysqli->close();
 
 // Redirect to next step
-header("Location: employer_manage_jobs.php");
+header("Location: employer_manage_jobs.php?message=requirements added successfully");
 
 exit();

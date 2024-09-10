@@ -108,9 +108,9 @@ $mysqli->close();
 
 // Redirect based on the source page after update
 if ($source == 'candidate') {
-    header("Location: candidates_profile.php");
+    header("Location: candidates_profile.php?message=Contact info updated successfully");
 } elseif ($source == 'employer') {
-    header("Location: employer_profile.php");
+    header("Location: employer_profile.php?message=Contact info updated successfully");
 } else {
     error_log("Unknown source page");
 }

@@ -25,5 +25,5 @@ if (!$stmt->execute()) {
 $stmt->close();
 $mysqli->close();
 
-header("Location: candidates_applied_jobs.php");
+header("Location: candidates_applied_jobs.php?message=Application removed successfully");
 exit();

@@ -1,14 +1,14 @@
 <section class="overlape">
     <div class="block no-padding">
-        <div class="parallax scrolly-invisible no-parallax"
-             data-velocity="-.1"
-             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
+        <div class="parallax scrolly-invisible no-parallax" data-velocity="-.1"
+            style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
         <!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="inner-header">
-                        <h3>Welcome <[emp_name]></h3>
+                        <h3>Welcome <[emp_name]>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -16,24 +16,38 @@
     </div>
 </section>
 
+<style>
+    div#notification {
+        width: 100%;
+        height: 60px;
+        background-color: #c5dbbd;
+        border-radius: 8px;
+        display: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+</style>
+
 <section>
     <div class="block no-padding">
         <div class="container">
             <div class="row no-gape">
+                <div id="notification"></div>
                 <aside class="col-lg-3 column border-right">
                     <div class="widget">
                         <div class="tree_widget-sec">
                             <ul>
                                 <li><a href="employer_profile.php" title=""><i class="la la-file-text"></i>Company
-                                    Profile</a></li>
+                                        Profile</a></li>
                                 <li><a href="employer_manage_jobs.php" title=""><i class="la la-briefcase"></i>Manage
-                                    Jobs</a></li>
+                                        Jobs</a></li>
                                 <li><a href="employer_resume.php" title=""><i class="la la-paper-plane"></i>Resumes</a>
                                 </li>
                                 <li><a href="employer_post_new.php" title=""><i class="la la-file-text"></i>Post a New
-                                    Job</a></li>
+                                        Job</a></li>
                                 <li><a href="employer_change_password.php" title=""><i class="la la-lock"></i>Change
-                                    Password</a></li>
+                                        Password</a></li>
                                 <li><a href="logout.php" title=""><i class="la la-unlink"></i>Logout</a></li>
                             </ul>
                         </div>
@@ -44,23 +58,30 @@
                         <div class="manage-jobs-sec">
                             <h3>Manage Jobs</h3>
                             <div class="extra-job-info">
-                                <span><i
-                                        class="la la-clock-o"></i><strong><[job_offer_count]></strong> Job Posted</span>
-                                <span><i class="la la-file-text"></i><strong><[app_count]></strong> Applications</span>
-                                <span><i class="la la-users"></i><strong><[job_count]></strong> Active Jobs</span>
+                                <span><i class="la la-clock-o"></i><strong>
+                                        <[job_offer_count]>
+                                    </strong> Job Posted</span>
+                                <span><i class="la la-file-text"></i><strong>
+                                        <[app_count]>
+                                    </strong> Applications</span>
+                                <span><i class="la la-users"></i><strong>
+                                        <[job_count]>
+                                    </strong> Active Jobs</span>
                             </div>
                             <table>
                                 <thead>
-                                <tr>
-                                    <td>Title</td>
-                                    <td>Applications</td>
-                                    <td>Created</td>
-                                    <td>Type</td>
-                                    <td>Availability</td>
-                                    <td>Action</td>
-                                </tr>
+                                    <tr>
+                                        <td>Title</td>
+                                        <td>Applications</td>
+                                        <td>Created</td>
+                                        <td>Type</td>
+                                        <td>Availability</td>
+                                        <td>Action</td>
+                                    </tr>
                                 </thead>
-                                <tbody><[jobs]></tbody>
+                                <tbody>
+                                    <[jobs]>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -69,3 +90,19 @@
         </div>
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        // Display notification if message is present in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        console.log(message);
+        if (message) {
+            $('#notification')
+                .html(message)
+                .fadeIn()
+                .click(function () {
+                    $(this).fadeOut();
+                });
+        }
+    });
+</script>

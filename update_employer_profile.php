@@ -50,6 +50,6 @@ $stmt->close();
 $mysqli->close();
 
 // Redirect to the profile page after update
-header("Location: employer_profile.php");
+header("Location: employer_profile.php?message=Profile updated successfully");
 
 exit();

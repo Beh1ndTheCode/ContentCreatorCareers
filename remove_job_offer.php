@@ -24,5 +24,5 @@ if (!$stmt->execute()) {
 $stmt->close();
 $mysqli->close();
 
-header("Location: employer_manage_jobs.php");
+header("Location: employer_manage_jobs.php?message=Job offer removed successfully");
 exit();

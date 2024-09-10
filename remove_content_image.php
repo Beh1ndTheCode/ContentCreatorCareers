@@ -35,5 +35,5 @@ foreach ($estensioni as $estensione) {
     }
 }
 
-header("Location: content_menagment.php");
+header("Location: content_menagment.php?message=Image removed successfully");
 exit(); // Use exit to stop further script execution after redirect

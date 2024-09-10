@@ -37,6 +37,6 @@ if (!$stmt->execute()) {
 $stmt->close();
 $mysqli->close();
 
-header("Location: candidates_my_resume.php");
+header("Location: candidates_my_resume.php?message=Skills updated successfully");
 
 exit();

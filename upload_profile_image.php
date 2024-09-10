@@ -85,9 +85,9 @@ if ($uploadOk == 0) {
         } else {
             // Redirect based on source
             if ($source == 'candidate') {
-                header("Location: candidates_profile.php");
+                header("Location: candidates_profile.php?message=Profile image uploaded successfully");
             } elseif ($source == 'employer') {
-                header("Location: employer_profile.php");
+                header("Location: employer_profile.php?message=Profile image uploaded successfully");
             } else {
                 error_log("Unknown source page");
             }

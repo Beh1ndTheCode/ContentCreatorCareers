@@ -72,7 +72,7 @@ if ($uploadOk == 0) {
         if (!$result) {
             echo "Database update failed: " . $mysqli->error . "<br>";
         } else {
-            header("Location: content_menagment.php");
+            header("Location: content_menagment.php?message=Image updated successfully");
             exit(); // Use exit to stop further script execution after redirect
         }
 
