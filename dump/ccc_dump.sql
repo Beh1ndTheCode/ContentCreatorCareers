@@ -131,28 +131,6 @@ INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`) VALUES
 
 CREATE TABLE `content` (
   `service_id` int(10) UNSIGNED DEFAULT NULL,
-  `titolo1` varchar(127) DEFAULT NULL,
-  `titolo2` varchar(127) DEFAULT NULL,
-  `titolo3` varchar(127) DEFAULT NULL,
-  `sottotitolo1` varchar(255) DEFAULT NULL,
-  `sottotitolo2` varchar(255) DEFAULT NULL,
-  `sottotitolo3` varchar(255) DEFAULT NULL,
-  `testo1` text DEFAULT NULL,
-  `testo2` text DEFAULT NULL,
-  `testo3` text DEFAULT NULL,
-  `immagine1` varchar(255) DEFAULT NULL,
-  `immagine2` varchar(255) DEFAULT NULL,
-  `immagine3` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `content`
---
-
-CREATE TABLE `content` (
-  `service_id` int(10) UNSIGNED DEFAULT NULL,
   `sottotitolo1` varchar(255) DEFAULT NULL,
   `sottotitolo2` varchar(255) DEFAULT NULL,
   `sottotitolo3` varchar(255) DEFAULT NULL,
@@ -564,7 +542,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'admin', 'admin@example.com'),
 (2, 'candidate', 'candidate', 'candidate@example.com'),
-(3, 'employer', 'sas', 'employer@example.com'),
+(3, 'employer', 'employer', 'employer@example.com'),
 (4, 'luigi', 'luigi', 'luigi@gmail.com'),
 (5, 'valerio', 'valerio', 'valerio@gmail.com'),
 (7, 'alessio', 'alessio', 'alessio@gmail.com'),
