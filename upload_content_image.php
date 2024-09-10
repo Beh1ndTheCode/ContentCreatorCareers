@@ -10,6 +10,7 @@ $page = $_POST['page'];
 
 // Define target directory for uploads
 $target_dir = "uploads/content_images/";
+$estensioni = ['jpg', 'jpeg', 'png'];
 $uploadOk = 1;
 
 // Extract the file extension and create a unique filename
@@ -51,8 +52,11 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.<br>";
 } else {
     // Deliting the old file if exist
-    if (file_exists($target_file))
+    foreach ($estensioni as $estensione) {
+        $target_file = $target_dir . 'page' . $page . '_' . $number . '.' . $estensione;
+        if (file_exists($target_file))
             unlink($target_file);
+    }
     // Attempt to move the uploaded file
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 

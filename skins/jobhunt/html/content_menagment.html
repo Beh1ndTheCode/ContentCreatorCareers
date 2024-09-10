@@ -3,8 +3,22 @@
 		margin-bottom: 20px;
 	}
 
-	.browse {
-		margin-top: 30px;
+	.border-title {
+		margin-top: -40px;
+		margin-left: -10px;
+		border-bottom: 0px solid #edeff7;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+
+	.icon {
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.image {
+		width: 160px;
+		height: 160px;
 	}
 </style>
 
@@ -131,18 +145,26 @@
 										<div class="upload-img-bar">
 											<span class=""><img id="img_1" alt="" src="" /></span>
 											<!-- Form for file upload -->
+											<div class="upload-info">
+												<div class="border-title">
+													<a href="#" class="icon" id="browseButton1" title=""><i
+															class="la la-plus"></i> Browse</a>
+													<a href="#" class="icon" id="deleteButton1" title=""><i
+															class="la la-trash"></i> Delete</a>
+												</div>
+												<span>Max file size is 1MB, suitable files are .jpg &
+													.png</span>
+											</div>
 											<form action="upload_content_image.php" enctype="multipart/form-data"
 												id="uploadForm1" method="post">
-												<div class="upload-info">
-													<input name="number" type="hidden" value="immagine1">
-													<input class="page" name="page" type="hidden" value="immagine1">
-													<!-- File input with a name attribute and change event listener -->
-													<input type="file" id="fileToUpload1" name="fileToUpload"
-														accept=".jpg, .jpeg, .png" style="display:none;">
-													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
-													<!-- Browse link triggers file input -->
-													<a href="#" class="browse" id="browseButton1" title="">Browse</a>
-												</div>
+												<input name="number" type="hidden" value="immagine1">
+												<input class="page" name="page" type="hidden">
+												<input type="file" id="fileToUpload1" name="fileToUpload"
+													accept=".jpg, .jpeg, .png" style="display:none;">
+											</form>
+											<form action="remove_content_image.php" id="deleteForm1" method="post">
+												<input name="number" type="hidden" value="immagine1">
+												<input class="page" name="page" type="hidden">
 											</form>
 										</div>
 									</div>
@@ -150,37 +172,53 @@
 										<div class="upload-img-bar">
 											<span class=""><img id="img_2" alt="" src="" /></span>
 											<!-- Form for file upload -->
+											<div class="upload-info">
+												<div class="border-title">
+													<a href="#" class="icon" id="browseButton2" title=""><i
+															class="la la-plus"></i> Browse</a>
+													<a href="#" class="icon" id="deleteButton2" title=""><i
+															class="la la-trash"></i> Delete</a>
+												</div>
+												<span>Max file size is 1MB, suitable files are .jpg &
+													.png</span>
+											</div>
 											<form action="upload_content_image.php" enctype="multipart/form-data"
 												id="uploadForm2" method="post">
-												<div class="upload-info">
-													<input name="number" type="hidden" value="immagine2">
-													<input class="page" name="page" type="hidden" value="immagine1">
-													<!-- File input with a name attribute and change event listener -->
-													<input type="file" id="fileToUpload2" name="fileToUpload"
-														accept=".jpg, .jpeg, .png" style="display:none;">
-													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
-													<!-- Browse link triggers file input -->
-													<a href="#" class="browse" id="browseButton2" title="">Browse</a>
-												</div>
+												<input name="number" type="hidden" value="immagine2">
+												<input class="page" name="page" type="hidden">
+												<input type="file" id="fileToUpload2" name="fileToUpload"
+													accept=".jpg, .jpeg, .png" style="display:none;">
+											</form>
+											<form action="remove_content_image.php" id="deleteForm2" method="post">
+												<input name="number" type="hidden" value="immagine2">
+												<input class="page" name="page" type="hidden">
 											</form>
 										</div>
 									</div>
 									<div class="col-lg-4 img_3">
 										<div class="upload-img-bar">
-											<span class=""><img id="img_3" alt="" src="" /></span>
+											<span class="image"><img id="img_3" alt="" src="" /></span>
 											<!-- Form for file upload -->
+											<div class="upload-info">
+												<div class="border-title">
+													<a href="#" class="icon" id="browseButton3" title=""><i
+															class="la la-plus"></i> Browse</a>
+													<a href="#" class="icon" id="deleteButton3" title=""><i
+															class="la la-trash"></i> Delete</a>
+												</div>
+												<span>Max file size is 1MB, suitable files are .jpg &
+													.png</span>
+											</div>
 											<form action="upload_content_image.php" enctype="multipart/form-data"
 												id="uploadForm3" method="post">
-												<div class="upload-info">
-													<input name="number" type="hidden" value="immagine3">
-													<input class="page" name="page" type="hidden">
-													<!-- File input with a name attribute and change event listener -->
-													<input type="file" id="fileToUpload3" name="fileToUpload"
-														accept=".jpg, .jpeg, .png" style="display:none;">
-													<span>Max file size is 1MB, suitable files are .jpg & .png</span>
-													<!-- Browse link triggers file input -->
-													<a href="#" class="browse" id="browseButton3" title="">Browse</a>
-												</div>
+												<input name="number" type="hidden" value="immagine3">
+												<input class="page" name="page" type="hidden">
+												<input type="file" id="fileToUpload3" name="fileToUpload"
+													accept=".jpg, .jpeg, .png" style="display:none;">
+											</form>
+											<form action="remove_content_image.php" id="deleteForm3" method="post">
+												<input name="number" type="hidden" value="immagine3">
+												<input class="page" name="page" type="hidden">
 											</form>
 										</div>
 									</div>
@@ -202,17 +240,26 @@
 	$('#fileToUpload1').on('change', function () {
 		$('#uploadForm1').submit();
 	});
+	$('#deleteButton1').on('click', function () {
+		$('#deleteForm1').submit();
+	});
 	$('#browseButton2').on('click', function () {
 		$('#fileToUpload2').click();
 	});
 	$('#fileToUpload2').on('change', function () {
 		$('#uploadForm2').submit();
 	});
+	$('#deleteButton2').on('click', function () {
+		$('#deleteForm2').submit();
+	});
 	$('#browseButton3').on('click', function () {
 		$('#fileToUpload3').click();
 	});
 	$('#fileToUpload3').on('change', function () {
 		$('#uploadForm3').submit();
+	});
+	$('#deleteButton3').on('click', function () {
+		$('#deleteForm3').submit();
 	});
 	function get_content() {
 		var val = $('.chosen').val();
