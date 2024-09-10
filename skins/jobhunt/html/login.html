@@ -1,5 +1,5 @@
 <section>
-    <div class="block no-padding  gray">
+    <div class="block no-padding gray">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -37,8 +37,19 @@
     }
 </style>
 <script>
-
     $(document).ready(function () {
+        // Display notification if message is present in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        if (message) {
+            $('#notification')
+                .html(message)
+                .fadeIn()
+                .click(function () {
+                    $(this).fadeOut();
+                });
+        }
+
         $('#signin').click(function () {
             let user = $('#username').val();
             let passwd = $('#password').val();
@@ -55,7 +66,7 @@
                             .fadeIn()
                             .click(function () {
                                 $(this).fadeOut();
-                            })
+                            });
                     } else if (result === '1') {
                         $("#form")
                             .attr('action', 'dashboard.php')
@@ -82,8 +93,7 @@
                 <div class="col-lg-12">
                     <div class="account-popup-area signin-popup-box static">
                         <div class="account-popup">
-                            <span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis
-                                ullamcorper</span>
+                            <span>Lorem ipsum dolor sit amet consectetur adipiscing elit odio duis risus at lobortis ullamcorper</span>
                             <form id="form" method="POST">
                                 <div id="notification"></div>
 
@@ -104,7 +114,6 @@
                             <div class="extra-login">
                                 <span>Or</span>
                             </div>
-                            <!-- Fare il bottone di un altro colore (es. bianco) e aggiungere link -->
                             <form action="register.php" id="signup" method="POST">
                                 <div>
                                     <button type="submit">Signup</button>
