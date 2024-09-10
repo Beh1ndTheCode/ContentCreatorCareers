@@ -1,85 +1,92 @@
-# ContentCreatorCareers
+# Job Hunt
 
-## Requisiti funzionali
-<details>
-  <summary><b>Requisiti funzionali strettamente necessari</b></summary>
-  
-1. **Autenticazione e autorizzazione degli utenti**
-   - **Registrazione utente:** Permettere agli utenti di creare account (flussi separati per creatori di contenuti e aziende).
-   - **Login/Logout:** Funzionalità di login e logout sicure.
-   - **Gestione delle password:** Funzionalità di reset e modifica della password.
+## Introduzione
 
-2. **Profili utente**
-   - **Profili dei creatori di contenuti:**
-     - Dettagli personali
-     - Portfolio (video, articoli, link ai social media)
-     - Capacità e competenze
-     - Caricare il curriculum vitae
-   - **Profili aziendali:**
-     - Informazioni sull'azienda
-     - Storico degli annunci di lavoro
-     - Dettagli di contatto
+**Job Hunt** è una piattaforma progettata per connettere creatori di contenuti con aziende in cerca di
+talenti nel mondo del digital marketing, social media, video editing, copywriting, e altri campi creativi.
 
-3. **Annunci di lavoro**
-   - **Pubblicazione di offerte di lavoro:** Le aziende possono creare, modificare e cancellare gli annunci di lavoro.
-   - **Ricerca delle offerte di lavoro:** I creatori di contenuti possono cercare le offerte di lavoro utilizzando vari filtri (ad esempio, tipo di lavoro, posizione, retribuzione, competenze richieste).
-   - **Dettagli del lavoro:** Descrizioni dettagliate del lavoro, requisiti e procedure di candidatura.
+## Funzionalità
 
-4. **Gestione delle candidature**
-   - **Candidatura:** I creatori di contenuti possono candidarsi agli annunci di lavoro direttamente attraverso la piattaforma.
-   - **Tracciamento delle candidature:** Le aziende possono tracciare e gestire le candidature ricevute.
+Job Hunt offre funzionalità dedicate per i diversi tipi di utenti della piattaforma: creatori di contenuti,
+aziende, e amministratori. Di seguito una descrizione dettagliata delle principali funzionalità per ciascun gruppo.
 
-5. **Sistema di notifica**
-   - **Notifiche via e-mail:** Per gli annunci di lavoro, gli aggiornamenti delle candidature e le visualizzazioni dei profili.
-   - **Notifiche all'interno dell'app:** per messaggi, raccomandazioni di lavoro e aggiornamenti sullo stato delle candidature.
+### 1. Creatori di Contenuti
 
-6. **Dashboard dell'amministratore**
-   - **Gestione degli utenti:** Gli amministratori possono gestire gli account dei creatori di contenuti e delle aziende.
-   - **Gestione degli annunci di lavoro:** Gli amministratori possono monitorare e gestire gli annunci di lavoro.
-   - **Generazione di report:** Analisi degli annunci di lavoro, dell'attività degli utenti e dei tassi di candidatura.
-</details>
+I creatori di contenuti possono accedere a diverse funzionalità che li aiutano a gestire il loro profilo professionale
+e a trovare nuove opportunità lavorative:
 
-<details>
-  <summary><b>Requisiti funzionali opzionali</b></summary>
-  
-1. **Ricerca avanzata e matching**
-   - **Raccomandazioni di lavoro:** Raccomandazioni di lavoro personalizzate basate sui dettagli del profilo e sull'attività.
-   - **Ricerche e avvisi salvati:** Gli utenti possono salvare le ricerche e impostare avvisi per le nuove offerte di lavoro.
+- **Cerca Lavoro**: Accedi alle offerte di lavoro pubblicate da aziende in cerca di content creators.
+- **Registrazione e Gestione Profilo**: Registrati sulla piattaforma inserendo i tuoi dettagli personali. Una volta
+  registrato, potrai modificare il tuo profilo, includendo informazioni personali, foto profilo,
+  esperienze lavorative precedenti e progetti personali pregressi.
+- **Aggiungi Profili Social**: Collega i tuoi profili social per mostrare il tuo
+  portfolio e aumentare la tua visibilità agli occhi delle aziende.
+- **Gestione delle Candidature**: Candidati alle offerte di lavoro direttamente dalla piattaforma e gestisci lo stato
+  delle tue candidature attraverso una sezione dedicata.
 
-2. **Caratteristiche sociali**
-   - **Networking:** Permettono agli utenti di seguirsi a vicenda, di connettersi e di inviare messaggi all'interno della piattaforma.
-   - **Feed di attività:** Un feed in cui gli utenti possono condividere aggiornamenti, articoli o risultati.
-   - **Sostegno:** Gli utenti possono approvare le proprie competenze e lasciare raccomandazioni reciproche.
+### 2. Aziende
 
-3. **Contenuti e risorse**
-   - **Sezione blog/articoli:** Contenuti didattici, notizie sul settore e suggerimenti per i creatori di contenuti.
-   - **Webinar/Workshops:** Integrazione per ospitare o linkare webinar e workshop relativi al settore.
+Le aziende registrate su Job Hunt possono utilizzare la piattaforma per pubblicare offerte di lavoro e
+cercare creatori di contenuti per le loro esigenze:
 
-4. **Caratteristiche aziendali avanzate**
-   - **Employer Branding:** Permette alle aziende di migliorare il proprio profilo con video, foto e storie di successo.
-   - **Recensioni sulle aziende:** I creatori di contenuti possono lasciare recensioni e valutazioni sulle aziende.
+- **Pubblica Offerte di Lavoro**: Inserisci nuove opportunità lavorative specificando requisiti e dettagli dell'offerta.
+- **Gestione del Profilo Aziendale**: Modifica il profilo aziendale. Aggiungi loghi, immagini e descrizioni che
+  rappresentino al meglio la tua
+  azienda.
+- **Aggiungi Profili Social**: Collega i profili social della tua azienda per costruire
+  una presenza più solida e interattiva sulla piattaforma.
+- **Ricerca Creatori di Contenuti**: Ricerca creatori di contenuti in linea con le
+  esigenze della tua azienda. Visualizza i loro profili dettagliati, che includono esperienze, progetti precedenti e
+  link ai loro social.
 
-5. **Caratteristiche di monetizzazione**
-   - **Elenco premium:** Offre opzioni di pubblicazione di offerte di lavoro premium per una migliore visibilità.
-   - **Piani di abbonamento:** Diversi livelli di abbonamento per ulteriori funzionalità e visibilità.
+### 3. Amministratori
 
-6. **Analitica per gli utenti**
-   - **Visioni del profilo:** Informazioni su chi ha visualizzato il proprio profilo.
-   - **Approfondimenti sulle applicazioni:** Dati sul numero di candidature visualizzate, selezionate o rifiutate.
+Gli amministratori della piattaforma hanno accesso a strumenti per la gestione del sito:
 
-7. **Integrazioni**
-   - **Integrazione con i social media:** Permette ai creatori di contenuti di collegare i loro account sui social media.
-   - **Schede di lavoro di terze parti:** Integrazione con altre bacheche di annunci di lavoro per ottenere una portata più ampia.
-   - **Gateway di pagamento:** Per piani di abbonamento e funzionalità premium.
-</details>
+- **Dashboard di Gestione**: Gli amministratori possono accedere a una dashboard che consente la gestione dei
+  contenuti del sito web.
+- **Modifica dei Contenuti del Sito**: Modifica testi, titoli, sottotitoli, e immagini presenti sulle pagine web della
+  piattaforma per mantenere i contenuti aggiornati e rilevanti.
+- **Aggiunta di lingue**: Scelta di quali lingue rendere disponibili per la pubblicazione di offerte di lavoro
 
-## Roadmap
-### HTML
-- [x] Rimossi popup Login e Signup
-- [X] Aggiungere links a bottoni di Login e Signup in *login.html* e *register.html*
-- [ ] Aggiungere partials
-- [X] Rimuovere widget "Skills Percentage" nella sezione aside delle pagine del candidate
-- [ ] Sostituire place-holders con loghi e/o immagini
-      - [ ] definire un immagine per ogni lavoro, e definire i lavori
-### CSS
-- [ ] Cambiare colore bottoni Login e Signup in *login.html* e *register.html*
+## Progettazione logica
+
+![Restructured ER Diagram](./design/ccc_er_restructured.drawio.png)
+
+## Progettazione fisica
+
+![Physical ER Diagram](./design/ccc_er_physical.drawio.png)
+
+## In che modo l'applicazione soddisfa le specifiche del progetto?
+
+### Dimensione del progetto
+
+L'applicazione fa uso di un totale di 20 tabelle SQL, comprese quelle ottenute dalla normalizzazione delle relazioni
+
+### Metodologia
+
+#### Separazione della logica
+
+La separazione della logica è realizzata usando il motore di templating _template2.inc.php_, come da specifiche
+
+#### Gestione delle sessioni
+
+L'applicazione utilizza una gestione delle sessioni di base per autenticazione e permessi dell'utenza
+
+#### Gestione dell'utenza
+
+Come è possibile notare dai diagrammi precedenti, l'applicazione è basata sul modello _users-groups-services_,
+adeguatamente adattato alle specifiche esigenze implementative del database
+
+#### Layout grafico
+
+L'applicazione è basata sul template grafico omonimo disponibile su https://creativelayers.net/themes/jobhunt-html/
+
+#### Dashboard dell'amministratore
+
+L'applicazione fa uso del template grafico utilizzato a lezione (Star Admin) adattato al template grafico di JobHunt per
+la gestione dei contenuti delle pagine web
+
+## Nota
+
+Il codice del progetto è disponibile su https://github.com/LTDW-2023-24/test-assignment-behind-the-code

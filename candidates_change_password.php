@@ -13,16 +13,13 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("candidates_change_password");
 
-$profile_id = $mysqli->query("SELECT profile.id FROM `profile` JOIN `user` ON user.id = profile.user_id WHERE user.username = '{$_SESSION["user"]["username"]}'");
-$id = ($profile_id->fetch_assoc()['id']);
-
 $result = $mysqli->query("
-    SELECT
-        candidate.name AS name,
-        candidate.surname AS surname
-    FROM candidate
-    WHERE candidate.id = '$id'
+    SELECT candidate.name, candidate.surname 
+    FROM `candidate` 
+    JOIN `profile` ON candidate.id = profile.id 
+    JOIN `user` ON user.id = profile.user_id AND user.username = '{$_SESSION["user"]["username"]}'
     ");
+
 $data = $result->fetch_assoc();
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
@@ -30,5 +27,3 @@ $body->setContent("surname", $data['surname']);
 $main->setContent("body", $body->get());
 
 $main->close();
-
-?>

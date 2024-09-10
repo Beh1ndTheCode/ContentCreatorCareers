@@ -29,7 +29,7 @@ $result = $mysqli->query("
 	    DATEDIFF(CURRENT_DATE, job_offer.date) AS date_diff
 	FROM `job_offer`
 	JOIN `employer` ON job_offer.employer_id = employer.id
-    JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
+    LEFT JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
 	LEFT JOIN `address` ON employer.id = address.profile_id
 	");
 
@@ -41,6 +41,7 @@ $jobs_html = '';
 while ($job = $result->fetch_assoc()) {
     $job_url = "job_single.php?id=" . urlencode($job['job_id']);
     $emp_url = "employer_single.php?id=" . urlencode($job['emp_id']);
+    $image = $job['emp_image'] ?? 'skins/jobhunt/images/profile.png';
     $city = $job['city'] ?? 'Unknown city';
     $country = $job['country'] ?? 'Unknown country';
     $type = match ($job['job_type']) {
@@ -51,7 +52,7 @@ while ($job = $result->fetch_assoc()) {
     $jobs_html .= "<div class='job-listing wtabs'>
                         <div class='job-title-sec'>
                             <div class='c-logo'>
-                                <a href='$job_url'><img alt='' src='{$job['emp_image']}' height='96' width='96'/></a>
+                                <a href='$job_url'><img alt='' src='$image' height='96' width='96'/></a>
                             </div>
                             <h3><a href='$job_url'>{$job['job_name']}</a></h3>
                             <span><a href='$emp_url'>{$job['emp_name']}</a></span>

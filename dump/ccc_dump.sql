@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 08, 2024 at 06:59 PM
+-- Generation Time: Sep 09, 2024 at 09:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -108,21 +108,42 @@ CREATE TABLE `candidate` (
   `name` varchar(16) NOT NULL,
   `surname` varchar(16) NOT NULL,
   `age` tinyint(2) DEFAULT NULL,
-  `language_id` int(10) UNSIGNED DEFAULT NULL,
-  `about` text DEFAULT NULL
+  `language_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `candidate`
 --
 
-INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`) VALUES
-(1, 'Mario', 'Rosso', 33, 6, NULL),
-(3, 'Luigi', 'Luigini', NULL, NULL, NULL),
-(4, 'Valerio', 'Valeri', NULL, NULL, NULL),
-(6, 'Alessio', 'Alessi', NULL, NULL, NULL),
-(7, 'Giulia', 'Giuliani', NULL, NULL, NULL),
-(13, 'fabio', 'volo', NULL, NULL, NULL);
+INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`) VALUES
+(1, 'Mario', 'Rosso', 33, 6),
+(3, 'Luigi', 'Luigini', NULL, NULL),
+(4, 'Valerio', 'Valeri', NULL, NULL),
+(6, 'Alessio', 'Alessi', NULL, NULL),
+(7, 'Giulia', 'Giuliani', NULL, NULL),
+(13, 'fabio', 'volo', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+CREATE TABLE `content` (
+  `service_id` int(10) UNSIGNED DEFAULT NULL,
+  `titolo1` varchar(127) DEFAULT NULL,
+  `titolo2` varchar(127) DEFAULT NULL,
+  `titolo3` varchar(127) DEFAULT NULL,
+  `sottotitolo1` varchar(255) DEFAULT NULL,
+  `sottotitolo2` varchar(255) DEFAULT NULL,
+  `sottotitolo3` varchar(255) DEFAULT NULL,
+  `testo1` text DEFAULT NULL,
+  `testo2` text DEFAULT NULL,
+  `testo3` text DEFAULT NULL,
+  `immagine1` varchar(255) DEFAULT NULL,
+  `immagine2` varchar(255) DEFAULT NULL,
+  `immagine3` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -181,10 +202,8 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
-(1, 2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
 (2, 1, 'profilo', 'uploads/profile_images/resized_66db5135010ba.jpg'),
-(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg'),
-(7, 1, 'portfolio', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
+(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg');
 
 -- --------------------------------------------------------
 
@@ -284,7 +303,7 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
-(1, 2, 'mariorossi@gmail.com', '+393333333333', 'ojfiwaiiafwknisa'),
+(1, 2, 'mariorossi@gmail.com', '+393333333333', 'ojfiwaiiafwkugx5x'),
 (2, 3, 'contact@cnb.com', '+390862111111', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
 (3, 4, NULL, NULL, NULL),
 (4, 5, NULL, NULL, NULL),
@@ -373,6 +392,7 @@ CREATE TABLE `role_service` (
 
 INSERT INTO `role_service` (`role_id`, `service_id`) VALUES
 (1, 1),
+(1, 23),
 (2, 2),
 (2, 3),
 (2, 4),
@@ -442,7 +462,12 @@ INSERT INTO `service` (`id`, `name`, `script`, `default`, `description`, `permis
 (19, 'employer single', 'employer_single.php', '', NULL, '', '', ''),
 (20, 'Employer Add Requirements', 'employer_add_requirements.php', '', NULL, '', '', ''),
 (21, 'Candidates edit job', 'candidates_edit_job.php', '', NULL, '', '', ''),
-(22, 'Candidates edit skill', 'candidates_edit_skill.php', '', NULL, '', '', '');
+(22, 'Candidates edit skill', 'candidates_edit_skill.php', '', NULL, '', '', ''),
+(23, 'Content Menagment', 'content_menagment.php', '', NULL, '', '', ''),
+(24, 'FAQ', 'faq.php', '', NULL, '', '', ''),
+(25, 'How It Works', 'how_it_works.php', '', NULL, '', '', ''),
+(26, 'Terms & Condition', 'terms_and_condition.php', '', NULL, '', '', ''),
+(27, 'About Us', 'about.php', '', NULL, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -454,7 +479,7 @@ CREATE TABLE `skill` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
   `level` tinyint(3) UNSIGNED NOT NULL,
-  `description` varchar(256) DEFAULT NULL
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -568,6 +593,12 @@ ALTER TABLE `candidate`
   ADD KEY `foreign_language_id` (`language_id`) USING BTREE;
 
 --
+-- Indexes for table `content`
+--
+ALTER TABLE `content`
+  ADD UNIQUE KEY `service_id` (`service_id`);
+
+--
 -- Indexes for table `employer`
 --
 ALTER TABLE `employer`
@@ -585,6 +616,7 @@ ALTER TABLE `expertise`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `path` (`path`),
   ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
@@ -733,7 +765,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -764,6 +796,12 @@ ALTER TABLE `application`
 ALTER TABLE `candidate`
   ADD CONSTRAINT `candidate_ibfk_1` FOREIGN KEY (`id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `candidate_ibfk_2` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `content`
+--
+ALTER TABLE `content`
+  ADD CONSTRAINT `content_ibfk_1` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `employer`

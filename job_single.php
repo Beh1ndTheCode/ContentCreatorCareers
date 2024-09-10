@@ -45,7 +45,7 @@ $result = $mysqli->query("
     LEFT JOIN `requirement` ON requirement.job_offer_id = job_offer.id
 	JOIN `employer` ON job_offer.employer_id = employer.id
     JOIN `profile` ON profile.id = employer.id
-    JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
+    LEFT JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
     LEFT JOIN `social_account` ON employer.id = social_account.profile_id AND social_account.name = 'Website'
 	LEFT JOIN `address` ON employer.id = address.profile_id
     WHERE job_offer.id = $id 
@@ -69,6 +69,7 @@ $type = match ($data['job_type']) {
     "Part time" => 'pt',
     default => 'fl',
 };
+$image = $data['employer_image'] ?? 'skins/jobhunt/images/profile.png';
 $city = $data['city'] ?? 'Unknown city';
 $country = $data['country'] ?? 'Unknown country';
 $postcode = $data['postal_code'] ?? false;

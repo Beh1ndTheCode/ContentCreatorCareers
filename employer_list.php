@@ -31,7 +31,7 @@ $result = $mysqli->query("
 	    COUNT(job_offer.id) AS job_offer_count
 	FROM `employer`
     JOIN `profile` ON profile.id = employer.id 
-    JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
+    LEFT JOIN `image` ON image.profile_id = employer.id AND image.type = 'profilo'
     LEFT JOIN `address` ON employer.id = address.profile_id
     LEFT JOIN `profile_expertise` ON employer.id = profile_expertise.profile_id
 	LEFT JOIN `expertise` ON expertise.id = profile_expertise.expertise_id
