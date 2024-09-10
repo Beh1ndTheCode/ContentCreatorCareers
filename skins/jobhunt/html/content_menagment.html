@@ -1,3 +1,27 @@
+<style>
+	.mini-portfolio {
+		margin-bottom: 20px;
+	}
+
+	.border-title {
+		margin-top: -40px;
+		margin-left: -10px;
+		border-bottom: 0px solid #edeff7;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+
+	.icon {
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.image {
+		width: 160px;
+		height: 160px;
+	}
+</style>
+
 <section>
 	<div class="block no-padding">
 		<div class="container">
@@ -5,9 +29,9 @@
 				<div class="col-lg-12 column">
 					<div class="padding-left">
 						<div class="profile-form-edit">
-							<form action="">
+							<form action="update_content.php" method="post">
 								<div class="social-edit">
-									<h3>CONTENT MENAGMENT</h3>
+									<h3>CONTENT MANAGEMENT</h3>
 									<div class="row">
 										<div class="col-lg-6">
 											<span class="pf-title">Select page</span>
@@ -16,13 +40,14 @@
 													<select class="chosen" data-placeholder="">
 														<[pages]>
 													</select>
+													<input id="id" name="id" type="hidden" />
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<span class="pf-title">Page Name</span>
 											<div class="pf-field">
-												<input placeholder="<[page_name]>" type="text" />
+												<input id="name" name="name" placeholder="" type="text" />
 											</div>
 										</div>
 									</div>
@@ -30,91 +55,175 @@
 								<div class="col-lg-12">
 									<button type="submit">Update</button>
 								</div>
-							</form>
-							<form action="">
-								<div class="social-edit">
+								<div class="social-edit section_1">
 									<h3>SECTION 1</h3>
 									<div class="row">
-										<div class="col-lg-6">
-											<span class="pf-title">Title 1</span>
-											<div class="pf-field">
-												<input placeholder="<[title_1]>" type="text" />
-											</div>
-										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-6 subtitle_1">
 											<span class="pf-title">Subitle 1</span>
 											<div class="pf-field">
-												<input placeholder="<[subtitle_1]>" type="text" />
+												<input id="subtitle_1" name="subtitle_1" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-7">
+										<div class="col-lg-12 text_1">
 											<span class="pf-title">Text 1</span>
 											<div class="pf-field" style="padding-left: 15px;">
-												<textarea><[text_1]></textarea>
+												<textarea id="text_1" name="text_1"></textarea>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-12">
+								<div class="col-lg-12 section_1">
 									<button type="submit">Update</button>
 								</div>
-							</form>
-							<form action="">
-								<div class="social-edit">
+								<div class="social-edit section_3">
 									<h3>SECTION 2</h3>
 									<div class="row">
-										<div class="col-lg-6">
-											<span class="pf-title">Title 2</span>
-											<div class="pf-field">
-												<input placeholder="<[title_2]>" type="text" />
-											</div>
-										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-6 subtitle_2">
 											<span class="pf-title">Subitle 2</span>
 											<div class="pf-field">
-												<input placeholder="<[subtitle_2]>" type="text" />
+												<input id="subtitle_2" name="subtitle_2" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-7">
+										<div class="col-lg-12 text_2">
 											<span class="pf-title">Text 2</span>
 											<div class="pf-field" style="padding-left: 15px;">
-												<textarea><[text_2]></textarea>
+												<textarea id="text_2" name="text_2"></textarea>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-12">
+								<div class="col-lg-12 section_2">
 									<button type="submit">Update</button>
 								</div>
-							</form>
-							<form action="">
-								<div class="social-edit">
+								<div class="social-edit section_3">
 									<h3>SECTION 3</h3>
 									<div class="row">
-										<div class="col-lg-6">
-											<span class="pf-title">Title 3</span>
-											<div class="pf-field">
-												<input placeholder="<[title_3]>" type="text" />
-											</div>
-										</div>
-										<div class="col-lg-6">
+										<div class="col-lg-6 subtitle_3">
 											<span class="pf-title">Subitle 3</span>
 											<div class="pf-field">
-												<input placeholder="<[subtitle_3]>" type="text" />
+												<input id="subtitle_3" name="subtitle_3" placeholder="" type="text" />
 											</div>
 										</div>
-										<div class="col-lg-7">
+										<div class="col-lg-12 text_3">
 											<span class="pf-title">Text 3</span>
 											<div class="pf-field" style="padding-left: 15px;">
-												<textarea><[text_3]></textarea>
+												<textarea id="text_3" name="text_3"></textarea>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-12">
+								<div class="col-lg-12 section_3">
+									<button type="submit">Update</button>
+								</div>
+								<div class="social-edit section_4">
+									<h3>SECTION 4</h3>
+									<div class="row">
+										<div class="col-lg-6 subtitle_4">
+											<span class="pf-title">Subitle 4</span>
+											<div class="pf-field">
+												<input id="subtitle_4" name="subtitle_4" placeholder="" type="text" />
+											</div>
+										</div>
+										<div class="col-lg-12 text_4">
+											<span class="pf-title">Text 4</span>
+											<div class="pf-field" style="padding-left: 15px;">
+												<textarea id="text_4" name="text_4"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12 section_4">
 									<button type="submit">Update</button>
 								</div>
 							</form>
+							<div class="mini-portfolio">
+								<div class="social-edit">
+									<h3>IMAGES</h3>
+								</div>
+								<div class="row">
+									<div class="col-lg-4 img_1">
+										<div class="upload-img-bar">
+											<span class=""><img id="img_1" alt="" src="" /></span>
+											<!-- Form for file upload -->
+											<div class="upload-info">
+												<div class="border-title">
+													<a class="icon" id="browseButton1" title=""><i
+															class="la la-plus"></i> Browse</a>
+													<a class="icon" id="deleteButton1" title=""><i
+															class="la la-trash"></i> Delete</a>
+												</div>
+												<span>Max file size is 1MB, suitable files are .jpg &
+													.png</span>
+											</div>
+											<form action="upload_content_image.php" enctype="multipart/form-data"
+												id="uploadForm1" method="post">
+												<input name="number" type="hidden" value="immagine1">
+												<input class="page" name="page" type="hidden">
+												<input type="file" id="fileToUpload1" name="fileToUpload"
+													accept=".jpg, .jpeg, .png" style="display:none;">
+											</form>
+											<form action="remove_content_image.php" id="deleteForm1" method="post">
+												<input name="number" type="hidden" value="immagine1">
+												<input class="page" name="page" type="hidden">
+											</form>
+										</div>
+									</div>
+									<div class="col-lg-4 img_2">
+										<div class="upload-img-bar">
+											<span class=""><img id="img_2" alt="" src="" /></span>
+											<!-- Form for file upload -->
+											<div class="upload-info">
+												<div class="border-title">
+													<a class="icon" id="browseButton2" title=""><i
+															class="la la-plus"></i> Browse</a>
+													<a class="icon" id="deleteButton2" title=""><i
+															class="la la-trash"></i> Delete</a>
+												</div>
+												<span>Max file size is 1MB, suitable files are .jpg &
+													.png</span>
+											</div>
+											<form action="upload_content_image.php" enctype="multipart/form-data"
+												id="uploadForm2" method="post">
+												<input name="number" type="hidden" value="immagine2">
+												<input class="page" name="page" type="hidden">
+												<input type="file" id="fileToUpload2" name="fileToUpload"
+													accept=".jpg, .jpeg, .png" style="display:none;">
+											</form>
+											<form action="remove_content_image.php" id="deleteForm2" method="post">
+												<input name="number" type="hidden" value="immagine2">
+												<input class="page" name="page" type="hidden">
+											</form>
+										</div>
+									</div>
+									<div class="col-lg-4 img_3">
+										<div class="upload-img-bar">
+											<span class="image"><img id="img_3" alt="" src="" /></span>
+											<!-- Form for file upload -->
+											<div class="upload-info">
+												<div class="border-title">
+													<a class="icon" id="browseButton3" title=""><i
+															class="la la-plus"></i> Browse</a>
+													<a class="icon" id="deleteButton3" title=""><i
+															class="la la-trash"></i> Delete</a>
+												</div>
+												<span>Max file size is 1MB, suitable files are .jpg &
+													.png</span>
+											</div>
+											<form action="upload_content_image.php" enctype="multipart/form-data"
+												id="uploadForm3" method="post">
+												<input name="number" type="hidden" value="immagine3">
+												<input class="page" name="page" type="hidden">
+												<input type="file" id="fileToUpload3" name="fileToUpload"
+													accept=".jpg, .jpeg, .png" style="display:none;">
+											</form>
+											<form action="remove_content_image.php" id="deleteForm3" method="post">
+												<input name="number" type="hidden" value="immagine3">
+												<input class="page" name="page" type="hidden">
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -122,3 +231,144 @@
 		</div>
 	</div>
 </section>
+
+<!-- JavaScript to trigger the file input and form submission -->
+<script>
+	$('#browseButton1').on('click', function () {
+		$('#fileToUpload1').click();
+	});
+	$('#fileToUpload1').on('change', function () {
+		$('#uploadForm1').submit();
+	});
+	$('#deleteButton1').on('click', function () {
+		$('#deleteForm1').submit();
+	});
+	$('#browseButton2').on('click', function () {
+		$('#fileToUpload2').click();
+	});
+	$('#fileToUpload2').on('change', function () {
+		$('#uploadForm2').submit();
+	});
+	$('#deleteButton2').on('click', function () {
+		$('#deleteForm2').submit();
+	});
+	$('#browseButton3').on('click', function () {
+		$('#fileToUpload3').click();
+	});
+	$('#fileToUpload3').on('change', function () {
+		$('#uploadForm3').submit();
+	});
+	$('#deleteButton3').on('click', function () {
+		$('#deleteForm3').submit();
+	});
+	function get_content() {
+		var val = $('.chosen').val();
+		$('#id').val(val);
+		$('.page').val(val);
+		$.ajax({
+			method: "POST",
+			url: "get_content.php",
+			data: { value: val },
+			success: function (response) {
+				let data = JSON.parse(response);
+				$('#name').val(data.name);
+				if (data.sottotitolo1 != null || data.testo1 != null) {
+					$('.section_1').show();
+					if (data.sottotitolo1 != null) {
+						$('#subtitle_1').val(data.sottotitolo1);
+						$('.subtitle_1').show();
+					}
+					else
+						$('.subtitle_1').hide();
+					if (data.testo1 != null) {
+						$('#text_1').text(data.testo1);
+						$('.text_1').show();
+					}
+					else
+						$('.text_1').hide();
+				} else
+					$('.section_1').hide();
+
+				if (data.sottotitolo2 != null || data.testo2 != null) {
+					$('.section_2').show();
+					if (data.sottotitolo2 != null) {
+						$('#subtitle_2').val(data.sottotitolo2);
+						$('.subtitle_2').show();
+					}
+					else
+						$('.subtitle_2').hide();
+					if (data.testo2 != null) {
+						$('#text_2').text(data.testo2);
+						$('.text_2').show();
+					}
+					else
+						$('.text_2').hide();
+				} else
+					$('.section_2').hide();
+
+				if (data.sottotitolo3 != null || data.testo3 != null) {
+					$('.section_3').show();
+					if (data.sottotitolo3 != null) {
+						$('#subtitle_3').val(data.sottotitolo3);
+						$('.subtitle_3').show();
+					}
+					else
+						$('.subtitle_3').hide();
+					if (data.testo3 != null) {
+						$('#text_3').text(data.testo3);
+						$('.text_3').show();
+					}
+					else
+						$('.text_3').hide();
+				} else
+					$('.section_3').hide();
+
+
+				if (data.sottotitolo4 != null || data.testo4 != null) {
+					$('.section_4').show();
+					if (data.sottotitolo4 != null) {
+						$('#subtitle_4').val(data.sottotitolo4);
+						$('.subtitle_4').show();
+					}
+					else
+						$('.subtitle_4').hide();
+					if (data.testo4 != null) {
+						$('#text_4').text(data.testo4);
+						$('.text_4').show();
+					}
+					else
+						$('.text_4').hide();
+				} else
+					$('.section_4').hide();
+
+				if (data.immagine1 != null) {
+					$('#img_1').attr('src', data.immagine1);
+					$('.img_1').show();
+				}
+				else
+					$('.img_1').hide();
+				if (data.immagine2 != null) {
+					$('#img_2').attr('src', data.immagine2);
+					$('.img_2').show();
+				}
+				else
+					$('.img_2').hide();
+				if (data.immagine3 != null) {
+					$('#img_3').attr('src', data.immagine3);
+					$('.img_3').show();
+				}
+				else
+					$('.img_3').hide();
+			},
+			error: function () {
+				$('#result').html('Errore durante la richiesta AJAX.');
+			}
+		})
+	}
+	$(document).ready(function () {
+		get_content()
+		$('.chosen').on('change', function () {
+			get_content();
+		})
+	});
+</script>
