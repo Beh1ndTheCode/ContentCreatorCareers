@@ -108,21 +108,42 @@ CREATE TABLE `candidate` (
   `name` varchar(16) NOT NULL,
   `surname` varchar(16) NOT NULL,
   `age` tinyint(2) DEFAULT NULL,
-  `language_id` int(10) UNSIGNED DEFAULT NULL,
-  `about` text DEFAULT NULL
+  `language_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `candidate`
 --
 
-INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`, `about`) VALUES
-(1, 'Mario', 'Rosso', 33, 6, NULL),
-(3, 'Luigi', 'Luigini', NULL, NULL, NULL),
-(4, 'Valerio', 'Valeri', NULL, NULL, NULL),
-(6, 'Alessio', 'Alessi', NULL, NULL, NULL),
-(7, 'Giulia', 'Giuliani', NULL, NULL, NULL),
-(13, 'fabio', 'volo', NULL, NULL, NULL);
+INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`) VALUES
+(1, 'Mario', 'Rosso', 33, 6),
+(3, 'Luigi', 'Luigini', NULL, NULL),
+(4, 'Valerio', 'Valeri', NULL, NULL),
+(6, 'Alessio', 'Alessi', NULL, NULL),
+(7, 'Giulia', 'Giuliani', NULL, NULL),
+(13, 'fabio', 'volo', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `content`
+--
+
+CREATE TABLE `content` (
+  `service_id` int(10) UNSIGNED DEFAULT NULL,
+  `titolo1` varchar(127) DEFAULT NULL,
+  `titolo2` varchar(127) DEFAULT NULL,
+  `titolo3` varchar(127) DEFAULT NULL,
+  `sottotitolo1` varchar(255) DEFAULT NULL,
+  `sottotitolo2` varchar(255) DEFAULT NULL,
+  `sottotitolo3` varchar(255) DEFAULT NULL,
+  `testo1` text DEFAULT NULL,
+  `testo2` text DEFAULT NULL,
+  `testo3` text DEFAULT NULL,
+  `immagine1` varchar(255) DEFAULT NULL,
+  `immagine2` varchar(255) DEFAULT NULL,
+  `immagine3` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,10 +233,8 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
-(1, 2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
 (2, 1, 'profilo', 'uploads/profile_images/resized_66db5135010ba.jpg'),
-(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg'),
-(7, 1, 'portfolio', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
+(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg');
 
 -- --------------------------------------------------------
 
@@ -491,7 +510,7 @@ CREATE TABLE `skill` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
   `level` tinyint(3) UNSIGNED NOT NULL,
-  `description` varchar(256) DEFAULT NULL
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -628,6 +647,7 @@ ALTER TABLE `expertise`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `path` (`path`),
   ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
@@ -776,7 +796,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `user`
