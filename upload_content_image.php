@@ -61,7 +61,7 @@ if ($uploadOk == 0) {
 
         // Fetch the current image path from the database
         $currentImageQuery = "
-            SELECT content.$source
+            SELECT content.$number
             FROM content 
             JOIN service ON service.id = content.service_id
             WHERE service.nome = $page
@@ -80,7 +80,7 @@ if ($uploadOk == 0) {
         $query = "
             UPDATE content 
             JOIN service ON service.id = content.service_id
-            SET content.$source = $resized_file
+            SET content.$number = $resized_file
             WHERE service.nome = $page
         ";
         $result = $mysqli->query($query);
