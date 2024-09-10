@@ -14,12 +14,64 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("employer_list");
 
-$result = $mysqli->query("SELECT COUNT(*) AS emp_count FROM `employer`");
+$searchTerm = $_GET['search_keyword'] ?? '';
+$locationSearch = $_GET['location_search'] ?? '';
 
-$data = $result->fetch_assoc();
-$body->setContent("emp_count", $data['emp_count']);
+$body->setContent("search_keyword", htmlspecialchars($searchTerm));
+$body->setContent("location_search", htmlspecialchars($locationSearch));
 
-$result = $mysqli->query("
+$searchQuery = '';
+$searchParams = [];
+$searchTypes = '';
+
+// Modify the query if search terms are present
+if ($searchTerm) {
+    // Add condition for job name
+    $searchQuery .= "employer.name LIKE ? OR expertise.title LIKE ?";
+    $searchParams[] = '%' . $searchTerm . '%';
+    $searchParams[] = '%' . $searchTerm . '%';
+    $searchTypes .= 'ss';
+}
+
+if ($locationSearch) {
+    // Add condition for city name
+    if (!empty($searchQuery)) {
+        $searchQuery .= " AND ";
+    }
+    $searchQuery .= "address.city LIKE ? OR address.country LIKE ?";
+    $searchParams[] = '%' . $locationSearch . '%';
+    $searchParams[] = '%' . $locationSearch . '%';
+    $searchTypes .= 'ss';
+}
+
+if (!empty($searchQuery)) {
+    $searchQuery = "WHERE " . $searchQuery;
+}
+
+$countQuery = "SELECT COUNT(DISTINCT employer.id) AS emp_count FROM `employer`
+LEFT JOIN `address` ON employer.id = address.profile_id
+LEFT JOIN `profile_expertise` ON employer.id = profile_expertise.profile_id
+LEFT JOIN `expertise` ON expertise.id = profile_expertise.expertise_id
+$searchQuery";
+
+// Prepare and execute the count query
+$countStmt = $mysqli->prepare($countQuery);
+if (!empty($searchParams)) {
+    $countStmt->bind_param($searchTypes, ...$searchParams);
+}
+$countStmt->execute();
+$countResult = $countStmt->get_result();
+
+if (!$countResult) {
+    die("Count query failed: " . $mysqli->error);
+}
+
+// Fetch and set the job count
+$countData = $countResult->fetch_assoc();
+$emp_count = $countData['emp_count'] ?? 0;
+$body->setContent("emp_count", $emp_count);
+
+$query = "
 	SELECT
 	    employer.id AS emp_id,
 	    employer.name AS emp_name,
@@ -36,16 +88,25 @@ $result = $mysqli->query("
     LEFT JOIN `profile_expertise` ON employer.id = profile_expertise.profile_id
 	LEFT JOIN `expertise` ON expertise.id = profile_expertise.expertise_id
 	LEFT JOIN `job_offer` ON job_offer.employer_id = employer.id
+	$searchQuery
 	GROUP BY employer.name, profile.description, address.city, address.country, expertise.title
-	");
+	";
+
+$stmt = $mysqli->prepare("$query");
+if (!empty($searchParams)) {
+    $stmt->bind_param($searchTypes, ...$searchParams);
+}
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
-    die("Query failed: " . $mysqli->error);
+    die("Employer listing query failed: " . $mysqli->error);
 }
 
 $employers_html = '';
 while ($employer = $result->fetch_assoc()) {
     $url = "employer_single.php?id=" . urlencode($employer['emp_id']);
+    $image = $employer['image'] ?? "skins/jobhunt/images/profile.png";
     $city = $employer['city'] ?? 'Unknown city';
     $country = $employer['country'] ?? 'Unknown country';
     $exp_title = $employer['exp_title'] ?? 'No expertise listed';
@@ -56,7 +117,7 @@ while ($employer = $result->fetch_assoc()) {
     }
     $employers_html .= "<div class='emply-list'>
 							<div class='emply-list-thumb'>
-								<a href='$url' title=''><img src='{$employer['image']}' alt='' /></a>
+								<a href='$url' title=''><img src='$image' alt='' /></a>
                             </div>
 							<div class='emply-list-info'>
 								<div class='emply-pstn'>{$employer['job_offer_count']} Open Positions</div>

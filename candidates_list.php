@@ -13,6 +13,42 @@ require "include/auth.inc.php";
 $main = new Template("frame");
 $body = new Template("candidates_list");
 
+$searchTerm = $_GET['search_keyword'] ?? '';
+$locationSearch = $_GET['location_search'] ?? '';
+
+$body->setContent("search_keyword", htmlspecialchars($searchTerm));
+$body->setContent("location_search", htmlspecialchars($locationSearch));
+
+$searchQuery = '';
+$searchParams = [];
+$searchTypes = '';
+
+// Modify the query if search terms are present
+if ($searchTerm) {
+    // Add condition for job name
+    $searchQuery .= "candidate.name LIKE ? OR candidate.surname LIKE ? OR job.name LIKE ? OR employer.name LIKE ?";
+    $searchParams[] = '%' . $searchTerm . '%';
+    $searchParams[] = '%' . $searchTerm . '%';
+    $searchParams[] = '%' . $searchTerm . '%';
+    $searchParams[] = '%' . $searchTerm . '%';
+    $searchTypes .= 'ssss';
+}
+
+if ($locationSearch) {
+    // Add condition for city name
+    if (!empty($searchQuery)) {
+        $searchQuery .= " AND ";
+    }
+    $searchQuery .= "address.city LIKE ? OR address.country LIKE ?";
+    $searchParams[] = '%' . $locationSearch . '%';
+    $searchParams[] = '%' . $locationSearch . '%';
+    $searchTypes .= 'ss';
+}
+
+if (!empty($searchQuery)) {
+    $searchQuery = "WHERE " . $searchQuery;
+}
+
 // Fetch the user role and profile information
 $result = $mysqli->query("
     SELECT 
@@ -42,7 +78,7 @@ if ($user_role == 2) {
 }
 
 // Fetch all candidates and their jobs
-$result = $mysqli->query("
+$query = "
     SELECT
         candidate.id AS can_id,
         candidate.name AS name,
@@ -59,10 +95,18 @@ $result = $mysqli->query("
     LEFT JOIN `address` ON candidate.id = address.profile_id
     LEFT JOIN `job` ON job.candidate_id = candidate.id AND job.type = 'current'
     LEFT JOIN `employer` ON employer.id = job.employer_id
-");
+    $searchQuery
+";
+
+$stmt = $mysqli->prepare("$query");
+if (!empty($searchParams)) {
+    $stmt->bind_param($searchTypes, ...$searchParams);
+}
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
-    die("Query failed: " . $mysqli->error);
+    die("Candidate listing query failed: " . $mysqli->error);
 }
 
 // Prepare an array to store candidates and their jobs
@@ -74,15 +118,7 @@ while ($row = $result->fetch_assoc()) {
 
     // Initialize candidate data if not already set
     if (!isset($candidates[$can_id])) {
-        $candidates[$can_id] = [
-            'url' => "candidates_single.php?id=" . urlencode($can_id),
-            'name' => $row['name'],
-            'surname' => $row['surname'],
-            'city' => $row['city'] ?? 'Unknown city',
-            'country' => $row['country'] ?? 'Unknown country',
-            'image' => $row['img'] ?? 'skins/jobhunt/images/profile.png',
-            'jobs' => []
-        ];
+        $candidates[$can_id] = ['url' => "candidates_single.php?id=" . urlencode($can_id), 'name' => $row['name'], 'surname' => $row['surname'], 'city' => $row['city'] ?? 'Unknown city', 'country' => $row['country'] ?? 'Unknown country', 'image' => $row['img'] ?? 'skins/jobhunt/images/profile.png', 'jobs' => []];
     }
 
     // Add job information if job and employer names are available

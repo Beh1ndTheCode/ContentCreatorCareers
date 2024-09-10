@@ -2,7 +2,8 @@
     <div class="block no-padding">
         <div class="parallax scrolly-invisible no-parallax"
              data-velocity="-.1"
-             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div><!-- PARALLAX BACKGROUND IMAGE -->
+             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
+        <!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -21,16 +22,24 @@
             <div class="row">
                 <aside class="col-lg-3 column margin_widget">
                     <div class="widget">
-                        <div class="search_widget_job">
-                            <div class="field_w_search">
-                                <input placeholder="Search Keywords" type="text"/>
-                                <i class="la la-search"></i>
-                            </div><!-- Search Widget -->
-                            <div class="field_w_search">
-                                <input placeholder="All Locations" type="text"/>
-                                <i class="la la-map-marker"></i>
-                            </div><!-- Search Widget -->
-                        </div>
+                        <form action="" id="searchForm" method="get">
+                            <div class="search_widget_job">
+                                <div class="field_w_search">
+                                    <input name="search_keyword"
+                                           onkeypress="submitOnEnter(event)" placeholder="Search Keywords"
+                                           type="text"
+                                           value="<[search_keyword]>"/>
+                                    <i class="la la-search"></i>
+                                </div><!-- Search Widget -->
+                                <div class="field_w_search">
+                                    <input name="location_search"
+                                           onkeypress="submitOnEnter(event)" placeholder="All Locations"
+                                           type="text"
+                                           value="<[location_search]>"/>
+                                    <i class="la la-map-marker"></i>
+                                </div><!-- Search Widget -->
+                            </div>
+                        </form>
                     </div>
                     <div class="widget border">
                         <h3 class="sb-title open">Specialism</h3>
@@ -86,3 +95,14 @@
         </div>
     </div>
 </section>
+
+<script>
+    function submitOnEnter(event) {
+        // Check if the key pressed is Enter (keyCode 13)
+        if (event.keyCode === 13) {
+            // Prevent the default form submission (if any) and submit the form manually
+            event.preventDefault();
+            document.getElementById('searchForm').submit();
+        }
+    }
+</script>

@@ -1,101 +1,121 @@
 <section class="overlape">
-	<div class="block no-padding">
-		<div data-velocity="-.1"
-			style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"
-			class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
-		<div class="container fluid">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="inner-header">
-						<h3>Welcome <[name]> <[surname]></h3>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="block no-padding">
+        <div class="parallax scrolly-invisible no-parallax"
+             data-velocity="-.1"
+             style="background: url(http://placehold.it/1600x800) repeat scroll 50% 422.28px transparent;"></div>
+        <!-- PARALLAX BACKGROUND IMAGE -->
+        <div class="container fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-header">
+                        <h3>Welcome <[name]> <[surname]></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section>
-	<div class="block remove-bottom">
-		<div class="container">
-			<div class="row no-gape">
-				<aside class="col-lg-3 column">
-					<div class="widget">
-						<div class="search_widget_job">
-							<div class="field_w_search">
-								<input type="text" placeholder="Search Keywords" />
-								<i class="la la-search"></i>
-							</div><!-- Search Widget -->
-							<div class="field_w_search">
-								<input type="text" placeholder="All Locations" />
-								<i class="la la-map-marker"></i>
-							</div><!-- Search Widget -->
-						</div>
-					</div>
-					<div class="widget">
-						<h3 class="sb-title open">Specialism</h3>
-						<div class="specialism_widget">
-							<div class="simple-checkbox scrollbar">
-								<p><input type="checkbox" name="spealism" id="as"><label for="as">Accountancy
-										(2)</label></p>
-								<p><input type="checkbox" name="spealism" id="asd"><label for="asd">Banking (2)</label>
-								</p>
-								<p><input type="checkbox" name="spealism" id="errwe"><label for="errwe">Charity &
-										Voluntary (3)</label></p>
-								<p><input type="checkbox" name="spealism" id="fdg"><label for="fdg">Digital & Creative
-										(4)</label></p>
-								<p><input type="checkbox" name="spealism" id="sc"><label for="sc">Estate Agency
-										(3)</label></p>
-								<p><input type="checkbox" name="spealism" id="aw"><label for="aw">Graduate (2)</label>
-								</p>
-								<p><input type="checkbox" name="spealism" id="ui"><label for="ui">IT Contractor
-										(7)</label></p>
-								<p><input type="checkbox" name="spealism" id="saas"><label for="saas">Charity &
-										Voluntary (3)</label></p>
-								<p><input type="checkbox" name="spealism" id="rrrt"><label for="rrrt">Digital & Creative
-										(4)</label></p>
-								<p><input type="checkbox" name="spealism" id="eweew"><label for="eweew">Estate Agency
-										(3)</label></p>
-								<p><input type="checkbox" name="spealism" id="bnbn"><label for="bnbn">Graduate
-										(2)</label></p>
-								<p><input type="checkbox" name="spealism" id="ffd"><label for="ffd">IT Contractor
-										(7)</label></p>
-							</div>
-						</div>
-					</div>
-					<div class="widget">
-						<h3 class="sb-title closed">Experience</h3>
-						<div class="specialism_widget">
-							<div class="simple-checkbox">
-								<p><input type="checkbox" name="smplechk" id="9"><label for="9">1Year to 2Year</label>
-								</p>
-								<p><input type="checkbox" name="smplechk" id="10"><label for="10">2Year to 3Year</label>
-								</p>
-								<p><input type="checkbox" name="smplechk" id="11"><label for="11">3Year to 4Year</label>
-								</p>
-								<p><input type="checkbox" name="smplechk" id="12"><label for="12">4Year to 5Year</label>
-								</p>
-							</div>
-						</div>
-					</div>
-				</aside>
-				<div class="col-lg-9 column">
-					<div class="emply-resume-sec">
-						<[list]>
-						<div class="pagination">
-							<ul>
-								<li class="prev"><a href=""><i class="la la-long-arrow-left"></i> Prev</a></li>
-								<li><a href="">1</a></li>
-								<li class="active"><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><span class="delimeter">...</span></li>
-								<li><a href="">14</a></li>
-								<li class="next"><a href="">Next <i class="la la-long-arrow-right"></i></a></li>
-							</ul>
-						</div><!-- Pagination -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="block remove-bottom">
+        <div class="container">
+            <div class="row no-gape">
+                <aside class="col-lg-3 column">
+                    <div class="widget">
+                        <form action="" id="searchForm" method="get">
+                            <div class="search_widget_job">
+                                <div class="field_w_search">
+                                    <input name="search_keyword"
+                                           onkeypress="submitOnEnter(event)" placeholder="Search Keywords"
+                                           type="text"
+                                           value="<[search_keyword]>"/>
+                                    <i class="la la-search"></i>
+                                </div><!-- Search Widget -->
+                                <div class="field_w_search">
+                                    <input name="location_search"
+                                           onkeypress="submitOnEnter(event)" placeholder="All Locations"
+                                           type="text"
+                                           value="<[location_search]>"/>
+                                    <i class="la la-map-marker"></i>
+                                </div><!-- Search Widget -->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="widget">
+                        <h3 class="sb-title open">Specialism</h3>
+                        <div class="specialism_widget">
+                            <div class="simple-checkbox scrollbar">
+                                <p><input id="as" name="spealism" type="checkbox"><label for="as">Accountancy
+                                    (2)</label></p>
+                                <p><input id="asd" name="spealism" type="checkbox"><label for="asd">Banking (2)</label>
+                                </p>
+                                <p><input id="errwe" name="spealism" type="checkbox"><label for="errwe">Charity &
+                                    Voluntary (3)</label></p>
+                                <p><input id="fdg" name="spealism" type="checkbox"><label for="fdg">Digital & Creative
+                                    (4)</label></p>
+                                <p><input id="sc" name="spealism" type="checkbox"><label for="sc">Estate Agency
+                                    (3)</label></p>
+                                <p><input id="aw" name="spealism" type="checkbox"><label for="aw">Graduate (2)</label>
+                                </p>
+                                <p><input id="ui" name="spealism" type="checkbox"><label for="ui">IT Contractor
+                                    (7)</label></p>
+                                <p><input id="saas" name="spealism" type="checkbox"><label for="saas">Charity &
+                                    Voluntary (3)</label></p>
+                                <p><input id="rrrt" name="spealism" type="checkbox"><label for="rrrt">Digital & Creative
+                                    (4)</label></p>
+                                <p><input id="eweew" name="spealism" type="checkbox"><label for="eweew">Estate Agency
+                                    (3)</label></p>
+                                <p><input id="bnbn" name="spealism" type="checkbox"><label for="bnbn">Graduate
+                                    (2)</label></p>
+                                <p><input id="ffd" name="spealism" type="checkbox"><label for="ffd">IT Contractor
+                                    (7)</label></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget">
+                        <h3 class="sb-title closed">Experience</h3>
+                        <div class="specialism_widget">
+                            <div class="simple-checkbox">
+                                <p><input id="9" name="smplechk" type="checkbox"><label for="9">1Year to 2Year</label>
+                                </p>
+                                <p><input id="10" name="smplechk" type="checkbox"><label for="10">2Year to 3Year</label>
+                                </p>
+                                <p><input id="11" name="smplechk" type="checkbox"><label for="11">3Year to 4Year</label>
+                                </p>
+                                <p><input id="12" name="smplechk" type="checkbox"><label for="12">4Year to 5Year</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-lg-9 column">
+                    <div class="emply-resume-sec">
+                        <[list]>
+                        <div class="pagination">
+                            <ul>
+                                <li class="prev"><a href=""><i class="la la-long-arrow-left"></i> Prev</a></li>
+                                <li><a href="">1</a></li>
+                                <li class="active"><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><span class="delimeter">...</span></li>
+                                <li><a href="">14</a></li>
+                                <li class="next"><a href="">Next <i class="la la-long-arrow-right"></i></a></li>
+                            </ul>
+                        </div><!-- Pagination -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script>
+    function submitOnEnter(event) {
+        // Check if the key pressed is Enter (keyCode 13)
+        if (event.keyCode === 13) {
+            // Prevent the default form submission (if any) and submit the form manually
+            event.preventDefault();
+            document.getElementById('searchForm').submit();
+        }
+    }
+</script>
