@@ -60,10 +60,13 @@ if ($uploadOk == 0) {
         // Delete the original uploaded file after resizing
         unlink($target_file);
 
-        // Fetch the current image path from the database
+        // Check if a photo exists for the profile
         $currentImageQuery = "SELECT path FROM image WHERE profile_id = $profile_id AND type = 'profilo'";
         $currentImageResult = $mysqli->query($currentImageQuery);
+        $photoExists = false;
+
         if ($currentImageResult && $currentImageRow = $currentImageResult->fetch_assoc()) {
+            $photoExists = true;
             $currentImagePath = $currentImageRow['path'];
 
             // Delete the old profile image file if it exists
@@ -72,16 +75,25 @@ if ($uploadOk == 0) {
             }
         }
 
-        // Update query to store the image path in the database
-        $query = "
-            UPDATE image 
-            SET path = '$resized_file'
-            WHERE profile_id = $profile_id AND type = 'profilo'
-        ";
+        // Prepare SQL and execute based on whether the photo already exists
+        if ($photoExists) {
+            // Update query to store the image path in the database
+            $query = "
+                UPDATE image 
+                SET path = '$resized_file'
+                WHERE profile_id = $profile_id AND type = 'profilo'
+            ";
+        } else {
+            // Insert query to add a new image path if no existing profile photo
+            $query = "
+                INSERT INTO image (profile_id, path, type)
+                VALUES ($profile_id, '$resized_file', 'profilo')
+            ";
+        }
         $result = $mysqli->query($query);
 
         if (!$result) {
-            echo "Database update failed: " . $mysqli->error . "<br>";
+            echo "Database operation failed: " . $mysqli->error . "<br>";
         } else {
             // Redirect based on source
             if ($source == 'candidate') {
@@ -93,7 +105,6 @@ if ($uploadOk == 0) {
             }
             exit(); // Use exit to stop further script execution after redirect
         }
-
     } else {
         // Detailed error message for troubleshooting
         echo "Sorry, there was an error uploading your file.<br>";
