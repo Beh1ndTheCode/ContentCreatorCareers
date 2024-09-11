@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2024 at 08:08 PM
+-- Generation Time: Sep 11, 2024 at 11:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,7 +75,7 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
 (1, 'Italia', 184, 'Roma', 'Via Nazionale', '123'),
-(2, 'Italy', NULL, 'Rome', NULL, NULL),
+(2, 'Italy', 186, 'Rome', 'Via del Corso', '54'),
 (3, 'Spagna', 8007, 'Barcellona', 'Passeig de Gràcia', '45'),
 (4, 'Francia', 75001, 'Parigi', 'Rue de Rivoli', '78'),
 (6, 'Regno Unito', NULL, 'Londra', 'Bond Street', '120'),
@@ -84,7 +84,26 @@ INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`,
 (17, 'Stati Uniti', 10001, 'New York', 'Broadway', '234'),
 (18, 'Stati Uniti', 30303, 'Atlanta', 'Peachtree Street\r\n', '789'),
 (19, 'Francia', 75008, 'Parigi', 'Avenue Montaigne', '55'),
-(20, 'Italia', 187, 'Roma', 'Via del Corso', '99');
+(20, 'Italia', 187, 'Roma', 'Via del Corso', '99'),
+(21, 'Italia', 100, 'Roma', 'Viale Mazzini', '14'),
+(22, 'Italia', 20125, 'Milano', 'Viale San Raffaele', '27'),
+(23, 'Francia', 75008, 'Parigi', '14 Rue Royale', '10'),
+(24, 'Italia', 50123, 'Firenze', 'Via della Vigna Nuova', '7'),
+(25, 'US', 10018, 'New York', 'Eighth Avenue', '620'),
+(26, 'UK', 0, 'Londra', 'Kings Place', '90'),
+(27, 'US', 95054, 'San Jose', 'Park Avenue', '345'),
+(28, 'US', 20036, 'Washington D.C', '17th street NW', '1145'),
+(29, 'UK', 0, 'Londra', 'Wood Lane', '201'),
+(30, 'US', 10036, 'New York', 'Times Square', '7'),
+(31, 'US', 78701, 'Austin', 'Lavaca Street', '1400'),
+(32, 'US', 20036, 'Washington D.C.', 'North Capitol Street NE', '1111'),
+(33, 'US', 10169, 'New York', 'Fifth Avenue', '60'),
+(34, 'US', 10111, 'New York', 'Hudson Street', '395'),
+(35, 'US', 55905, 'Rochester', 'First Street SW', '200'),
+(36, 'US', 10036, 'New York', 'World Trade Center', '1'),
+(38, 'US', 10010, 'New York', 'Avenue of the Americans', '1177'),
+(39, 'US', 94107, 'San Francisco', 'Bush Street', '350'),
+(40, 'US', 90210, 'Los Angeles', 'North Central Avenue\r\n', '655');
 
 -- --------------------------------------------------------
 
@@ -103,8 +122,11 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`candidate_id`, `job_offer_id`, `date`) VALUES
-(1, 17, '2024-09-07'),
-(3, 1, '2024-09-04');
+(3, 19, '2024-09-04'),
+(4, 20, '2024-08-21'),
+(7, 1, '2024-07-01'),
+(16, 21, '2024-09-11'),
+(17, 22, '2024-08-12');
 
 -- --------------------------------------------------------
 
@@ -185,7 +207,26 @@ CREATE TABLE `employer` (
 
 INSERT INTO `employer` (`id`, `name`, `since`) VALUES
 (2, 'CNB Comunicazione', '2009'),
-(12, 'Amazon', NULL);
+(21, 'Rai', '2015'),
+(22, 'MediaWorld', '2001'),
+(23, 'L\'Oreal', '2015'),
+(24, 'Gucci', '2024'),
+(25, 'The New York Tim', '2006'),
+(26, 'The Guardian', '2019'),
+(27, 'Adobe', '2014'),
+(28, 'Pentagram', '2016'),
+(29, 'National Geograp', '2011'),
+(30, 'BBC Earth', '2009'),
+(31, 'Travel + Leisure', '2014'),
+(32, 'Lonely Planet', '2023'),
+(33, 'NPR', '2018'),
+(34, 'Forbes', '2008'),
+(35, 'WebMD', '2013'),
+(36, 'Mayo Clinic', '2020'),
+(37, 'Vogue', '2007'),
+(38, 'Elle', '2019'),
+(39, 'Twitch', '2016'),
+(40, 'IGN', '2021');
 
 -- --------------------------------------------------------
 
@@ -225,7 +266,6 @@ CREATE TABLE `image` (
   `path` varchar(256) NOT NULL DEFAULT 'skins/jobhunt/images/profile.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 -- --------------------------------------------------------
 
 --
@@ -248,9 +288,22 @@ CREATE TABLE `job` (
 --
 
 INSERT INTO `job` (`id`, `employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
-(4, 12, 1, 'Social Media Manager', 'current', '2024-09-01', NULL, 'jdiofeduy'),
-(6, 12, 1, 'Graphic Editor', 'past', '2024-06-06', '2024-07-31', ''),
-(8, 12, 1, '5679', 'past', '2024-09-04', '2024-09-19', NULL);
+(9, 21, 1, 'Videomaker e Produttore di Conte', 'current', '2016-01-15', NULL, 'Videomaker e produttore di contenuti video per programmi e documentari televisivi.'),
+(10, 2, 1, 'Video Content Producer', 'past', '2013-05-10', '2015-12-31', 'Responsabile della produzione di contenuti video per campagne pubblicitarie e promozionali.'),
+(11, 23, 3, 'Social Media Manager', 'past', '2019-04-15', NULL, 'Social Media Manager, responsabile della strategia e gestione delle campagne pubblicitarie per i prodotti di bellezza.'),
+(12, 24, 3, 'Social Media Coordinator', 'past', '2016-03-01', '2019-02-28', 'Coordinatrice dei contenuti sui social media e analisi delle performance per la linea di abbigliamento di lusso.\r\n'),
+(13, 25, 4, 'Content Writer', 'current', '2010-09-01', NULL, 'Content Writer e Blogger, scrive articoli su cultura, arte e letteratura per una delle principali testate giornalistiche internazionali.\r\n'),
+(14, 26, 4, 'Editorial Writer', 'past', '2005-01-01', '2010-04-18', 'Redattore e curatore di contenuti per un blog dedicato alla letteratura e alle recensioni di libri.'),
+(15, 28, 6, 'Freelance Graphic Designer', 'past', '2014-09-01', '2023-11-30', 'Graphic Designer freelance, specializzata in design per contenuti social media e branding.'),
+(16, 29, 16, 'Documentarista e Videomaker', 'past', '2024-02-01', NULL, 'Documentarista e videomaker, specializzato in progetti su sostenibilità e ambiente.'),
+(17, 30, 16, 'Video Producer', 'past', '2015-03-01', '2021-01-31', 'Produttore di video e contenuti multimediali per campagne di sensibilizzazione ambientale.'),
+(18, 31, 17, 'Travel Vlogger', 'current', '2018-05-01', NULL, 'Travel Vlogger e fotografa, crea contenuti video e fotografici su destinazioni di viaggio per un canale YouTube di successo.'),
+(19, 33, 7, 'Podcast Producer', 'current', '2012-06-01', NULL, 'Creatore di contenuti per podcast e articoli su temi legati al mercato immobiliare.'),
+(20, 34, 7, 'Radio Host', 'past', '2005-04-01', '2009-12-31', 'Host di un programma radiofonico.'),
+(21, 35, 18, 'Health Content Specialist', 'past', '2017-01-01', '2021-06-30', 'Coordinatrice dei contenuti e specialista in marketing per campagne di salute e fitness.'),
+(22, 37, 19, 'Fashion Blogger e Influencer', 'current', '2017-11-01', NULL, 'Blogger di moda e influencer, gestisce contenuti e collaborazioni con marchi del settore moda.\r\n'),
+(23, 38, 19, 'Fashion Editor', 'past', '2013-06-01', '2016-10-31', 'Redattrice e stilista per articoli su tendenze di moda e recensioni di collezioni.'),
+(24, 39, 20, 'Gaming Streamer', 'current', '2018-09-01', NULL, 'Streamer nel settore gaming, con focus su giochi e tecnologie emergenti.');
 
 -- --------------------------------------------------------
 
@@ -275,8 +328,14 @@ CREATE TABLE `job_offer` (
 --
 
 INSERT INTO `job_offer` (`id`, `employer_id`, `name`, `salary`, `type`, `language_id`, `quantity`, `description`, `date`) VALUES
-(1, 2, 'Visual Designer', 1800, 'Part time', 2, 2, 'Visual design focuses on enhancing the aesthetic and usability of a digital product. It is the strategic implementation of images, colors, fonts, and layouts. Although many visual design elements deal with the look of a product, the feel of the product is equally important. The goal of visual design is to create an interface that provides users with the optimal experience. ', '2024-08-21'),
-(17, 2, 'Spazzino', 1, 'Freelance', 6, 1, 'Pulire, TAAC', '2024-09-07');
+(1, 2, 'Social Media Specialist', 40000, 'Full time', 2, 2, 'CNB Comunicazione cerca un content creator e social media specialist per sviluppare e gestire strategie di contenuto sui social media, creare post, articoli e campagne pubblicitarie. Il candidato ideale avrà esperienza nella creazione di contenuti coinvolgenti e una buona comprensione delle tendenze del settore.', '2024-08-21'),
+(18, 21, 'Videomaker', 45000, 'Full time', 2, 4, 'La Rai cerca un videomaker e produttore di contenuti per creare e gestire contenuti video per programmi e documentari televisivi. Il candidato ideale avrà esperienza nella produzione di video di alta qualità e una forte comprensione delle tecniche di editing e post-produzione.', '2024-09-01'),
+(19, 23, 'Social Media Manager', 55000, 'Temporary', 3, 1, 'L\'Oreal è alla ricerca di un Social Media Manager per gestire e ottimizzare le campagne pubblicitarie sui social media. Il candidato dovrà sviluppare strategie di contenuto e analizzare le performance delle campagne per promuovere i prodotti di bellezza.', '2024-08-19'),
+(20, 25, 'Blogger', 70000, 'Full time', 1, 3, 'Il New York Times cerca content writer e blogger per scrivere articoli su cultura, arte e letteratura. Il ruolo include la creazione di contenuti originali, ricerca approfondita e collaborazione con il team editoriale.\r\n', '2024-06-11'),
+(21, 29, 'Videomaker', 75000, 'Full time', 1, 2, 'National Geographic è in cerca di un documentarista e videomaker per lavorare su progetti riguardanti sostenibilità e ambiente. Il ruolo prevede la produzione di documentari e la gestione di contenuti visivi.', '2024-06-01'),
+(22, 31, 'Fotografo', 55000, 'Freelance', 1, 1, 'Travel + Leisure cerca un travel fotografo per creare contenuti video e fotografici su destinazioni di viaggio. Il candidato ideale deve avere esperienza nella creazione di contenuti di alta qualità e una passione per i viaggi.', '2024-09-11'),
+(23, 35, 'Content Creator', 60000, 'Full time', 1, 2, 'WebMD cerca un content creator per salute e benessere per gestire contenuti su social media e blog. Il candidato dovrà creare articoli informativi e coinvolgenti e gestire le interazioni con il pubblico.', '2024-07-01'),
+(24, 34, 'Radio Host', 50000, 'Part time', 1, 1, 'Forbes cerca un radio host e producer per condurre e produrre programmi radiofonici su temi finanziari e di investimento. Il candidato ideale avrà esperienza nella produzione di contenuti radiofonici e una conoscenza approfondita del mercato finanziario', '2023-11-10');
 
 -- --------------------------------------------------------
 
@@ -324,17 +383,36 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 (1, 2, 'mariorossi@gmail.com', '+39 345 1234567', 'Content creator specializzato in video educativi su ingegneria e tecnologia, con un canale YouTube di successo e una serie di podcast dedicati all\'innovazione.'),
-(2, 3, 'contact@cnb.com', '+390862111111', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
+(2, 3, 'info@cnbcomunicazione.it', '+39 06 8941 8960', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
 (3, 4, 'mariagonzalez@gmail.com', '+34 612 234567', 'Social media manager e content strategist, crea campagne di marketing virali per marchi di moda e lifestyle, con una forte presenza su Instagram e TikTok.'),
 (4, 5, 'pierredupont@gmail.com', '+33 654 987654', 'Blogger e scrittore freelance, con un sito dedicato alla cultura francese e articoli su arte, cinema e letteratura. Collabora con testate online e piattaforme di blogging.'),
 (6, 7, 'annakovalenko@gmail.com', '+7 921 3456789', 'Graphic designer e illustratrice, crea contenuti visivi per YouTube e Instagram, concentrandosi su tutorial di design e progetti creativi.'),
 (7, 8, 'johnsmith@gmail.com', '+44 7700 900123', 'Podcaster e content writer nel settore immobiliare, con un focus su investimenti e strategie finanziarie. Pubblica regolarmente articoli e guide online.'),
-(12, 13, NULL, NULL, NULL),
 (16, 15, 'lucabianchi@gmail.com', '+39 349 7654321', 'Videomaker e regista freelance, produce documentari e cortometraggi per piattaforme digitali, concentrandosi su tematiche ambientali e sostenibilità.'),
 (17, 17, 'emmaschmidt@gmail.com', '+49 171 2345678', 'Travel vlogger e fotografa, documenta le sue avventure in giro per il mondo attraverso vlog su YouTube e fotografie di viaggio su Instagram.'),
 (18, 18, 'carolinamartinez@gmail.com', '+34 610 987654', 'Content creator nel settore della salute e benessere, crea video su YouTube e post su Instagram su temi di medicina preventiva, fitness e stili di vita sani.'),
 (19, 19, 'sophieleblanc@gmail.com', '+33 678 123456', 'Influencer e fashion blogger, con un blog di moda di successo e una community attiva su Instagram dove condivide consigli di stile e tendenze.\r\n\r\n'),
-(20, 20, 'marcomoretti@gmail.com', '+39 347 6543210', 'Video creator e streamer su Twitch, produce contenuti su tecnologia e gaming, recensendo le ultime novità del settore tech e interagendo con una community globale.');
+(20, 20, 'marcomoretti@gmail.com', '+39 347 6543210', 'Video creator e streamer su Twitch, produce contenuti su tecnologia e gaming, recensendo le ultime novità del settore tech e interagendo con una community globale.'),
+(21, 21, 'info@rai.it', '+39 06 361 21', 'Rai è la principale emittente televisiva pubblica italiana, operante anche nel settore della radio e dei media digitali.'),
+(22, 22, 'info@mediaworld.it', '+39 02 2631 2631', 'MediaWorld è una delle principali catene di elettronica di consumo in Italia, specializzata in vendita al dettaglio di elettronica e elettrodomestici.'),
+(23, 23, 'contact@loreal.com', '+33 147 56 7000', 'L\'Oreal è uno dei principali produttori mondiali di cosmetici e prodotti di bellezza, con una vasta gamma di marchi e prodotti.'),
+(24, 24, 'info@gucci.com', '+39 055 7592 1', 'Gucci è una delle case di moda più prestigiose al mondo, nota per i suoi prodotti di alta moda e accessori di lusso.'),
+(25, 25, 'info@nytimes.com', '+1 212-556-1234', 'The New York Times è uno dei principali quotidiani statunitensi, noto per la sua copertura approfondita di notizie e cultura.'),
+(26, 26, 'info@theguardian.com', '+44 20 3353 2000', 'The Guardian è un\'importante testata giornalistica britannica, nota per la sua indipendenza editoriale e le sue analisi approfondite.'),
+(27, 27, 'contact@adobe.com', '+1 408-536-6000', 'Adobe Systems è una delle principali aziende tecnologiche, specializzata in software per la creazione e la gestione di contenuti digitali.'),
+(28, 28, 'info@pentagram.com', NULL, ' Pentagram è uno studio di design grafico di fama internazionale, noto per il suo lavoro innovativo e creativo in branding e design visivo.'),
+(29, 29, 'info@ngs.org', '+1 202-857-7000', 'National Geographic è un\'agenzia di media globale che produce contenuti su scienza, esplorazione e cultura, famoso per le sue riviste e documentari.'),
+(30, 30, 'info@bbc.com', NULL, 'BBC Earth è il canale di documentari della BBC che si concentra su contenuti di natura e scienza, producendo programmi di alta qualità.'),
+(31, 31, 'info@travelandleisure.com', NULL, 'Travel + Leisure è una rivista e sito web dedicato ai viaggi e al turismo, offrendo suggerimenti e guide per le destinazioni globali.'),
+(32, 32, 'info@lonelyplanet.com', NULL, 'Lonely Planet è un\'importante casa editrice di guide di viaggio, nota per le sue informazioni dettagliate e consigli utili per i viaggiatori.'),
+(33, 33, 'info@webmd.com', '+1 212-838-3400', 'NPR è una rete di radiodiffusione pubblica degli Stati Uniti, fornendo notizie e programmi di alta qualità su temi nazionali e internazionali.'),
+(34, 34, 'info@forbes.com', NULL, 'Forbes è una rivista economica e finanziaria che pubblica notizie e analisi su affari, economia, tecnologia e stile di vita.'),
+(35, 35, ' info@webmd.com', NULL, 'WebMD è un sito web leader nella fornitura di informazioni sanitarie, offrendo contenuti educativi e risorse per la salute e il benessere.'),
+(36, 36, 'contact@mayo.edu', NULL, 'Mayo Clinic è un istituto medico senza scopo di lucro, noto per l\'eccellenza nelle cure mediche e nella ricerca, con una vasta gamma di servizi clinici.'),
+(37, 37, 'contact@vogue.com', NULL, 'Vogue è una delle principali riviste di moda e lifestyle al mondo, offrendo contenuti su tendenze di moda, bellezza e cultura'),
+(38, 38, 'contact@elle.com', NULL, 'Elle è una rivista di moda internazionale, focalizzata su tendenze, bellezza e cultura femminile, con edizioni in tutto il mondo.'),
+(39, 39, 'contact@twitch.tv', NULL, 'Twitch è una piattaforma di streaming video in diretta, principalmente focalizzata su giochi e contenuti interattivi.'),
+(40, 40, 'contact@ign.com', NULL, 'IGN è un sito web dedicato ai giochi e all\'intrattenimento, offrendo recensioni, notizie e contenuti multimediali su videogiochi e cultura pop.');
 
 -- --------------------------------------------------------
 
@@ -383,9 +461,18 @@ CREATE TABLE `requirement` (
 --
 
 INSERT INTO `requirement` (`job_offer_id`, `name`, `level`, `description`) VALUES
-(1, 'Adobe Photoshop', 60, 'Basic knowledge of the tool'),
-(17, 'Maneggiare la scopa', 80, 'Buona padronanza dello strumento'),
-(17, 'Maneggiare lo straccio', 70, 'Lu paviment t\\\'à splenn');
+(1, 'Hootsuite', 90, 'Esperienza avanzata nella gestione e pianificazione di campagne sui social media utilizzando Hootsuite'),
+(18, 'Adobe Premiere Pro', 90, 'Esperienza avanzata nell\'uso di Adobe Premiere Pro per l\'editing di video professionali.'),
+(18, 'Camera RED', 80, 'Competenze nella gestione e utilizzo della camera RED per riprese ad alta risoluzione.'),
+(19, 'Facebook Ads', 90, 'Esperienza avanzata nella creazione e ottimizzazione di campagne pubblicitarie su Facebook Ads.'),
+(19, 'Google Analytics', 70, 'Capacità di utilizzare Google Analytics per monitorare e analizzare le performance delle campagne sui social media.'),
+(20, 'SEO', 90, 'Esperienza nella scrittura di contenuti ottimizzati per i motori di ricerca (SEO) per migliorare la visibilità online'),
+(20, 'Zotero', 90, 'Abilità nell\'utilizzo di Zotero per la gestione e citazione delle fonti durante la ricerca di contenuti.'),
+(21, 'DaVinci Resolve', 80, 'Competenze avanzate nell\'uso di DaVinci Resolve per il color grading e l\'editing video.'),
+(22, 'Adobe illustrator', 90, 'Abilità nell\'uso di Adobe illustrator per la post-produzione delle foto'),
+(23, 'Hootsuite', 70, 'Competenze nell\'uso di Hootsuite per la gestione e pianificazione dei contenuti sui social media.'),
+(23, 'Scrittura con CMS', 80, 'Esperienza nell\'uso di CMS come WordPress per la creazione e gestione di contenuti web.'),
+(24, 'Abilità di Comunicazione', 90, 'Eccellenti capacità di comunicazione verbale e presentazione per condurre programmi radiofonici e interagire con gli ascoltatori.');
 
 -- --------------------------------------------------------
 
@@ -577,7 +664,9 @@ INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
 (1, 'instagram', 'https://instagram.com/mariorossi'),
 (1, 'linkedin', 'https://linkedin.com/in/mariorossi'),
 (1, 'website', 'https://mariorossi.com'),
-(2, 'facebook', 'https://www.facebook.com/CNBcomunicazione'),
+(2, 'facebook', 'https://facebook.com/CNBcomunicazione'),
+(2, 'instagram', 'https://instagram.com/CNBcomunicazione'),
+(2, 'linkedin', 'https://Linkedin.com/CNBcomunicazione'),
 (2, 'website', 'https://cnbcomunicazione.com'),
 (3, 'facebook', 'https://facebook.com/mariagonzalez'),
 (3, 'instagram', 'https://instagram.com/mariagonzalez'),
@@ -614,7 +703,11 @@ INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
 (20, 'facebook', 'https://facebook.com/marcomoretti'),
 (20, 'instagram', 'https://instagram.com/marcomoretti'),
 (20, 'linkedin', 'https://linkedin.com/in/marcomoretti'),
-(20, 'website', 'https://marcomoretti.com/');
+(20, 'website', 'https://marcomoretti.com/'),
+(22, 'facebook', 'https://facebook.com/Mediaworld'),
+(22, 'instagram', 'https://Instagram.com/Mediaworld'),
+(22, 'linkedin', 'https://Linkedin.com/Mediaworld'),
+(22, 'website', 'https://Mediaworld.com');
 
 -- --------------------------------------------------------
 
@@ -641,12 +734,31 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (5, 'pierre', 'pierre', 'pierre@gmail.com'),
 (7, 'anna', 'anna', 'anna@gmail.com'),
 (8, 'jhon', 'jhon', 'jhon@gmail.com'),
-(13, 'amazon', 'amazon', 'amazon@amazon.com'),
 (15, 'luca', 'luca', 'luca@gmail.com'),
 (17, 'emma', 'emma', 'emma@gmail.com'),
 (18, 'carolina', 'carolina', 'carolina@gmail.com'),
 (19, 'sophie', 'sophie', 'sophie@gmail.com'),
-(20, 'Marco', 'Marco', 'Marco@gmail.com');
+(20, 'Marco', 'Marco', 'Marco@gmail.com'),
+(21, 'rai', 'rai', 'rai@gmail.com'),
+(22, 'mediaworld', 'mediaworld', 'mediaworld@gmail.com'),
+(23, 'oreal', 'oreal', 'oreal@gmail.com'),
+(24, 'gucci', 'gucci', 'gucci@gmail.com'),
+(25, 'thenewyorktimes', 'thenewyorktimes', 'thenewyorktimes@gmail.com'),
+(26, 'theguardian', 'theguardian', 'theguardian@gmail.com'),
+(27, 'adobe', 'adobe', 'adobe@gmail.com'),
+(28, 'pentagram', 'pentagram', 'pentagram@gmail.com'),
+(29, 'nationalgeographic', 'nationalgeographic', 'nationalgeographic@gmail.com'),
+(30, 'bbc', 'bbc', 'bbc@gmail.com'),
+(31, 'travelandleisure', 'travelandleisure', 'travelandleisure@gmail.com'),
+(32, 'lonelyplanet', 'lonelyplanet', 'lonelyplanet@gmail.com'),
+(33, 'npr', 'npr', 'npr@gmail.com'),
+(34, 'forbes', 'forbes', 'forbes'),
+(35, 'webmd', 'webmd', 'webmd'),
+(36, 'mayoclinic', 'mayoclinic', 'mayoclinic@gmail.com'),
+(37, 'vogue', 'vogue', 'vogue@gmail.com'),
+(38, 'elle', 'elle', 'elle@gmail.com'),
+(39, 'twitch', 'twitch', 'twitch@gmail.com'),
+(40, 'ign', 'ign', 'ign@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -665,18 +777,37 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`username`, `role_id`) VALUES
 ('admin', 1),
-('amazon', 3),
+('adobe', 3),
 ('anna', 2),
+('bbc', 3),
 ('candidate', 2),
 ('carolina', 2),
+('elle', 3),
 ('emma', 2),
 ('employer', 3),
+('forbes', 3),
+('gucci', 3),
+('ign', 3),
 ('jhon', 2),
+('lonelyplanet', 3),
 ('luca', 2),
 ('marco', 2),
 ('maria', 2),
+('mayoclinic', 3),
+('mediaworld', 3),
+('nationalgeographic', 3),
+('npr', 3),
+('oreal', 3),
+('pentagram', 3),
 ('pierre', 2),
-('sophie', 2);
+('rai', 3),
+('sophie', 2),
+('theguardian', 3),
+('thenewyorktimes', 3),
+('travelandleisure', 3),
+('twitch', 3),
+('vogue', 3),
+('webmd', 3);
 
 --
 -- Indexes for dumped tables
@@ -846,13 +977,13 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `job_offer`
 --
 ALTER TABLE `job_offer`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `language`
@@ -864,7 +995,7 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -882,7 +1013,7 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Constraints for dumped tables
