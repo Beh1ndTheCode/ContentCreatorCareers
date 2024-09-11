@@ -1,3 +1,24 @@
+<style>
+    .upload-row {
+        display: flex; /* Use flexbox to place elements side by side */
+    }
+
+    .spacer {
+        width: 30px; /* Adjust the width to create the desired horizontal space */
+    }
+
+    div#notification {
+        width: 100%;
+        height: 60px;
+        background-color: #c5dbbd;
+        border-radius: 8px;
+        display: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+</style>
+
 <section class="overlape">
     <div class="block no-padding">
         <div class="parallax scrolly-invisible no-parallax"
@@ -40,8 +61,11 @@
                     </div>
                 </aside>
                 <div class="col-lg-9 column">
+                    <div id="notification"></div>
                     <div class="padding-left">
                         <div class="emply-resume-sec">
+                            <h3>Applied to Work</h3>
+                            <[applied_workers]>
                             <h3>Current Workers</h3>
                             <[cur_workers]>
                             <h3>Past Workers</h3>
@@ -53,3 +77,20 @@
         </div>
     </div>
 </section>
+
+<script>
+    $(document).ready(function () {
+        // Display notification if message is present in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        console.log(message);
+        if (message) {
+            $('#notification')
+                .html(message)
+                .fadeIn()
+                .click(function () {
+                    $(this).fadeOut();
+                });
+        }
+    });
+</script>

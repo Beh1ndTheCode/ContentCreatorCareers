@@ -11,9 +11,9 @@ function get_img($mysqli, $profile_id)
 function get_skills($mysqli, $profile_id)
 {
     $skills = [];
-    $sql_skills = $mysqli->query("SELECT skill.name,skill.level FROM `skill` WHERE skill.candidate_id = '$profile_id'");
+    $sql_skills = $mysqli->query("SELECT skill.name, skill.level, skill.description FROM `skill` WHERE skill.candidate_id = '$profile_id'");
     while ($row = $sql_skills->fetch_assoc())
-        $skills[] = ['name' => $row['name'], 'level' => $row['level']]; // Aggiungi ogni skill all'array
+        $skills[] = ['name' => $row['name'], 'level' => $row['level'], 'description' => $row['description']]; // Aggiungi ogni skill all'array
     return $skills;
 }
 

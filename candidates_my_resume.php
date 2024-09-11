@@ -82,6 +82,7 @@ foreach ($skills as $skill) {
                             <li><span>Edit</span><a href=$edit_skill_url title=''><i class='la la-pencil'></i></a></li>
                             <li><span>Delete</span><a href=$delete_skill_url title=''><i class='la la-trash-o'></i></a></li>
                         </ul>
+                        <span>{$skill['description']}</span>
                     </div>";
 }
 $body->setContent("skills", $skills_html);

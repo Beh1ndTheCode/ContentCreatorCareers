@@ -37,7 +37,7 @@ $result = $mysqli->query("
 	    address.country AS emp_country
 	FROM `application`
 	JOIN `job_offer` ON job_offer.id = application.job_offer_id
-  JOIN `employer` ON employer.id = job_offer.employer_id
+    JOIN `employer` ON employer.id = job_offer.employer_id
 	LEFT JOIN `address` ON address.profile_id = employer.id
 	WHERE application.candidate_id = $id
     ");
@@ -50,7 +50,7 @@ $applied_jobs_html = '';
 while ($application = $result->fetch_assoc()) {
     $emp_url = "employer_single.php?id=" . urlencode($application['emp_id']);
     $view_url = "job_single.php?id=" . urlencode($application['job_id']);
-    $remove_url = "remove_application.php?job_id=" . urlencode($application['job_id']) . "&can_id=" . urlencode($id);
+    $remove_url = "remove_application.php?job_id=" . urlencode($application['job_id']) . "&can_id=" . urlencode($id) . "&type=2";
     $city = $skill['city'] ?? 'Unknown city';
     $country = $skill['country'] ?? 'Unknown country';
     $formatted_date = DateTime::createFromFormat('Y-m-d', $application['app_date'])->format('F j, Y');

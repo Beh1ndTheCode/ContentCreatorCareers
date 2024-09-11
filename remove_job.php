@@ -26,13 +26,11 @@ $stmt->close();
 $mysqli->close();
 
 if ($type == 2) {
-    header("Location: candidates_my_resume.php");
+    header("Location: candidates_my_resume.php?message=Job removed successfully");
 } elseif ($type == 3) {
-    header("Location: employer_resume.php");
+    header("Location: employer_resume.php?message=Job removed successfully");
 } else {
     error_log("Unknown source");
 }
-
-header("Location: candidates_my_resume.php?message=Job removed successfully");
 
 exit();

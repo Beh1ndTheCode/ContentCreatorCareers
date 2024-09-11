@@ -26,6 +26,7 @@ $body->setContent("image", $img);
 
 $result = $mysqli->query("
     SELECT
+        candidate.id AS id,
         candidate.name AS name,
         candidate.surname AS surname,
         candidate.age AS age,
@@ -59,6 +60,38 @@ $body->setContent("email", $email);
 $body->setContent("country", $country);
 $body->setContent("city", $city);
 
+$socials_sql = $mysqli->query("
+    SELECT
+        social_account.name AS social_name,
+        social_account.uri AS social_uri
+    FROM social_account
+    JOIN candidate ON candidate.id = social_account.profile_id
+    WHERE candidate.id = '{$data['id']}'
+");
+
+if (!$socials_sql) {
+    die("Query failed: " . $mysqli->error);
+}
+
+$socials = [];
+while ($social = $socials_sql->fetch_assoc()) {
+    $socials[] = ['name' => $social['social_name'], 'uri' => $social['social_uri']];
+}
+function getUri($socialArray, $name)
+{
+    foreach ($socialArray as $social) {
+        if ($social['name'] === $name) {
+            return $social['uri'];
+        }
+    }
+    return null; // Restituisce null se il nome non è trovato
+}
+
+$body->setContent('website', getUri($socials, 'website'));
+$body->setContent('facebook', getUri($socials, 'facebook'));
+$body->setContent('instagram', getUri($socials, 'instagram'));
+
+
 $skills = get_skills($mysqli, $id);
 $top_skills_html = '';
 $detail_skills_html = '';
@@ -76,6 +109,7 @@ foreach ($skills as $skill) {
         $detail_skills_html .= "<i></i>";
     }
     $detail_skills_html .= "</div></div><p>{$skill['level']}%</p></div>";
+    $detail_skills_html .= "<p>{$skill['description']}</p><span></span>";
 }
 $body->setContent("top_skills", $top_skills_html);
 $body->setContent("detail_skills", $detail_skills_html);
