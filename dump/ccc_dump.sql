@@ -225,15 +225,6 @@ CREATE TABLE `image` (
   `path` varchar(256) NOT NULL DEFAULT 'skins/jobhunt/images/profile.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `image`
---
-
-INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
-(1, 2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
-(2, 1, 'profilo', 'uploads/profile_images/resized_66db5135010ba.jpg'),
-(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg'),
-(7, 1, 'portfolio', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
 
 -- --------------------------------------------------------
 
@@ -521,7 +512,7 @@ CREATE TABLE `skill` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
   `level` tinyint(3) UNSIGNED NOT NULL,
-  `description` varchar(256) DEFAULT NULL
+  `description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -736,6 +727,7 @@ ALTER TABLE `expertise`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `path` (`path`),
   ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
@@ -884,7 +876,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `user`
