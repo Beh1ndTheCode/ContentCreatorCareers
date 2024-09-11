@@ -1,3 +1,25 @@
+<style>
+    .percentage-input {
+        position: relative;
+        display: inline-block;
+    }
+
+    .percentage-input input {
+        padding-right: 20px; /* Space for the percentage symbol */
+    }
+
+    .percentage-input::after {
+        content: "%";
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #555; /* Customize the symbol color */
+        font-size: 14px; /* Customize the symbol size */
+    }
+</style>
+
 <section class="overlape">
     <div class="block no-padding">
         <div class="parallax scrolly-invisible no-parallax" data-velocity="-.1"
@@ -51,14 +73,14 @@
                                         <div class="col-lg-7">
                                             <span class="pf-title">Skill</span>
                                             <div class="pf-field">
-                                                <input name="skill_name" placeholder="" type="text"
+                                                <input name="skill_name" placeholder="Enter skill name" type="text"
                                                        value="<[skill_name]>">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <span class="pf-title">Level</span>
-                                            <div class="pf-field">
-                                                <input max="100" min="1" name="skill_level" placeholder=""
+                                            <div class="pf-field percentage-input">
+                                                <input max="100" min="1" name="skill_level" placeholder="0" step="5"
                                                        type="number"
                                                        value="<[skill_level]>">
                                             </div>
@@ -66,7 +88,8 @@
                                         <div class="col-lg-12">
                                             <span class="pf-title">Description</span>
                                             <div class="pf-field">
-                                                <textarea name="skill_description"><[skill_description]></textarea>
+                                                <textarea name="skill_description"
+                                                          placeholder="Enter skill description"><[skill_description]></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">

@@ -1,3 +1,25 @@
+<style>
+    .currency-input {
+        position: relative;
+        display: inline-block;
+    }
+
+    .currency-input input {
+        padding-left: 20px; /* Space for the dollar symbol */
+    }
+
+    .currency-input::after {
+        content: "$";
+        position: absolute;
+        top: 36%;
+        left: 8px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #555; /* Customize the symbol color */
+        font-size: 14px; /* Customize the symbol size */
+    }
+</style>
+
 <section class="overlape">
     <div class="block no-padding">
         <div class="parallax scrolly-invisible no-parallax"
@@ -64,13 +86,13 @@
                                     <div class="col-lg-12">
                                         <span class="pf-title">Job Title</span>
                                         <div class="pf-field">
-                                            <input name="name" type="text"/>
+                                            <input name="name" placeholder="Enter job title" type="text"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <span class="pf-title">Description</span>
                                         <div class="pf-field">
-                                            <textarea name="description"></textarea>
+                                            <textarea name="description" placeholder="Enter job description"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -90,7 +112,8 @@
                                         <span class="pf-title">Language</span>
                                         <div class="pf-field">
                                             <div class="pf-field">
-                                                <select class="chosen" data-placeholder="Choose a Language" name="language">
+                                                <select class="chosen" data-placeholder="Choose a Language"
+                                                        name="language">
                                                     <[languages]>
                                                 </select>
                                             </div>
@@ -110,14 +133,14 @@
                                     </div> -->
                                     <div class="col-lg-6">
                                         <span class="pf-title">Offered Salary</span>
-                                        <div class="pf-field">
-                                            <input name="salary" type="text"/>
+                                        <div class="pf-field currency-input">
+                                            <input min="0" name="salary" placeholder="0" step="10" type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <span class="pf-title">Number of Positions</span>
                                         <div class="pf-field">
-                                            <input name="quantity" type="text"/>
+                                            <input min="0" name="quantity" placeholder="0" type="number"/>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">

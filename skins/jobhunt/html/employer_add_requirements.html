@@ -27,6 +27,26 @@
         margin-bottom: 10px;
         text-align: center;
     }
+
+    .percentage-input {
+        position: relative;
+        display: inline-block;
+    }
+
+    .percentage-input input {
+        padding-right: 20px; /* Space for the percentage symbol */
+    }
+
+    .percentage-input::after {
+        content: "%";
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #555; /* Customize the symbol color */
+        font-size: 14px; /* Customize the symbol size */
+    }
 </style>
 
 <section>
@@ -115,6 +135,7 @@
                 });
         }
     });
+
     // Function to create a new skill set
     function createSkillSet() {
         const skillSet = document.createElement('div');
@@ -124,19 +145,19 @@
             <div class="col-lg-6">
                 <span class="pf-title">Skill</span>
                 <div class="pf-field">
-                    <input name="requirement_name[]" type="text" />
+                    <input placeholder="Enter skill name" name="requirement_name[]" type="text" />
                 </div>
             </div>
             <div class="col-lg-6">
-                <span class="pf-title">Skill level percentage</span>
-                <div class="pf-field">
-                    <input name="requirement_level[]" type="number" min="1" max="100" />
+                <span class="pf-title">Percentage</span>
+                <div class="pf-field percentage-input">
+                    <input placeholder="0" name="requirement_level[]" type="number" min="1" max="100" step="5" />
                 </div>
             </div>
             <div class="col-lg-12">
-                <span class="pf-title">Skill description</span>
+                <span class="pf-title">Description</span>
                 <div class="pf-field">
-                    <textarea name="requirement_description[]"></textarea>
+                    <textarea placeholder="Enter skill description" name="requirement_description[]"></textarea>
                 </div>
             </div>
             <div class="col-lg-12">

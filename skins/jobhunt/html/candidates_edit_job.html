@@ -44,21 +44,20 @@
                                 <a class="cancel" href="#" title=""><i class="la la-close"></i> Cancel</a>
                             </div>
                             <form action="update_job.php" method="post">
-                                <input type="hidden" name="job_id" value=<[job_id]>>
+                                <input name="job_id" type="hidden" value=<[job_id]>>
                                 <div class="resumeadd-form">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <span class="pf-title">Title</span>
                                             <div class="pf-field">
-                                                <input name="job_title" placeholder="" type="text"
+                                                <input name="job_title" placeholder="Enter job title" type="text"
                                                        value="<[job_title]>"/>
                                             </div>
                                         </div>
                                         <div class="col-lg-5">
                                             <span class="pf-title">From Date</span>
                                             <div class="pf-field">
-                                                <input class="form-control" name="job_start" placeholder=""
-                                                       type="date"
+                                                <input class="form-control" name="job_start" type="date"
                                                        value="<[job_start]>">
                                             </div>
                                         </div>
@@ -66,7 +65,6 @@
                                             <span class="pf-title">To Date</span>
                                             <div class="pf-field">
                                                 <input class="form-control" id="to-date" name="job_end"
-                                                       placeholder=""
                                                        type="date" value="<[job_end]>">
                                             </div>
                                         </div>
@@ -80,7 +78,7 @@
                                             <span class="pf-title">Company</span>
                                             <div class="pf-field">
                                                 <div class="pf-field">
-                                                    <select class="chosen" data-placeholder="Please Select a Company"
+                                                    <select class="chosen" data-placeholder="Please select a company"
                                                             name="employer"><[employers]></select>
                                                 </div>
                                             </div>
@@ -88,7 +86,7 @@
                                         <div class="col-lg-12">
                                             <span class="pf-title">Description</span>
                                             <div class="pf-field">
-                                                <textarea name="job_description"><[job_description]></textarea>
+                                                <textarea name="job_description" placeholder="Enter job description"><[job_description]></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
