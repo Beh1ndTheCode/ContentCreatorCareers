@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2024 at 04:30 PM
+-- Generation Time: Sep 11, 2024 at 08:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,8 +74,17 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
-(1, 'France', NULL, 'Roma', NULL, NULL),
-(2, 'Italy', NULL, 'Rome', NULL, NULL);
+(1, 'Italia', 184, 'Roma', 'Via Nazionale', '123'),
+(2, 'Italy', NULL, 'Rome', NULL, NULL),
+(3, 'Spagna', 8007, 'Barcellona', 'Passeig de Gràcia', '45'),
+(4, 'Francia', 75001, 'Parigi', 'Rue de Rivoli', '78'),
+(6, 'Regno Unito', NULL, 'Londra', 'Bond Street', '120'),
+(7, 'Stati Uniti', 94105, 'San Francisco', 'Market Street', '57'),
+(16, 'Italia', 50123, 'Firenze', 'Via dei Calzaiuoli', '10'),
+(17, 'Stati Uniti', 10001, 'New York', 'Broadway', '234'),
+(18, 'Stati Uniti', 30303, 'Atlanta', 'Peachtree Street\r\n', '789'),
+(19, 'Francia', 75008, 'Parigi', 'Avenue Montaigne', '55'),
+(20, 'Italia', 187, 'Roma', 'Via del Corso', '99');
 
 -- --------------------------------------------------------
 
@@ -116,12 +125,16 @@ CREATE TABLE `candidate` (
 --
 
 INSERT INTO `candidate` (`id`, `name`, `surname`, `age`, `language_id`) VALUES
-(1, 'Mario', 'Rosso', 33, 6),
-(3, 'Luigi', 'Luigini', NULL, NULL),
-(4, 'Valerio', 'Valeri', NULL, NULL),
-(6, 'Alessio', 'Alessi', NULL, NULL),
-(7, 'Giulia', 'Giuliani', NULL, NULL),
-(13, 'fabio', 'volo', NULL, NULL);
+(1, 'Mario', 'Rossi', 33, 2),
+(3, 'Maria', 'González', 28, 3),
+(4, 'Pierre', 'Dupont', 45, 4),
+(6, 'Anna', 'Kovalenko', 31, 10),
+(7, 'John', 'Smith', 50, 1),
+(16, 'Luca', 'Bianchi', 37, 2),
+(17, 'Emma', 'Schmidt', 26, 5),
+(18, 'Carolina', 'Martínez', 29, 3),
+(19, 'Sophie', 'Leblanc', 33, 4),
+(20, 'Marco', 'Moretti', 39, 2);
 
 -- --------------------------------------------------------
 
@@ -191,7 +204,13 @@ CREATE TABLE `expertise` (
 
 INSERT INTO `expertise` (`id`, `title`) VALUES
 (1, 'Ads'),
-(2, 'Sasso carta forbice');
+(14, 'Graphic Design'),
+(11, 'Podcasting'),
+(9, 'Social Media Manager'),
+(12, 'Streaming'),
+(2, 'Videomaking'),
+(13, 'Vlogging'),
+(10, 'Writer / Blogger');
 
 -- --------------------------------------------------------
 
@@ -211,8 +230,10 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
+(1, 2, 'banner', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I'),
 (2, 1, 'profilo', 'uploads/profile_images/resized_66db5135010ba.jpg'),
-(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg');
+(6, 2, 'profilo', 'uploads/profile_images/resized_66db44acb3498.jpg'),
+(7, 1, 'portfolio', 'https://media.licdn.com/dms/image/v2/C560BAQGDaVoOAasXWg/company-logo_200_200/company-logo_200_200/0/1631374809829?e=2147483647&v=beta&t=O6nWNnMZdJD-bkk7bHCk1Jy-Qz2xCrCTHBmP7SqL_0I');
 
 -- --------------------------------------------------------
 
@@ -238,8 +259,7 @@ CREATE TABLE `job` (
 INSERT INTO `job` (`id`, `employer_id`, `candidate_id`, `name`, `type`, `first_work_date`, `last_work_date`, `description`) VALUES
 (4, 12, 1, 'Social Media Manager', 'current', '2024-09-01', NULL, 'jdiofeduy'),
 (6, 12, 1, 'Graphic Editor', 'past', '2024-06-06', '2024-07-31', ''),
-(7, 2, 1, '1234', 'current', '2024-09-02', NULL, NULL),
-(8, 2, 1, '5678', 'past', '2024-09-04', '2024-09-05', NULL);
+(8, 12, 1, '5679', 'past', '2024-09-04', '2024-09-19', NULL);
 
 -- --------------------------------------------------------
 
@@ -312,14 +332,18 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
-(1, 2, 'mariorossi@gmail.com', '+393333333333', 'ojfiwaiiafwkugx5x'),
+(1, 2, 'mariorossi@gmail.com', '+39 345 1234567', 'Content creator specializzato in video educativi su ingegneria e tecnologia, con un canale YouTube di successo e una serie di podcast dedicati all\'innovazione.'),
 (2, 3, 'contact@cnb.com', '+390862111111', 'CNB Comunicazione nasce a Roma nel 2009, sulla base di una pregressa e profonda formazione nel mondo pubblicitario che ha visto evolvere nel corso degli anni sotto la spinta dei grandi cambiamenti del mercato e della tecnologia. Come agenzia pubblicitaria e di web e digital marketing è in grado di rispondere a varie esigenze, grazie allo sviluppo di un’ampia rete di canali e formati pubblicitari. Al suo interno operano una serie di figure specializzate nella gestione, nella distribuzione e nella creazione di campagne pubblicitarie cinematografiche, radiofoniche, di affissioni statiche e dinamiche, web e social media marketing, con una particolare attenzione all’immagine e  all’identità attraverso lo studio della Brand Identity e la produzione di video e di servizi fotografici. CNB Comunicazione ha una consolidata esperienza nella pubblicità nelle sale cinematografiche attraverso spot pubblicitari. Attraverso il grande schermo puoi comunicare in modo incisivo, mirato ed efficace, grazie soprattutto a quelle pubblicità cinematografiche ad alto valore creativo ed estetico e far conoscere a tua azienda nelle sale cinematografiche del circuito Ferrero e in tutta Italia nel circuito Rai Cinema. Dal 2019 partner commerciale e creativo di Cinevillage Arena Parco Talenti, all’interno della rassegna Estate Romana del Comune di Roma.  Negli stessi anni, ha ampliato la gamma di servizi nel settore radiofonico.'),
-(3, 4, NULL, NULL, NULL),
-(4, 5, NULL, NULL, NULL),
-(6, 7, NULL, NULL, NULL),
-(7, 8, NULL, NULL, NULL),
+(3, 4, 'mariagonzalez@gmail.com', '+34 612 234567', 'Social media manager e content strategist, crea campagne di marketing virali per marchi di moda e lifestyle, con una forte presenza su Instagram e TikTok.'),
+(4, 5, 'pierredupont@gmail.com', '+33 654 987654', 'Blogger e scrittore freelance, con un sito dedicato alla cultura francese e articoli su arte, cinema e letteratura. Collabora con testate online e piattaforme di blogging.'),
+(6, 7, 'annakovalenko@gmail.com', '+7 921 3456789', 'Graphic designer e illustratrice, crea contenuti visivi per YouTube e Instagram, concentrandosi su tutorial di design e progetti creativi.'),
+(7, 8, 'johnsmith@gmail.com', '+44 7700 900123', 'Podcaster e content writer nel settore immobiliare, con un focus su investimenti e strategie finanziarie. Pubblica regolarmente articoli e guide online.'),
 (12, 13, NULL, NULL, NULL),
-(13, 14, NULL, NULL, NULL);
+(16, 15, 'lucabianchi@gmail.com', '+39 349 7654321', 'Videomaker e regista freelance, produce documentari e cortometraggi per piattaforme digitali, concentrandosi su tematiche ambientali e sostenibilità.'),
+(17, 17, 'emmaschmidt@gmail.com', '+49 171 2345678', 'Travel vlogger e fotografa, documenta le sue avventure in giro per il mondo attraverso vlog su YouTube e fotografie di viaggio su Instagram.'),
+(18, 18, 'carolinamartinez@gmail.com', '+34 610 987654', 'Content creator nel settore della salute e benessere, crea video su YouTube e post su Instagram su temi di medicina preventiva, fitness e stili di vita sani.'),
+(19, 19, 'sophieleblanc@gmail.com', '+33 678 123456', 'Influencer e fashion blogger, con un blog di moda di successo e una community attiva su Instagram dove condivide consigli di stile e tendenze.\r\n\r\n'),
+(20, 20, 'marcomoretti@gmail.com', '+39 347 6543210', 'Video creator e streamer su Twitch, produce contenuti su tecnologia e gaming, recensendo le ultime novità del settore tech e interagendo con una community globale.');
 
 -- --------------------------------------------------------
 
@@ -338,8 +362,17 @@ CREATE TABLE `profile_expertise` (
 --
 
 INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VALUES
-(1, 2, 5),
-(2, 1, 7);
+(1, 2, 6),
+(2, 1, 7),
+(6, 14, 9),
+(18, 2, 7),
+(17, 13, 5),
+(7, 11, 20),
+(16, 2, 10),
+(20, 12, 6),
+(3, 9, 6),
+(4, 10, 15),
+(19, 10, 8);
 
 -- --------------------------------------------------------
 
@@ -488,7 +521,7 @@ CREATE TABLE `skill` (
   `candidate_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) NOT NULL,
   `level` tinyint(3) UNSIGNED NOT NULL,
-  `description` text DEFAULT NULL
+  `description` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -496,8 +529,41 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`candidate_id`, `name`, `level`, `description`) VALUES
-(1, 'Maneggio della scopa', 100, 'AAAA'),
-(1, 'Teamwork', 40, 'AAA');
+(1, 'Gestione di Community', 60, 'Buona capacità di interazione e coinvolgimento con il pubblico sui social media.'),
+(1, 'Scriptwriting', 70, 'Abile nella scrittura di sceneggiature e testi per video educativi e informativi.'),
+(1, 'SEO per YouTube', 80, 'Competente nella gestione delle parole chiave e ottimizzazione dei contenuti per aumentare la visibilità.'),
+(1, 'Video Editing', 90, 'Eccellente nell\'editing video con esperienza in software come Adobe Premiere e Final Cut Pro.'),
+(3, 'Content Creation', 80, 'Abile nella creazione di contenuti visivi e testuali per Instagram e TikTok.'),
+(3, 'Graphic Design', 80, 'Ottima competenza nella progettazione grafica per campagne pubblicitarie.'),
+(3, 'Social Media Strategy', 90, 'Esperta nella pianificazione e implementazione di strategie sui social media per diversi marchi.'),
+(4, 'Content Management', 80, 'Esperto nella gestione e organizzazione dei contenuti su blog e altre piattaforme.'),
+(4, 'Editing e Correzione', 80, 'Buona capacità di revisionare e correggere testi.'),
+(4, 'Scrittura Creativa', 100, 'Eccellente nello scrivere articoli e post di alta qualità su cultura e arte.'),
+(4, 'SEO per Blog', 60, 'Competente nell\'ottimizzazione dei contenuti per i motori di ricerca.'),
+(6, 'Graphic Design', 90, 'Eccellente nella creazione di design visivi e illustrazioni per contenuti digitali.'),
+(6, 'Illustration', 100, 'Abile nella realizzazione di illustrazioni originali per vari progetti.'),
+(6, 'Video Editing', 60, 'Buona competenza nell\'editing video, utile per tutorial e contenuti grafici'),
+(7, 'Analisi di Mercato', 80, 'Competente nell\'analisi delle tendenze e delle opportunità di mercato.'),
+(7, 'Gestione di Progetti Editoriali', 80, 'Ottima capacità di organizzare e gestire progetti editoriali complessi.\r\n'),
+(7, 'Podcasting', 100, 'Eccellente nella creazione e produzione di contenuti podcast per il settore immobiliare.'),
+(7, 'Scrittura per Blog', 60, 'Abile nella scrittura di articoli informativi e approfonditi.'),
+(16, 'Gestione Progetti', 70, 'Buona capacità di coordinare e gestire progetti di video e documentari.\r\n'),
+(16, 'Produzione Audio', 70, 'Competente nella registrazione e editing dell\'audio per video.'),
+(16, 'Storytelling', 90, 'Abile nel narrare storie attraverso immagini e video per un impatto visivo forte.'),
+(16, 'Videomaking', 100, 'Eccellente nella produzione di video documentari e cortometraggi.\r\n'),
+(17, 'Editing Fotografico', 90, 'Competente nell\'editing delle fotografie utilizzando software come Adobe Lightroom.'),
+(17, 'Fotografia di Viaggio', 80, 'Abile nella cattura di immagini accattivanti di luoghi e paesaggi.'),
+(17, 'Marketing sui Social Media', 50, 'un po\' competenza nella promozione dei contenuti di viaggio sui social media.'),
+(17, 'Travel Vlogging', 90, 'Esperta nella creazione di vlog di viaggio coinvolgenti e di alta qualità.'),
+(18, 'Creazione Contenuti Fit', 90, 'Esperta nella produzione di video e post informativi su salute e benessere.'),
+(18, 'Educazione e Formazione', 80, 'Ottime capacità di educare e formare il pubblico su temi di salute.'),
+(18, 'Marketing Digitale', 60, 'Competente nella creazione di campagne di marketing digitale per il settore della salute.'),
+(19, 'Fashion Blogging', 90, 'Eccellente nella creazione di contenuti di moda e tendenze su blog e Instagram.'),
+(19, 'Fotografia di Moda', 100, 'Alte competente nella cattura di immagini stilistiche e di alta moda.'),
+(19, 'Gestione Contenuti Social', 70, 'Buona competenza nella pianificazione e gestione dei contenuti sui social media.'),
+(20, 'Gaming Content Creation', 100, 'Eccellente nella creazione di contenuti per il settore del gaming su Twitch e YouTube.'),
+(20, 'Recensioni Tecniche', 90, 'Abile nella realizzazione di recensioni e analisi di nuove tecnologie e giochi.'),
+(20, 'Streaming Live', 90, 'Ottime competente nella gestione e ottimizzazione di stream live per una grande audience.');
 
 -- --------------------------------------------------------
 
@@ -516,11 +582,48 @@ CREATE TABLE `social_account` (
 --
 
 INSERT INTO `social_account` (`profile_id`, `name`, `uri`) VALUES
-(1, 'facebook', 'facebook.com'),
-(1, 'instagram', 'instagram.com'),
-(1, 'website', 'mariorossi.it'),
+(1, 'facebook', 'https://facebook.com/mariorossi'),
+(1, 'instagram', 'https://instagram.com/mariorossi'),
+(1, 'linkedin', 'https://linkedin.com/in/mariorossi'),
+(1, 'website', 'https://mariorossi.com'),
 (2, 'facebook', 'https://www.facebook.com/CNBcomunicazione'),
-(2, 'website', 'https://cnbcomunicazione.com');
+(2, 'website', 'https://cnbcomunicazione.com'),
+(3, 'facebook', 'https://facebook.com/mariagonzalez'),
+(3, 'instagram', 'https://instagram.com/mariagonzalez'),
+(3, 'linkedin', 'https://linkedin.com/in/mariagonzalez'),
+(3, 'website', 'https://mariagonzalez.com/'),
+(4, 'facebook', 'https://facebook.com/pierredupont'),
+(4, 'instagram', 'https://instagram.com/pierredupont'),
+(4, 'linkedin', 'https://linkedin.com/in/pierredupont'),
+(4, 'website', 'https://pierredupont.com/'),
+(6, 'facebook', 'https://facebook.com/annakovalenko'),
+(6, 'instagram', 'https://instagram.com/annakovalenko'),
+(6, 'linkedin', 'https://linkedin.com/in/annakovalenko'),
+(6, 'website', 'https://annakovalenko.com/'),
+(7, 'facebook', 'https://facebook.com/johnsmith'),
+(7, 'instagram', 'https://instagram.com/johnsmith'),
+(7, 'linkedin', 'https://linkedin.com/in/johnsmith'),
+(7, 'website', 'https://johnsmith.com/'),
+(16, 'facebook', 'https://facebook.com/lucabianchi'),
+(16, 'instagram', 'https://instagram.com/lucabianchi'),
+(16, 'linkedin', 'https://linkedin.com/in/lucabianchi'),
+(16, 'website', 'https://lucabianchi.com/'),
+(17, 'facebook', 'https://facebook.com/emmaschmidt'),
+(17, 'instagram', 'https://instagram.com/emmaschmidt'),
+(17, 'linkedin', 'https://linkedin.com/in/emmaschmidt'),
+(17, 'website', 'https://emmaschmidt.com/'),
+(18, 'facebook', 'https://facebook.com/carolinamartinez'),
+(18, 'instagram', 'https://instagram.com/carolinamartinez'),
+(18, 'linkedin', 'https://linkedin.com/in/carolinamartinez'),
+(18, 'website', 'https://carolinamartinez.com/'),
+(19, 'facebook', 'https://facebook.com/sophieleblanc'),
+(19, 'instagram', 'https://instagram.com/sophieleblanc'),
+(19, 'linkedin', 'https://linkedin.com/in/sophieleblanc'),
+(19, 'website', 'https://sophieleblanc.com/'),
+(20, 'facebook', 'https://facebook.com/marcomoretti'),
+(20, 'instagram', 'https://instagram.com/marcomoretti'),
+(20, 'linkedin', 'https://linkedin.com/in/marcomoretti'),
+(20, 'website', 'https://marcomoretti.com/');
 
 -- --------------------------------------------------------
 
@@ -543,12 +646,16 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'admin', 'admin@example.com'),
 (2, 'candidate', 'candidate', 'candidate@example.com'),
 (3, 'employer', 'employer', 'employer@example.com'),
-(4, 'luigi', 'luigi', 'luigi@gmail.com'),
-(5, 'valerio', 'valerio', 'valerio@gmail.com'),
-(7, 'alessio', 'alessio', 'alessio@gmail.com'),
-(8, 'giulia', 'giulia', 'giulia@gmail.com'),
+(4, 'maria', 'maria', 'maria@gmail.com'),
+(5, 'pierre', 'pierre', 'pierre@gmail.com'),
+(7, 'anna', 'anna', 'anna@gmail.com'),
+(8, 'jhon', 'jhon', 'jhon@gmail.com'),
 (13, 'amazon', 'amazon', 'amazon@amazon.com'),
-(14, 'Fabioooooo86', 'volo', 'pswrd.volo@alto.com');
+(15, 'luca', 'luca', 'luca@gmail.com'),
+(17, 'emma', 'emma', 'emma@gmail.com'),
+(18, 'carolina', 'carolina', 'carolina@gmail.com'),
+(19, 'sophie', 'sophie', 'sophie@gmail.com'),
+(20, 'Marco', 'Marco', 'Marco@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -567,14 +674,18 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`username`, `role_id`) VALUES
 ('admin', 1),
-('alessio', 2),
 ('amazon', 3),
+('anna', 2),
 ('candidate', 2),
+('carolina', 2),
+('emma', 2),
 ('employer', 3),
-('Fabioooooo86', 2),
-('giulia', 2),
-('luigi', 2),
-('valerio', 2);
+('jhon', 2),
+('luca', 2),
+('marco', 2),
+('maria', 2),
+('pierre', 2),
+('sophie', 2);
 
 --
 -- Indexes for dumped tables
@@ -625,7 +736,6 @@ ALTER TABLE `expertise`
 --
 ALTER TABLE `image`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `path` (`path`),
   ADD KEY `foreign_profile_id` (`profile_id`) USING BTREE;
 
 --
@@ -732,13 +842,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `expertise`
 --
 ALTER TABLE `expertise`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `job`
@@ -762,7 +872,7 @@ ALTER TABLE `language`
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -774,13 +884,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
