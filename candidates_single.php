@@ -51,6 +51,8 @@ $job_title = $data['job_title'] ?? 'Unknown Job title';
 $email = $data['email'] ?? 'No email found';
 $country = $data['country'] ?? 'Unknown country';
 $city = $data['city'] ?? 'Unknown city';
+$age = $data['age'] ?? 'Unknown age';
+
 
 $body->setContent("name", $data['name']);
 $body->setContent("surname", $data['surname']);
@@ -59,6 +61,7 @@ $body->setContent("job_title", $job_title);
 $body->setContent("email", $email);
 $body->setContent("country", $country);
 $body->setContent("city", $city);
+$body->setContent('age',$age);
 
 $socials_sql = $mysqli->query("
     SELECT
