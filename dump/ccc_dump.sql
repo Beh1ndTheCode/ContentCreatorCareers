@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 11, 2024 at 11:12 PM
+-- Host: localhost
+-- Generation Time: Sep 13, 2024 at 06:53 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -75,7 +75,7 @@ CREATE TABLE `address` (
 
 INSERT INTO `address` (`profile_id`, `country`, `postal_code`, `city`, `street`, `civic`) VALUES
 (1, 'Italia', 184, 'Roma', 'Via Nazionale', '123'),
-(2, 'Italy', 186, 'Rome', 'Via del Corso', '54'),
+(2, 'Italia', 186, 'Roma', 'Via del Corso', '54'),
 (3, 'Spagna', 8007, 'Barcellona', 'Passeig de Gràcia', '45'),
 (4, 'Francia', 75001, 'Parigi', 'Rue de Rivoli', '78'),
 (6, 'Regno Unito', NULL, 'Londra', 'Bond Street', '120'),
@@ -185,7 +185,7 @@ CREATE TABLE `content` (
 
 INSERT INTO `content` (`service_id`, `sottotitolo1`, `sottotitolo2`, `sottotitolo3`, `sottotitolo4`, `testo1`, `testo2`, `testo3`, `testo4`, `immagine1`, `immagine2`, `immagine3`) VALUES
 (24, 'What is a dummy text?', 'Why another dummy text generator?', 'Why doesn’t the generator put as many characters as I told him?', 'What means “Print special chars as HTML entities”?', 'Designer at work who don’t have any content for their product yet have the possibility to insert a dummy text into their design to judge on the arrangement of text on their site, on readability or on fonts and sizes. A dummy text is also helpful to present a design without content to a client to show how the text is going to look like without irritating the client by real texts.', 'Designer at work who don’t have any content for their product yet have the possibility to insert a dummy text into their design to judge on the arrangement of text on their site, on readability or on fonts and sizes. A dummy text is also helpful to present a design without content to a client to show how the text is going to look like without irritating the client by real texts.', 'Designer at work who don’t have any content for their product yet have the possibility to insert a dummy text into their design to judge on the arrangement of text on their site, on readability or on fonts and sizes. A dummy text is also helpful to present a design without content to a client to show how the text is going to look like without irritating the client by real texts.', 'Designer at work who don’t have any content for their product yet have the possibility to insert a dummy text into their design to judge on the arrangement of text on their site, on readability or on fonts and sizes. A dummy text is also helpful to present a design without content to a client to show how the text is going to look like without irritating the client by real texts.', NULL, NULL, NULL),
-(25, 'Register an account', 'Specify & Search Your Job', 'Apply For Job', NULL, 'inJob is the leading and longest-running online recruitment in Turkey. We understand that job-seekers come to us not only for a job, but for an pportunity to realize their professional.', 'You’ll receive applications via email. You can also manage jobs and candidates from your Indeed dashboard. Review applications, Schedule interviews and view recommended candidates all from one place.', 'inJob is the leading and longest-running online recruitment in Turkey. We understand that job-seekers come to us not only for a job, but for an pportunity to realize their professional.', NULL, '', '', ''),
+(25, 'Register an account', 'Specify & Search Your Job', 'Apply For Job', NULL, 'inJob is the leading and longest-running online recruitment in Turkey. We understand that job-seekers come to us not only for a job, but for an pportunity to realize their professional.', 'You’ll receive applications via email. You can also manage jobs and candidates from your Indeed dashboard. Review applications, Schedule interviews and view recommended candidates all from one place.', 'inJob is the leading and longest-running online recruitment in Turkey. We understand that job-seekers come to us not only for a job, but for an pportunity to realize their professional.', NULL, 'uploads/content_images/page25_immagine1.png', 'uploads/content_images/page25_immagine2.png', 'uploads/content_images/page25_immagine3.png'),
 (26, '1. Terms', '2. Limitations', '3. Revisions and Errata', '4. Site Terms of Use Modifications', 'By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.', 'Whilst we try to ensure that the standard of the Website remains high and to maintain the continuity of it, the internet is not an inherently stable medium, and errors, omissions, interruptions of service and delays may occur at any time. We do not accept any liability arising from any such errors, omissions, interruptions or delays or any ongoing obligation or responsibility to operate the Website (or any particular part of it) or to provide the service offered on the Website. We may vary the specification of this site from time to time without notice', 'You may only use the Website for lawful purposes when seeking employment or help with your career, when purchasing training courses or when recruiting staff. You must not under any circumstances seek to undermine the security of the Website or any information submitted to or available through it. In particular, but without limitation, you must not seek to access, alter or delete any information to which you do not have authorised access, seek to overload the system via spamming or flooding, take any action or use any device, routine or software to crash, delay, damage or otherwise interfere with the operation of the Website or attempt to decipher, disassemble or modify any of the software, coding or information comprised in the Website.', 'Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously. Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally.', NULL, NULL, NULL),
 (27, 'About Job Hunt', 'What we do', 'Our Service', 'What means “Print special chars as HTML entities”?', 'Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much.Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey apart well like while superbly orca and far hence one.Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy.', 'Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy penguin insect additionally wow absolutely crud meretriciously hastily dalmatian a glowered inset one echidna cassowary some parrot and much as goodness some froze the sullen much connected bat wonderfully on instantaneously eel valiantly petted this along across highhandedly much.Repeatedly dreamed alas opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that hey apart well like while superbly orca and far hence one.Far much that one rank beheld bluebird after outside ignobly allegedly more when oh arrogantly vehement irresistibly fussy.', 'Designer at work who don’t have any content for their product yet have the possibility to insert a dummy text into their design to judge on the arrangement of text on their site, on readability or on fonts and sizes. A dummy text is also helpful to present a design without content to a client to show how the text is going to look like without irritating the client by real texts.', 'Designer at work who don’t have any content for their product yet have the possibility to insert a dummy text into their design to judge on the arrangement of text on their site, on readability or on fonts and sizes. A dummy text is also helpful to present a design without content to a client to show how the text is going to look like without irritating the client by real texts.', '', NULL, NULL);
 
@@ -246,6 +246,8 @@ CREATE TABLE `expertise` (
 INSERT INTO `expertise` (`id`, `title`) VALUES
 (1, 'Ads'),
 (14, 'Graphic Design'),
+(16, 'Magazine'),
+(15, 'News'),
 (11, 'Podcasting'),
 (9, 'Social Media Manager'),
 (12, 'Streaming'),
@@ -265,6 +267,25 @@ CREATE TABLE `image` (
   `type` enum('profilo','banner','portfolio') NOT NULL,
   `path` varchar(256) NOT NULL DEFAULT 'skins/jobhunt/images/profile.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`id`, `profile_id`, `type`, `path`) VALUES
+(14, 27, 'profilo', 'uploads/profile_images/resized_66e20b9e63714.png'),
+(15, 30, 'profilo', 'uploads/profile_images/resized_66e20be731580.png'),
+(16, 21, 'profilo', 'uploads/profile_images/resized_66e20c93e4bf5.jpg'),
+(17, 23, 'profilo', 'uploads/profile_images/resized_66e20ceedfb09.png'),
+(18, 34, 'profilo', 'uploads/profile_images/resized_66e20d33509dc.png'),
+(19, 25, 'profilo', 'uploads/profile_images/resized_66e20dcfcb1e5.png'),
+(20, 7, 'profilo', 'uploads/profile_images/resized_66e2a3c5e9a03.jpg'),
+(21, 6, 'profilo', 'uploads/profile_images/resized_66e2a3f6c91e4.jpg'),
+(22, 3, 'profilo', 'uploads/profile_images/resized_66e2a42351ed1.jpg'),
+(23, 4, 'profilo', 'uploads/profile_images/resized_66e2a444f10d8.png'),
+(24, 20, 'profilo', 'uploads/profile_images/resized_66e2a4e5aef46.jpeg'),
+(25, 1, 'profilo', 'uploads/profile_images/resized_66e2a55f414ee.jpg'),
+(26, 7, 'portfolio', 'uploads/portfolios/66e2af2f8b511.jpg');
 
 -- --------------------------------------------------------
 
@@ -423,7 +444,7 @@ INSERT INTO `profile` (`id`, `user_id`, `email`, `phone`, `description`) VALUES
 CREATE TABLE `profile_expertise` (
   `profile_id` int(10) UNSIGNED NOT NULL,
   `expertise_id` int(10) UNSIGNED NOT NULL,
-  `experience` int(2) NOT NULL
+  `experience` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -441,7 +462,15 @@ INSERT INTO `profile_expertise` (`profile_id`, `expertise_id`, `experience`) VAL
 (20, 12, 6),
 (3, 9, 6),
 (4, 10, 15),
-(19, 10, 8);
+(19, 10, 8),
+(30, 15, NULL),
+(34, 15, NULL),
+(21, 15, NULL),
+(26, 15, NULL),
+(39, 12, NULL),
+(38, 16, NULL),
+(28, 14, NULL),
+(25, 15, NULL);
 
 -- --------------------------------------------------------
 
@@ -965,13 +994,13 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `expertise`
 --
 ALTER TABLE `expertise`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `job`
